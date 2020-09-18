@@ -1,0 +1,130 @@
+  .wrapper{
+      width: ${this.attrs.width}px;
+      height: 700px;
+      background: aquamarine;
+      display:flex;
+    }
+    .box{
+      width: ${this.attrs.width * 0.03}px;
+      height: 300px;
+      background: yellow;
+      position:absolute;
+      left: ${this.attrs.width / 2}px;
+    }
+
+    .doted{
+      background-image: radial-gradient(yellow 16%, #0000 20%);
+      background-position: 0 0;
+      background-size: 16px 14px;
+      height: ${this.attrs.height / 4.5}px;
+      width: ${this.attrs.width / 2.7}px;
+      position:absolute;
+      left: 7%;
+      top: 65%
+    }
+
+    .lines-wrapper{
+      height: ${this.attrs.height}px;
+      width: ${this.attrs.width}px;
+      position: absolute;
+    }
+    .lines{
+      background: yellow;
+      position: absolute;
+    }
+
+    .left-image-wrapper, .right-image-wrapper{
+      width:${this.attrs.width / 2}px;
+      overflow: hidden;
+    }
+
+  
+    .right-image{
+      height: 1080px;
+      width: 1920px;
+      position: relative;
+      background-image: url(${this.attrs.bgUrl});
+      background-size: 1920px;
+      background-position: center;
+      transform: scale(1);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      flex: 1 0 auto;
+     
+      top: -50%;
+      left: -200%;
+    }
+    .left-image{
+      height: 1080px;
+      width: 1920px;
+      position: relative;
+      background-image: url(${this.attrs.bgUrl});
+      background-size: 1920px;
+      background-position: center;
+      transform: scale(1);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      flex: 1 0 auto;
+      top: -50%;
+      left: -50%;
+    }
+    .left-image:after,.right-image:after {
+      content: "";
+      display: block;
+      background: linear-gradient(${this.attrs.overlayColor});
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      z-index: -1;
+    }
+    .knockout {
+      background: url(https://raw.githubusercontent.com/kissmybutton/motorcortex-slides/master/demo/kissmybutonbg.jpg);
+      background-position:-80px ,-80px;
+      color: red;
+      -webkit-text-fill-color: transparent; 
+      -webkit-background-clip: text;
+      font-weight: bold;
+      font-size: ${this.attrs.width * 0.1}px;
+      font-family: 'Poppins', sans-serif;
+      text-transform: uppercase;
+      width:${this.attrs.width}px;
+      height: ${this.attrs.height}px;
+      color: yellow;
+    }
+
+    .txt-group:nth-of-type(odd){
+      position:relative;
+      left: 5% !important;
+    }
+    .txt-group:nth-of-type(2n+2) {
+      position: relative;
+      right: -45%;
+    }
+    .txt-group{
+      position:relative;
+      background: url(https://raw.githubusercontent.com/kissmybutton/motorcortex-slides/master/demo/kissmybutonbg.jpg);
+  
+      width:${this.attrs.width / 2}px;
+    }
+
+    .knockout div {
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+    
+    body{
+      
+    }
+    .bg2{
+      background: red;
+      width:${this.attrs.width}px;
+      height: ${this.attrs.height}px;
+      position: absolute;
+
+    }

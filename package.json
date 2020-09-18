@@ -1,14 +1,14 @@
 {
-  "name": "@kissmybutton/motorcortex-plugin-boilerplate",
-  "version": "0.0.2",
+  "name": "@kissmybutton/motorcortex-animebanners",
+  "version": "0.0.1",
   "description": "<PLUGIN> plugin for MotorCortex",
-  "main": "dist/motorcortex-plugin.cjs.js",
-  "module": "dist/motorcortex-plugin.esm.js",
-  "browser": "dist/motorcortex-plugin.umd.js",
+  "main": "dist/motorcortex-animebanners.cjs.js",
+  "module": "dist/motorcortex-animebanners.esm.js",
+  "browser": "dist/motorcortex-animebanners.umd.js",
   "author": "KissMyButton PC (kissmybutton.gr) <opensource@kissmybutton.gr>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/kissmybutton/motorcortex-<plugin>.git"
+    "url": "https://github.com/kissmybutton/motorcortex-animebanners.git"
   },
   "license": "MIT",
   "engines": {
@@ -73,10 +73,11 @@
   },
   "dependencies": {
     "browserslist": "^4.7.0",
-    "caniuse-lite": "^1.0.30000997"
+    "caniuse-lite": "^1.0.30000997",
+    "@kissmybutton/motorcortex-anime": "1.4.10"
   },
   "peerDependencies": {
-    "@kissmybutton/motorcortex": "^3.0.0-rc16"
+    "@kissmybutton/motorcortex": "3.7.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
@@ -84,8 +85,8 @@
     "@babel/preset-env": "^7.1.0",
     "@commitlint/cli": "^7.2.1",
     "@commitlint/config-conventional": "^7.0.1",
-    "@kissmybutton/motorcortex": "^3.6.0",
-    "@kissmybutton/motorcortex-player": "^1.5.4",
+    "@kissmybutton/motorcortex": "3.7.1",
+    "@kissmybutton/motorcortex-player": "^1.5.11",
     "@semantic-release/changelog": "^3.0.2",
     "@semantic-release/git": "^7.0.7",
     "@semantic-release/github": "^5.2.8",

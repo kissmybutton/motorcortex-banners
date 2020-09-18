@@ -1,15 +1,11 @@
-const Plugin = require("./Plugin");
-const compositeAttributes = require("./compoAttributes");
-const { animatedAttrs } = require("./validation");
+const BannerA = require("./BannerA");
 
 module.exports = {
-  npm_name: "@kissmybutton/motorcortex-plugin",
+  npm_name: "@kissmybutton/motorcortex-animebanners",
   incidents: [
     {
-      exportable: Plugin,
-      name: "Plugin",
-      attributesValidationRules: { animatedAttrs }
+      exportable: BannerA,
+      name: "BannerA"
     }
-  ],
-  compositeAttributes
+  ]
 };
