@@ -41,11 +41,11 @@ const BannerA = new Plugin.BannerA(
   {
     width: 400,
     height: 700,
-    bgUrl:
-      "https://raw.githubusercontent.com/kissmybutton/motorcortex-slides/master/demo/kissmybutonbg.jpg",
+    bgUrl: "./bg2.jpg",
     overlayColor,
-    imgWidth: 1920,
-    imgHeight: 1080
+    imgWidth: 1002,
+    imgHeight: 1280,
+    strokeText: "brAAA PPAAAPAPAP SKrAAAt"
   },
   {
     selector: ".container1"
@@ -54,4 +54,4 @@ const BannerA = new Plugin.BannerA(
 
 clip.addIncident(BannerA, 0);
 
-new Player({ clip });
+new Player({ clip, timeFormat: "ms" });
