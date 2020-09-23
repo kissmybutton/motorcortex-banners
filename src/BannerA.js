@@ -35,15 +35,14 @@ class BannerA extends MotorCortex.API.Clip {
       return list.join("");
     })();
     const strokeTextList = this.attrs.strokeText.split(" ");
-
+    this.strokeTextLength = strokeTextList.length;
     const textlistStroke = (className, style = false) => {
       const list = [];
       for (let i = 0; i < strokeTextList.length; i++) {
         list.push(
-          `<div style="${
-            style === true
-              ? `top:${(this.attrs.height / strokeTextList.length) * i}px;`
-              : " "
+          `<div style="${style === true
+            ? `top:${(this.attrs.height / strokeTextList.length) * i}px;`
+            : " "
           }" class="${className}${i}">${strokeTextList[i]}</div>`
         );
       }
@@ -88,16 +87,19 @@ class BannerA extends MotorCortex.API.Clip {
 
     
 
-      <div style="opacity: 0;" class="circles-wrapper">
+      <div class="circles-wrapper">
         <div class="circle-1 circle" ></div>
         <div class="circle-2 circle "></div>
         <div class="circle-3 circle "></div>
       </div>
-      <div style="opacity: 0;" class="flex-center center-text-wrapper" >
+      <div class="flex-center center-text-wrapper" >
         <div class="center-text" data-text="Yeyey">Yeyey</div>
+        <div class="center-text-after" data-text="Yeyey">Yeyey</div>
+        <div class="center-text-before" data-text="Yeyey">Yeyey</div>
+        
       </div>
 
-      <div style="opacity: 0;" class="sliced-img-wrapper">
+      <div  class="sliced-img-wrapper">
         <div class="sliced-img"></div>
       </div>
       <div  style="opacity: 0;"class="stroke-text-wrapper flex-center">
@@ -117,7 +119,7 @@ class BannerA extends MotorCortex.API.Clip {
     return `
     .wrapper{
       width: ${this.attrs.width}px;
-      height: 700px;
+      height: ${this.attrs.height}px;
      
       display:flex;
       font-family: 'Poppins', sans-serif;
@@ -261,27 +263,11 @@ class BannerA extends MotorCortex.API.Clip {
     width: ${0}px;
     height: ${0}px;
     background: transparent;
-    border: ${this.attrs.width * 0.05}px solid yellow;
+   
     border-radius: 100%;
-  }
-  .circle-1{
     position: absolute;
-    transform: rotate(${Math.random() * 360 +
-      "deg"})  translateX(0px) translateY(0px) 
-    
   }
-  .circle-2{
-    position: absolute;
-    transform: rotate(${Math.random() * 360 +
-      "deg"})  translateX(0px) translateY(0px) 
-    
-  }
-  .circle-3{
-    position: absolute;
-    transform: rotate(${Math.random() * 360 +
-      "deg"})  translateX(0px) translateY(0px) 
-    
-  }
+ 
 
   .circles-wrapper{
     position: absolute;
@@ -294,11 +280,10 @@ class BannerA extends MotorCortex.API.Clip {
   .center-text{
     font-weight: bold;
     font-size: ${100}px;
-    
     text-transform: uppercase;
     color:yellow
   }
-  .center-text::before,.center-text::after{
+  .center-text-before,.center-text-after{
    content: attr(data-text);
    position: absolute;
    top: 50%;
@@ -306,16 +291,18 @@ class BannerA extends MotorCortex.API.Clip {
    transform: translate(-50%, -50%);
    z-index: -2;
    opacity: 0.6;
+   font-size: ${100}px;
+   font-weight: bold;
+    
+   text-transform: uppercase;
   }
-  .center-text::before{
+  .center-text-before{
     color: #ff00c1;
-    left:52%;
-    top:49%;
+  
   }
-  .center-text::after{
+  .center-text-after{
     color: #3498db;
-    left:48%;
-    top:51%;
+  
   }
 
   .flex-center{
@@ -358,15 +345,15 @@ class BannerA extends MotorCortex.API.Clip {
   }
 
   .stroke-text-center{
-    font-size: ${this.attrs.width * 0.15}px;
+    position: relative;
     text-transform: uppercase;
     width:${this.attrs.width}px;
     color: yellow;
     font-weight: 900;
     display: flex;
-    height: 400px;
     align-items: center;
     z-index: 1;
+    
   }
   .stroke-text-wrapper{
     display:flex;
@@ -386,6 +373,18 @@ class BannerA extends MotorCortex.API.Clip {
     height:${this.attrs.height / strokeTextList.length}px;
     
   }
+
+  .rng-box::after{
+    content: "";
+      display: block;
+      background: linear-gradient(${this.attrs.overlayColor});
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: 0;
+  }
+  
     
 
   `;
@@ -678,6 +677,347 @@ class BannerA extends MotorCortex.API.Clip {
       }
     );
 
+    const circlesWrapper = new Anime.Anime(
+      {
+        animatedAttrs: {
+          opacity: 1
+        },
+        initialValues: {
+          opacity: 0
+        }
+      },
+      {
+        duration: 1,
+        selector: ".circles-wrapper",
+        easing: "easeOutQuart"
+      }
+    );
+
+    const circlesGroup = new MotorCortex.Group();
+
+    for (let i = 1; i <= 3; i++) {
+      const ran = `${Math.random() * 360 + "deg"}`;
+
+      const translateX = new Anime.Anime(
+        {
+          animatedAttrs: {
+            transform: {
+              rotate: ran,
+              translateX: `${(this.attrs.width / 2) * Math.random()}px`,
+              translateY: `${(this.attrs.width / 2) * Math.random()}px`
+            },
+            width: `${this.attrs.width * 0.2}px`,
+            height: `${this.attrs.width * 0.2}px`,
+            border: ` ${0}px solid yellow`
+          },
+          initialValues: {
+            transform: {
+              rotate: ran,
+              translateX: "0px",
+              translateY: "0px"
+            },
+            width: "0px",
+            height: "0px",
+            border: ` ${this.attrs.width * 0.05}px solid yellow`
+          }
+        },
+        {
+          duration: 500,
+          selector: ".circle-" + i,
+          easing: "easeOutCubic"
+        }
+      );
+
+      circlesGroup.addIncident(translateX, 500 + 50 * (i + 1));
+    }
+
+    const centerTextWrapper = new Anime.Anime(
+      {
+        animatedAttrs: {
+          transform: {
+            scale: 1
+          }
+        },
+        initialValues: {
+          transform: {
+            scale: 0
+          }
+        }
+      },
+      {
+        duration: 500,
+        selector: ".center-text-wrapper",
+        easing: "easeOutBounce"
+      }
+    );
+
+    const centerTextAfter = new Anime.Anime(
+      {
+        animatedAttrs: {
+          left: "49%",
+          top: "51%"
+        },
+        initialValues: {
+          left: "50%",
+          top: "50%"
+        }
+      },
+      {
+        duration: 500,
+        selector: ".center-text-after",
+        easing: "easeOutBounce"
+      }
+    );
+
+    const centerTextBefore = new Anime.Anime(
+      {
+        animatedAttrs: {
+          left: "51%",
+          top: "49%"
+        },
+        initialValues: {
+          left: "50%",
+          top: "50%"
+        }
+      },
+      {
+        duration: 500,
+        selector: ".center-text-before",
+        easing: "easeOutBounce"
+      }
+    );
+
+    const slicedImgWrapper = new Anime.Anime(
+      {
+        animatedAttrs: {
+          top: "0%"
+        },
+        initialValues: {
+          top: "-100%"
+        }
+      },
+      {
+        duration: 300,
+        selector: ".sliced-img-wrapper",
+        easing: "easeOutCubic"
+      }
+    );
+
+    const slicedImg = new Anime.Anime(
+      {
+        animatedAttrs: {
+          top: "0%"
+        },
+        initialValues: {
+          top: "100%"
+        }
+      },
+      {
+        duration: 300,
+        selector: ".sliced-img",
+        easing: "easeOutCubic"
+      }
+    );
+
+    const slicedImgWrappeClipPath = new Anime.Anime(
+      {
+        animatedAttrs: {
+          clipPath: "polygon(0 0, 100% 0, 100% 110%, 0 100%)"
+        },
+        initialValues: {
+          clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 90%)"
+        }
+      },
+      {
+        duration: 300,
+        selector: ".sliced-img-wrapper",
+        easing: "easeOutCubic"
+      }
+    );
+
+    const slicedImgTranformUp = new Anime.Anime(
+      {
+        animatedAttrs: {
+          transform: { scale: 1.5 }
+        },
+        initialValues: {
+          transform: { scale: 1 }
+        }
+      },
+      {
+        duration: 150,
+        selector: ".sliced-img",
+        easing: "easeOutCubic"
+      }
+    );
+
+    const slicedImgTranformDown = new Anime.Anime(
+      {
+        animatedAttrs: {
+          transform: { scale: 1 }
+        },
+        initialValues: {
+          transform: { scale: 1.5 }
+        }
+      },
+      {
+        duration: 150,
+        selector: ".sliced-img",
+        easing: "easeOutCubic"
+      }
+    );
+
+    const slicedImgWrapperOpacity = new Anime.Anime(
+      {
+        animatedAttrs: {
+          opacity: 0
+        },
+        initialValues: {
+          opacity: 1
+        }
+      },
+      {
+        duration: 1,
+        selector: ".sliced-img-wrapper,.center-text-wrapper",
+        easing: "easeOutQuart"
+      }
+    );
+
+    const strokeTextWrapper = new Anime.Anime(
+      {
+        animatedAttrs: {
+          opacity: 1
+        },
+        initialValues: {
+          opacity: 0
+        }
+      },
+      {
+        duration: 300,
+        selector: ".stroke-text-wrapper",
+        easing: "easeOutQuart"
+      }
+    );
+
+    const strokeTextCenter = new Anime.Anime(
+      {
+        animatedAttrs: {
+          fontSize: `${this.attrs.width * 0.15}px`,
+          left: "5%",
+          height: `${this.attrs.width * 0.15}px`
+        },
+        initialValues: {
+          fontSize: `${0}px`,
+          left: "50%",
+          height: `${this.attrs.width * 0.15 * 3}px`
+        }
+      },
+      {
+        duration: 500,
+        selector: ".stroke-text-center",
+        easing: "easeOutQuart"
+      }
+    );
+
+    const strokeTextGroup = new MotorCortex.Group();
+
+    for (let i = 0; i < this.strokeTextLength; i++) {
+      const strokeTextOutline = new Anime.Anime(
+        {
+          animatedAttrs: {
+            left:
+              i % 2 !== 1
+                ? `-${this.attrs.width * 0.1}px`
+                : `${this.attrs.width * 0.1}px`
+          },
+          initialValues: {
+            left:
+              i % 2 === 1
+                ? `-${this.attrs.width * 0.5}px`
+                : `${this.attrs.width * 0.5}px`
+          }
+        },
+        {
+          duration: 3000 + 80 * (i + 1),
+          selector: ".txt-stroke-outline-" + i
+        }
+      );
+
+      strokeTextGroup.addIncident(strokeTextOutline, 500);
+    }
+
+    const bgDistortion = new Anime.Anime(
+      {
+        animatedAttrs: {
+          left: "1%"
+        },
+        initialValues: {
+          left: "0%"
+        }
+      },
+      {
+        duration: 20,
+        selector: ".bg2"
+      }
+    );
+    const bgDistortionBack = new Anime.Anime(
+      {
+        animatedAttrs: {
+          left: "0%"
+        },
+        initialValues: {
+          left: "1%"
+        }
+      },
+      {
+        duration: 20,
+        selector: ".bg2"
+      }
+    );
+    const bgDistortionOp = new Anime.Anime(
+      {
+        animatedAttrs: {
+          opacity: 0
+        },
+        initialValues: {
+          opacity: 1
+        }
+      },
+      {
+        duration: 20,
+        selector: ".bg2"
+      }
+    );
+
+    const bgScaleUp = new Anime.Anime(
+      {
+        animatedAttrs: {
+          transform: { scale: 1.5 }
+        },
+        initialValues: {
+          transform: { scale: 1 }
+        }
+      },
+      {
+        duration: 300,
+        selector: ".bg"
+      }
+    );
+    const bgScaleDown = new Anime.Anime(
+      {
+        animatedAttrs: {
+          transform: { scale: 1 }
+        },
+        initialValues: {
+          transform: { scale: 1.5 }
+        }
+      },
+      {
+        duration: 200,
+        selector: ".bg"
+      }
+    );
+
     this.addIncident(box, 0);
     this.addIncident(leftImageTop, 350);
     this.addIncident(leftImageLeft, 350);
@@ -694,6 +1034,25 @@ class BannerA extends MotorCortex.API.Clip {
     this.addIncident(bg2OutBg, 1800);
     this.addIncident(bgInBg, 1779);
     this.addIncident(linesInOut, 1900);
+    this.addIncident(circlesWrapper, 2000);
+    this.addIncident(circlesGroup, 1400);
+    this.addIncident(centerTextWrapper, 2000);
+    this.addIncident(centerTextAfter, 2170);
+    this.addIncident(centerTextBefore, 2170);
+    this.addIncident(slicedImgWrapper, 2500);
+    this.addIncident(slicedImg, 2500);
+    this.addIncident(slicedImgWrappeClipPath, 2700);
+    this.addIncident(slicedImgTranformUp, 2550);
+    this.addIncident(slicedImgTranformDown, 2850);
+    this.addIncident(slicedImgWrapperOpacity, 3000);
+    this.addIncident(strokeTextWrapper, 3000);
+    this.addIncident(strokeTextCenter, 3000);
+    this.addIncident(strokeTextGroup, 2400);
+    this.addIncident(bgDistortion, 5000);
+    this.addIncident(bgDistortionBack, 4100);
+    this.addIncident(bgDistortionOp, 4120);
+    this.addIncident(bgScaleUp, 4240);
+    this.addIncident(bgScaleDown, 4540);
   }
 }
 
