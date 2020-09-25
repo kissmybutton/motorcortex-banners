@@ -40,7 +40,8 @@ class BannerA extends MotorCortex.API.Clip {
       const list = [];
       for (let i = 0; i < strokeTextList.length; i++) {
         list.push(
-          `<div style="${style === true
+          `
+          <div style="${style === true
             ? `top:${(this.attrs.height / strokeTextList.length) * i}px;`
             : " "
           }" class="${className}${i}">${strokeTextList[i]}</div>`
@@ -93,9 +94,15 @@ class BannerA extends MotorCortex.API.Clip {
         <div class="circle-3 circle "></div>
       </div>
       <div class="flex-center center-text-wrapper" >
-        <div class="center-text" data-text="Yeyey">Yeyey</div>
-        <div class="center-text-after" data-text="Yeyey">Yeyey</div>
-        <div class="center-text-before" data-text="Yeyey">Yeyey</div>
+        <div class="center-text" data-text="Yeyey">
+          ${this.attrs.centerText}
+        </div>
+        <div class="center-text-after" data-text="Yeyey">
+          ${this.attrs.centerText}
+        </div>
+        <div class="center-text-before" data-text="Yeyey">
+          ${this.attrs.centerText}
+        </div>
         
       </div>
 
@@ -109,7 +116,12 @@ class BannerA extends MotorCortex.API.Clip {
       </div>
       <div class="doted"></div>
       <div class="doted-half"></div>
+      <div class="rng-box"></div>
+      <div class="yellow-underline"></div>
+      <div class="yellow-transition"> </div>
       <div class="box"> </div>
+      <div class="leftBlackBox"></div>
+      <div class="rightBlackBox"></div>
 	  </div>
     `;
   }
@@ -126,14 +138,14 @@ class BannerA extends MotorCortex.API.Clip {
     }
     .box{
       width: ${this.attrs.width * 0.03}px;
-      height: 300px;
-      background: yellow;
+      height: ${this.attrs.height * 2.4};
+      background: ${this.attrs.mainColor};
       position:absolute;
       left: ${this.attrs.width / 2}px;
     }
 
     .doted{
-      background-image: radial-gradient(yellow 16%, #0000 20%);
+      background-image: radial-gradient(${this.attrs.mainColor} 16%, #0000 20%);
       background-position: 0 0;
       background-size: 16px 14px;
       height: ${this.attrs.height / 4.5}px;
@@ -144,7 +156,7 @@ class BannerA extends MotorCortex.API.Clip {
     }
 
     .doted,.doted-half{
-      background-image: radial-gradient(yellow 16%, #0000 20%);
+      background-image: radial-gradient(${this.attrs.mainColor} 16%, #0000 20%);
       background-position: 0 0;
       background-size: 16px 14px;
       height: ${this.attrs.height / 4.5}px;
@@ -167,7 +179,7 @@ class BannerA extends MotorCortex.API.Clip {
       position: absolute;
     }
     .lines{
-      background: yellow;
+      background: ${this.attrs.mainColor};
       position: absolute;
     }
 
@@ -238,14 +250,14 @@ class BannerA extends MotorCortex.API.Clip {
       text-transform: uppercase;
       width:${this.attrs.width}px;
       height: ${this.attrs.height}px;
-      color: yellow;
+      color: ${this.attrs.mainColor};
     }
 
   body{
     
   }
   .bg2{
-    background: yellow;
+    background: ${this.attrs.mainColor};
     width:${this.attrs.width}px;
     height: ${this.attrs.height}px;
     position: absolute;
@@ -281,7 +293,7 @@ class BannerA extends MotorCortex.API.Clip {
     font-weight: bold;
     font-size: ${100}px;
     text-transform: uppercase;
-    color:yellow
+    color:${this.attrs.mainColor}
   }
   .center-text-before,.center-text-after{
    content: attr(data-text);
@@ -348,7 +360,7 @@ class BannerA extends MotorCortex.API.Clip {
     position: relative;
     text-transform: uppercase;
     width:${this.attrs.width}px;
-    color: yellow;
+    color: ${this.attrs.mainColor};
     font-weight: 900;
     display: flex;
     align-items: center;
@@ -366,7 +378,7 @@ class BannerA extends MotorCortex.API.Clip {
     color: transparent;
     font-weight: 900;
     display: flex;
-    height: 400px;
+    
     align-items: center;
     -webkit-text-stroke: 3px aquamarine;
     position: absolute;
@@ -379,12 +391,53 @@ class BannerA extends MotorCortex.API.Clip {
       display: block;
       background: linear-gradient(${this.attrs.overlayColor});
       position: absolute;
-      top: 0;
-      bottom: 0;
-      right: 0;
-      left: 0;
+      height:${this.attrs.height * 0.08}px;
+      width: ${this.attrs.width * 0.6}px;
+      background-size: ${this.attrs.height}px ${this.attrs.width}px;
+  }
+
+  .rng-box{
+    position: absolute;
+    height:${this.attrs.height * 0.08}px;
+    width: ${this.attrs.width * 0.6}px;
+    top:80%;
+    left:-100%;
+    z-index: 1;
   }
   
+  .yellow-underline{
+    position: absolute;
+    height:${this.attrs.height * 0.01}px;
+    width: ${this.attrs.width * 0.5}px;
+    top:90%;
+    left:-100%;
+    z-index: 1;
+    background: ${this.attrs.mainColor};
+  }
+  .yellow-transition{
+    position: absolute;
+    height:${this.attrs.height}px;
+    width: ${this.attrs.width}px;
+    top:0%;
+    left:100%;
+    z-index: 1;
+    background: ${this.attrs.mainColor};
+  }
+  .leftBlackBox,.rightBlackBox{
+    position: absolute;
+    height:${this.attrs.height * 2}px;
+    width: ${this.attrs.width * 2}px;
+    background: black;
+    transform: rotate(0deg); 
+    z-index: 1;
+    top: -50%;
+  }
+  .leftBlackBox{
+    left: -200%;
+  }
+  .rightBlackBox{
+    left: 100%
+  }
     
 
   `;
@@ -693,6 +746,22 @@ class BannerA extends MotorCortex.API.Clip {
       }
     );
 
+    const circlesWrapperOp = new Anime.Anime(
+      {
+        animatedAttrs: {
+          opacity: 0
+        },
+        initialValues: {
+          opacity: 1
+        }
+      },
+      {
+        duration: 1,
+        selector: ".circles-wrapper",
+        easing: "easeOutQuart"
+      }
+    );
+
     const circlesGroup = new MotorCortex.Group();
 
     for (let i = 1; i <= 3; i++) {
@@ -708,7 +777,7 @@ class BannerA extends MotorCortex.API.Clip {
             },
             width: `${this.attrs.width * 0.2}px`,
             height: `${this.attrs.width * 0.2}px`,
-            border: ` ${0}px solid yellow`
+            border: ` ${0}px solid ${this.attrs.mainColor}`
           },
           initialValues: {
             transform: {
@@ -718,7 +787,8 @@ class BannerA extends MotorCortex.API.Clip {
             },
             width: "0px",
             height: "0px",
-            border: ` ${this.attrs.width * 0.05}px solid yellow`
+            border: ` ${this.attrs.width * 0.05}px solid ${this.attrs.mainColor
+              }`
           }
         },
         {
@@ -946,34 +1016,6 @@ class BannerA extends MotorCortex.API.Clip {
       strokeTextGroup.addIncident(strokeTextOutline, 500);
     }
 
-    const bgDistortion = new Anime.Anime(
-      {
-        animatedAttrs: {
-          left: "1%"
-        },
-        initialValues: {
-          left: "0%"
-        }
-      },
-      {
-        duration: 20,
-        selector: ".bg2"
-      }
-    );
-    const bgDistortionBack = new Anime.Anime(
-      {
-        animatedAttrs: {
-          left: "0%"
-        },
-        initialValues: {
-          left: "1%"
-        }
-      },
-      {
-        duration: 20,
-        selector: ".bg2"
-      }
-    );
     const bgDistortionOp = new Anime.Anime(
       {
         animatedAttrs: {
@@ -999,7 +1041,7 @@ class BannerA extends MotorCortex.API.Clip {
         }
       },
       {
-        duration: 300,
+        duration: 200,
         selector: ".bg"
       }
     );
@@ -1013,8 +1055,187 @@ class BannerA extends MotorCortex.API.Clip {
         }
       },
       {
-        duration: 200,
+        duration: 150,
         selector: ".bg"
+      }
+    );
+
+    const rngBoxDownIn = new Anime.Anime(
+      {
+        animatedAttrs: {
+          left: "30%"
+        },
+        initialValues: {
+          left: "-70%"
+        }
+      },
+      {
+        duration: 2000,
+        selector: ".rng-box"
+      }
+    );
+    const yellowUnderLineLeftIn = new Anime.Anime(
+      {
+        animatedAttrs: {
+          left: "30%"
+        },
+        initialValues: {
+          left: "-100%"
+        }
+      },
+      {
+        duration: 2000,
+        selector: ".yellow-underline"
+      }
+    );
+    const yellowUnderLineWidth = new Anime.Anime(
+      {
+        animatedAttrs: {
+          width: "0px"
+        }
+      },
+      {
+        duration: 1000,
+        selector: ".yellow-underline"
+      }
+    );
+
+    const yellowTransitionWidth = new Anime.Anime(
+      {
+        animatedAttrs: {
+          width: "0px"
+        }
+      },
+      {
+        duration: 500,
+        selector: ".yellow-transition"
+      }
+    );
+
+    const yellowTransitionLeft = new Anime.Anime(
+      {
+        animatedAttrs: {
+          left: "-100%"
+        }
+      },
+      {
+        duration: 1000,
+        selector: ".yellow-transition"
+      }
+    );
+    const circlesGroup2 = new MotorCortex.Group();
+    const circlesWrapper2 = new Anime.Anime(
+      {
+        animatedAttrs: {
+          opacity: 1
+        },
+        initialValues: {
+          opacity: 0
+        }
+      },
+      {
+        duration: 1,
+        selector: ".circles-wrapper",
+        easing: "easeOutQuart"
+      }
+    );
+
+    const circlesWrapper2Position = new Anime.Anime(
+      {
+        animatedAttrs: {
+          top: "-33%",
+          left: "-33%"
+        }
+      },
+      {
+        duration: 1,
+        selector: ".circles-wrapper",
+        easing: "easeOutQuart"
+      }
+    );
+
+    for (let i = 1; i <= 3; i++) {
+      const ran = `${Math.random() * 360 + "deg"}`;
+
+      const translateX = new Anime.Anime(
+        {
+          animatedAttrs: {
+            transform: {
+              rotate: ran,
+              translateX: `${(this.attrs.width / 2) * Math.random()}px`,
+              translateY: `${(this.attrs.width / 2) * Math.random()}px`
+            },
+            width: `${this.attrs.width * 0.2}px`,
+            height: `${this.attrs.width * 0.2}px`,
+            border: ` ${0}px solid yellow`
+          },
+          initialValues: {
+            transform: {
+              rotate: ran,
+              translateX: "0px",
+              translateY: "0px"
+            },
+            width: "0px",
+            height: "0px",
+            border: ` ${this.attrs.width * 0.05}px solid yellow`
+          }
+        },
+        {
+          duration: 500,
+          selector: ".circle-" + i,
+          easing: "easeOutCubic"
+        }
+      );
+
+      circlesGroup2.addIncident(translateX, 500 + 50 * (i + 1));
+    }
+
+    const blackBoxRotate = new Anime.Anime(
+      {
+        animatedAttrs: {
+          transform: {
+            rotate: "-90deg"
+          }
+        },
+        initialValues: {
+          transform: {
+            rotate: "0deg"
+          }
+        }
+      },
+      {
+        duration: 600,
+        selector: ".leftBlackBox,.rightBlackBox"
+      }
+    );
+
+    const blackBoxLeftTop = new Anime.Anime(
+      {
+        animatedAttrs: {
+          left: "0%"
+        },
+        initialValues: {
+          left: "-200%"
+        }
+      },
+      {
+        duration: 1000,
+        selector: ".leftBlackBox"
+      }
+    );
+
+    const blackBoxRightTop = new Anime.Anime(
+      {
+        animatedAttrs: {
+          left: "0%"
+        },
+        initialValues: {
+          left: "100%"
+        }
+      },
+      {
+        duration: 1000,
+        selector: ".rightBlackBox"
       }
     );
 
@@ -1036,6 +1257,7 @@ class BannerA extends MotorCortex.API.Clip {
     this.addIncident(linesInOut, 1900);
     this.addIncident(circlesWrapper, 2000);
     this.addIncident(circlesGroup, 1400);
+    this.addIncident(circlesWrapperOp, 2660);
     this.addIncident(centerTextWrapper, 2000);
     this.addIncident(centerTextAfter, 2170);
     this.addIncident(centerTextBefore, 2170);
@@ -1047,12 +1269,21 @@ class BannerA extends MotorCortex.API.Clip {
     this.addIncident(slicedImgWrapperOpacity, 3000);
     this.addIncident(strokeTextWrapper, 3000);
     this.addIncident(strokeTextCenter, 3000);
+    this.addIncident(yellowTransitionLeft, 2400);
+    this.addIncident(yellowTransitionWidth, 3000);
     this.addIncident(strokeTextGroup, 2400);
-    this.addIncident(bgDistortion, 5000);
-    this.addIncident(bgDistortionBack, 4100);
-    this.addIncident(bgDistortionOp, 4120);
-    this.addIncident(bgScaleUp, 4240);
-    this.addIncident(bgScaleDown, 4540);
+    this.addIncident(bgDistortionOp, 2920);
+    this.addIncident(bgScaleUp, 3640);
+    this.addIncident(bgScaleDown, 3840);
+    this.addIncident(rngBoxDownIn, 4300);
+    this.addIncident(yellowUnderLineLeftIn, 4200);
+    this.addIncident(yellowUnderLineWidth, 5200);
+    this.addIncident(circlesWrapper2, 3000);
+    this.addIncident(circlesWrapper2Position, 3000);
+    this.addIncident(circlesGroup2, 3010);
+    this.addIncident(blackBoxRotate, 6000);
+    this.addIncident(blackBoxLeftTop, 6000);
+    this.addIncident(blackBoxRightTop, 6000);
   }
 }
 

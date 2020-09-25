@@ -6,7 +6,7 @@ const Plugin = MotorCortex.loadPlugin(BannersDefinition);
 const css = `.container {
   overflow: hidden;
   display: flex;
-  position: absolute;
+  justify-content: center;
 
   width:1280px;
   height:720px;
@@ -45,7 +45,9 @@ const BannerA = new Plugin.BannerA(
     overlayColor,
     imgWidth: 1002,
     imgHeight: 1280,
-    strokeText: "brAAA PPAAAPAPAP SKrAAAt"
+    strokeText: "brAAA PPAAAPAPAP SKrAAAt",
+    mainColor: "#ffff00",
+    centerText: "Yeyey"
   },
   {
     selector: ".container1"
