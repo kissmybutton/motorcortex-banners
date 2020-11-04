@@ -1,6 +1,6 @@
 const MotorCortex = require("@kissmybutton/motorcortex");
 const Player = require("@kissmybutton/motorcortex-player/");
-const BannersDefinition = require("../dist/motorcortex-animebanners.umd");
+const BannersDefinition = require("../dist/motorcortex-banners.umd");
 const Plugin = MotorCortex.loadPlugin(BannersDefinition);
 
 const css = `.container {
@@ -45,7 +45,9 @@ const BannerA = new Plugin.BannerA(
     overlayColor,
     imgWidth: 1002,
     imgHeight: 1280,
-    strokeText: "brAAA PPAAAPAPAP SKrAAAt",
+    txtGroup:"MOTORCORTEX",
+    txtGroupSize: 40,
+    strokeText: "WE WIN THE GAME IN THE CSS",
     mainColor: "#ffff00",
     centerText: "Yeyey"
   },

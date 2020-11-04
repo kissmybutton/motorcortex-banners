@@ -30,7 +30,7 @@ class BannerA extends MotorCortex.API.Clip {
       const n = Math.floor(this.attrs.height / (this.attrs.width * 0.2));
       this.n = n;
       for (let i = 0; i < n; i++) {
-        list.push(`<div class="txt-group txt-${i}">brapapa</div>`);
+        list.push(`<div class="txt-group txt-${i}">${this.attrs.txtGroup}</div>`);
       }
       return list.join("");
     })();
@@ -230,7 +230,9 @@ class BannerA extends MotorCortex.API.Clip {
       z-index: -1;
     }
     
-
+    .txt-group{
+      font-size: ${this.attrs.txtGroupSize}px;
+    }
     .txt-group:nth-of-type(odd){
       height: 14%;
       
@@ -666,7 +668,7 @@ class BannerA extends MotorCortex.API.Clip {
       const textAnimationSize = new Anime.Anime(
         {
           animatedAttrs: {
-            fontSize: `${this.attrs.width * 0.2}px`,
+            fontSize: !this.attrs.txtGroupSize?`${this.attrs.width * 0.2}px`:`${this.attrs.txtGroupSize}px`,
             marginLeft: i % 2 !== 1 ? "14%" : "6%"
           },
           initialValues: {
