@@ -1,47 +1,60 @@
-# motorcortex-plugin-boilerplate
+# motorcortex-banners
 
-## "Usage"
+## Demo
+[Check it out here](https://kissmybutton.github.io/motorcortex-banners/demo/index.html)
 
-```
-In order to create a MotorCortex-Plugin we recommend using this boilerplate.
-```
+## Installation
 
-## Step 1
-
-Clone this repo using the command 
 ```bash
-git clone https://github.com/kissmybutton/motorcortex-plugin-boilerplate.git
+$ npm install --save @kissmybutton/motorcortex-banners
+# OR
+$ yarn add @kissmybutton/motorcortex-banners
 ```
 
-## Step 2
+## Loading
 
-Install all the required npm modules
-```bash
-npm i
+```javascript
+const MotorCortex = require("@kissmybutton/motorcortex/");
+const BannersDefinition = require("@kissmybutton/motorcortex-banners");
+const Plugin = MotorCortex.loadPlugin(BannersDefinition);
 ```
 
-## Step 3
+# Create incident
 
-Create your plugin in the src folder. There you will find all the files you need on order to create a plugin with one exported incident.
+## BannerA
 
-
-### Step 4
-
-In order to test your plugin in the demo folder we have a demo of the plugin. To run in simply type
-```bash
-npm start
+```javascript
+const BannerA = new Plugin.BannerA(
+  {
+    width: 400,
+    height: 700,
+    bgUrl: "./bg2.jpg",
+    overlayColor,
+    imgWidth: 1002,
+    imgHeight: 1280,
+    txtGroup:"MOTORCORTEX",
+    txtGroupSize: 40,
+    strokeText: "WE WIN THE GAME IN THE CSS",
+    mainColor: "#ffff00",
+    centerText: "Yeyey"
+  },
+  {
+    selector: ".container1"
+  }
+);
 ```
 
-#### Step 5
+### BannerA Attrs
 
-When you are happy with your plugin execute the followig commands
-```bash
-npm run build
-npm run build:demo
+| Name        | Are           | Values  |
+| ------------- |:-------------:| -----:|
+| width     | width of incident  | num |
+| height     | height of incident  | num |
+| bgUrl     | url of the bg image  | string |
+| imgWidth     | the original widht of the img  | num |
+| imgHeight     | the original heigth of the img  | num |
+| txtGroup     | the transparent text  | string |
+| txtGroupSize     | the size of the transparent text  | num |
+| mainColor     | the main color of the clip  | color |
+| centerText     | the text with shadows  | string |
 
-git add .
-npm run commit
-git push origin master
-
-npm publish
-```
