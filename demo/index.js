@@ -21,7 +21,7 @@ const containerParams = {
   height: "100%"
 };
 
-const clip = new MotorCortex.Clip({
+const clip = new MotorCortex.HTMLClip({
   css,
   html,
   host,
