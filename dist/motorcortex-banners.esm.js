@@ -1,4 +1,4 @@
-import MC from '@kissmybutton/motorcortex';
+import MotorCortex from '@kissmybutton/motorcortex';
 
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
@@ -298,7 +298,14 @@ function _createSuper$1(Derived) {
   };
 }
 /*
- * anime.js v3.1.0
+ * anime.js v3.1.4
+ * (c) 2020 Julian Garnier
+ * Released under the MIT license
+ * animejs.com
+ */
+
+/*
+ * anime.js v3.1.2
  * (c) 2020 Julian Garnier
  * Released under the MIT license
  * animejs.com
@@ -958,7 +965,10 @@ function createNewInstance(params) {
 
 
 function anime(params) {
-  if (params === void 0) params = {};
+  if (params === void 0) {
+    params = {};
+  }
+
   var children,
       childrenLength = 0;
   var resolve = null;
@@ -1228,23 +1238,25 @@ function getParentSvg(pathEl, svgData) {
   };
 }
 
-function getPath(path, percent) {
-  var pathEl = is.str(path) ? selectString(path)[0] : path;
-  var p = percent || 100;
-  return function (property) {
-    return {
-      property: property,
-      el: pathEl,
-      svg: getParentSvg(pathEl),
-      totalLength: getTotalLength(pathEl) * (p / 100)
-    };
+function getPath(path) {
+  return {
+    el: path,
+    svg: getParentSvg(path),
+    totalLength: getTotalLength(path),
+    deltaCorrections: {
+      x: 4,
+      y: 5
+    }
   };
 }
 
 function getPathProgress(path, progress, isPathTargetInsideSVG) {
   function point(offset) {
     if (offset === void 0) offset = 0;
-    var l = progress + offset >= 1 ? progress + offset : 0;
+
+    var _progress = progress * path.totalLength;
+
+    var l = _progress + offset >= 1 ? _progress + offset : 0;
     return path.el.getPointAtLength(l);
   }
 
@@ -1254,17 +1266,11 @@ function getPathProgress(path, progress, isPathTargetInsideSVG) {
   var p1 = point(+1);
   var scaleX = isPathTargetInsideSVG ? 1 : svg.w / svg.vW;
   var scaleY = isPathTargetInsideSVG ? 1 : svg.h / svg.vH;
-
-  switch (path.property) {
-    case 'x':
-      return (p.x - svg.x) * scaleX;
-
-    case 'y':
-      return (p.y - svg.y) * scaleY;
-
-    case 'angle':
-      return Math.atan2(p1.y - p0.y, p1.x - p0.x) * 180 / Math.PI;
-  }
+  return {
+    x: (p.x - svg.x) * scaleX,
+    y: (p.y - svg.y) * scaleY,
+    angle: Math.atan2(p1.y - p0.y, p1.x - p0.x) * 180 / Math.PI
+  };
 }
 
 anime.version = '3.1.0';
@@ -1274,6 +1280,7 @@ anime.convertPx = convertPxToUnit;
 anime.penner = penner;
 anime.path = getPath;
 anime.getPathProgress = getPathProgress;
+var anime_es = anime;
 var transform = ["translateX", "translateY", "translateZ", "rotate", "rotateX", "rotateY", "rotateZ", "scale", "scaleX", "scaleY", "scaleZ", "skewX", "skewY", "perspective"];
 var compositeAttributes = {
   transform: transform
@@ -1317,8 +1324,8 @@ function getMatrix2D(win, element) {
   return qrDecompone(values);
 }
 
-var Anime = /*#__PURE__*/function (_MC$Effect) {
-  _inherits$1(Anime, _MC$Effect);
+var Anime = /*#__PURE__*/function (_MotorCortex$Effect) {
+  _inherits$1(Anime, _MotorCortex$Effect);
 
   var _super = _createSuper$1(Anime);
 
@@ -1347,7 +1354,7 @@ var Anime = /*#__PURE__*/function (_MC$Effect) {
         options[this.attributeKey] = [this.getInitialValue(), this.targetValue];
       }
 
-      this.target = anime(_objectSpread2$1({
+      this.target = anime_es(_objectSpread2$1({
         autoplay: false,
         duration: this.props.duration,
         easing: "linear",
@@ -1366,14 +1373,14 @@ var Anime = /*#__PURE__*/function (_MC$Effect) {
           if (Object.prototype.hasOwnProperty.call(currentTransform, transform[i])) {
             obj[transform[i]] = currentTransform[transform[i]];
           } else {
-            obj[transform[i]] = anime.get(this.element, transform[i]);
+            obj[transform[i]] = anime_es.get(this.element, transform[i]);
           }
         }
 
         return obj;
       }
 
-      return anime.get(this.element, this.attributeKey);
+      return anime_es.get(this.element, this.attributeKey);
     }
     /**
      * @param {number} f
@@ -1387,7 +1394,50 @@ var Anime = /*#__PURE__*/function (_MC$Effect) {
   }]);
 
   return Anime;
-}(MC.Effect);
+}(MotorCortex.Effect);
+/**
+ * Takes as attributes:
+ * {
+ *  animatedAttrs: {
+ *      positionOn: {
+ *          pathElement: "selector of the path element"
+ *      }
+ *  }
+ * }
+ }
+**/
+
+
+var MotionPath = /*#__PURE__*/function (_MotorCortex$Effect) {
+  _inherits$1(MotionPath, _MotorCortex$Effect);
+
+  var _super = _createSuper$1(MotionPath);
+
+  function MotionPath() {
+    _classCallCheck$1(this, MotionPath);
+
+    return _super.apply(this, arguments);
+  }
+
+  _createClass$1(MotionPath, [{
+    key: "onGetContext",
+    value: function onGetContext() {
+      var svgEl = this.context.getElements(this.targetValue.pathElement)[0];
+      this.path = anime_es.path(svgEl);
+      this.isPathTargetInsideSVG = this.element instanceof SVGElement;
+    }
+  }, {
+    key: "onProgress",
+    value: function onProgress(f) {
+      var position = anime_es.getPathProgress(this.path, f, this.isPathTargetInsideSVG); // console.log(position);
+
+      var toSet = "\n            translateX(".concat(position.x, "px) \n            translateY(").concat(position.y, "px) \n            rotate(").concat(position.angle, "deg)\n        ");
+      this.element.style.transform = toSet;
+    }
+  }]);
+
+  return MotionPath;
+}(MotorCortex.Effect);
 
 var nu = ["cm", "mm", "in", "px", "pt", "pc", "em", "ex", "ch", "rem", "vw", "vh", "vmin", "vmax", "%"];
 var ru = ["deg", "rad", "grad", "turn"];
@@ -2260,11 +2310,29 @@ var index = {
     attributesValidationRules: {
       animatedAttrs: animatedAttrs
     }
+  }, {
+    exportable: MotionPath,
+    name: "MotionPath",
+    attributesValidationRules: {
+      animatedAttrs: {
+        type: "object",
+        props: {
+          positionOn: {
+            type: "object",
+            props: {
+              pathElement: {
+                type: "string"
+              }
+            }
+          }
+        }
+      }
+    }
   }],
   compositeAttributes: compositeAttributes
 };
 
-var Anime$1 = MC.loadPlugin(index);
+var Anime$1 = MotorCortex.loadPlugin(index);
 
 var BannerA = /*#__PURE__*/function (_MotorCortex$HTMLClip) {
   _inherits(BannerA, _MotorCortex$HTMLClip);
@@ -2452,7 +2520,7 @@ var BannerA = /*#__PURE__*/function (_MotorCortex$HTMLClip) {
         selector: ".knockout",
         easing: "easeOutQuart"
       });
-      var myGroup = new MC.Group();
+      var myGroup = new MotorCortex.Group();
 
       for (var i = 0; i < this.n; i++) {
         var textAnimationSize = new Anime$1.Anime({
@@ -2530,7 +2598,7 @@ var BannerA = /*#__PURE__*/function (_MotorCortex$HTMLClip) {
         selector: ".circles-wrapper",
         easing: "easeOutQuart"
       });
-      var circlesGroup = new MC.Group();
+      var circlesGroup = new MotorCortex.Group();
 
       for (var _i = 1; _i <= 3; _i++) {
         var ran = "".concat(Math.random() * 360 + "deg");
@@ -2715,7 +2783,7 @@ var BannerA = /*#__PURE__*/function (_MotorCortex$HTMLClip) {
         selector: ".stroke-text-center",
         easing: "easeOutQuart"
       });
-      var strokeTextGroup = new MC.Group();
+      var strokeTextGroup = new MotorCortex.Group();
 
       for (var _i2 = 0; _i2 < this.strokeTextLength; _i2++) {
         var strokeTextOutline = new Anime$1.Anime({
@@ -2819,7 +2887,7 @@ var BannerA = /*#__PURE__*/function (_MotorCortex$HTMLClip) {
         duration: 1000,
         selector: ".yellow-transition"
       });
-      var circlesGroup2 = new MC.Group();
+      var circlesGroup2 = new MotorCortex.Group();
       var circlesWrapper2 = new Anime$1.Anime({
         animatedAttrs: {
           opacity: 1
@@ -3009,7 +3077,7 @@ var BannerA = /*#__PURE__*/function (_MotorCortex$HTMLClip) {
   }]);
 
   return BannerA;
-}(MC.HTMLClip);
+}(MotorCortex.HTMLClip);
 
 var BannerA_1 = BannerA;
 
