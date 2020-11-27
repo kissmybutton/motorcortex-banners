@@ -17,8 +17,8 @@ const html = ` <div class="container container1"></div>`;
 const host = document.getElementById("clip");
 
 const containerParams = {
-  width: "100%",
-  height: "100%"
+  width: "1280px",
+  height: "720px"
 };
 
 const clip = new MotorCortex.HTMLClip({
@@ -57,5 +57,5 @@ const BannerA = new Plugin.BannerA(
 );
 
 clip.addIncident(BannerA, 0);
-
+window.clip = clip
 new Player({ clip, timeFormat: "ms" });

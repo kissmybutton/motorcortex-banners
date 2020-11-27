@@ -3140,7 +3140,7 @@ var validation = {
 
 var BannerAValidation$1 = validation.BannerAValidation;
 var src = {
-  npm_name: "@kissmybutton/motorcortex-animebanners",
+  npm_name: "@kissmybutton/motorcortex-banners",
   incidents: [{
     exportable: BannerA_1,
     name: "BannerA",

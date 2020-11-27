@@ -1,6 +1,6 @@
 {
   "name": "@kissmybutton/motorcortex-banners",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "banners plugin for MotorCortex",
   "main": "dist/motorcortex-banners.cjs.js",
   "module": "dist/motorcortex-banners.esm.js",
