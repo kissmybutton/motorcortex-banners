@@ -41,11 +41,11 @@ const BannerA = new Plugin.BannerA(
   {
     width: 400,
     height: 700,
-    bgUrl: "./bg2.jpg",
+    bgUrl: "https://kissmybutton.github.io/motorcortex-banners/demo/bg2.jpg",
     overlayColor,
     imgWidth: 1002,
     imgHeight: 1280,
-    txtGroup:"MOTORCORTEX",
+    txtGroup: "MOTORCORTEX",
     txtGroupSize: 40,
     strokeText: "WE WIN THE GAME IN THE CSS",
     mainColor: "#ffff00",
@@ -57,5 +57,5 @@ const BannerA = new Plugin.BannerA(
 );
 
 clip.addIncident(BannerA, 0);
-window.clip = clip
+window.clip = clip;
 new Player({ clip, timeFormat: "ms" });
