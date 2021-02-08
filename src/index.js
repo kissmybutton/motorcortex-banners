@@ -1,7 +1,10 @@
-const BannerA = require("./BannerA");
-const { BannerAValidation } = require("./validation");
-module.exports = {
-  npm_name: "@kissmybutton/motorcortex-banners",
+import BannerA from "./BannerA"
+import { BannerAValidation } from "./validation"
+const pkg = require("../package.json");
+
+export default {
+  npm_name: pkg.name,
+  version: pkg.version,
   incidents: [
     {
       exportable: BannerA,

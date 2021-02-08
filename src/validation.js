@@ -1,4 +1,4 @@
-exports.BannerAValidation = {
+export const BannerAValidation = {
   width: { optional: false, type: "number" },
   height: { optional: false, type: "number" },
   bgUrl: { optional: false, type: "string" },
