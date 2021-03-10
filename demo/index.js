@@ -1,7 +1,7 @@
-const MotorCortex = require("@kissmybutton/motorcortex");
-const Player = require("@kissmybutton/motorcortex-player/");
-const BannersDefinition = require("../dist/motorcortex-banners.umd");
-const Plugin = MotorCortex.loadPlugin(BannersDefinition);
+import { HTMLClip, loadPlugin } from "@kissmybutton/motorcortex";
+import Player from "@kissmybutton/motorcortex-player/";
+import BannersDefinition from "../dist/motorcortex-banners.umd";
+const Plugin = loadPlugin(BannersDefinition);
 
 const css = `.container {
   overflow: hidden;
@@ -21,7 +21,7 @@ const containerParams = {
   height: "720px"
 };
 
-const clip = new MotorCortex.HTMLClip({
+const clip = new HTMLClip({
   css,
   html,
   host,
