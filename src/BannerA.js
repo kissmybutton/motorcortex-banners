@@ -1,21 +1,11 @@
 const MotorCortex = require("@kissmybutton/motorcortex");
-const AnimeDefinition = require("@kissmybutton/motorcortex-anime");
-const Anime = MotorCortex.loadPlugin(AnimeDefinition);
+import Anime from "./plugins/Anime";
+
+import intro from "./bannerA/intro/intro";
+import outro from "./bannerA/outro/outro";
 
 class BannerA extends MotorCortex.HTMLClip {
-  dinamicFontSize(lc, width) {
-    let fontsize;
-    fontsize = width / 0.6 / lc;
-    if (fontsize >= 200 && width === 720) {
-      fontsize = 200;
-    }
-    if (fontsize >= 100 && width === 360) {
-      fontsize = 100;
-    }
-    return fontsize;
-  }
-
-  get font() {
+  get fonts() {
     return [
       {
         type: `google-font`,
@@ -30,7 +20,9 @@ class BannerA extends MotorCortex.HTMLClip {
       const n = Math.floor(this.attrs.height / (this.attrs.width * 0.2));
       this.n = n;
       for (let i = 0; i < n; i++) {
-        list.push(`<div class="txt-group txt-${i}">${this.attrs.txtGroup}</div>`);
+        list.push(
+          `<div class="txt-group txt-${i}">${this.attrs.txtGroup}</div>`
+        );
       }
       return list.join("");
     })();
@@ -41,9 +33,10 @@ class BannerA extends MotorCortex.HTMLClip {
       for (let i = 0; i < strokeTextList.length; i++) {
         list.push(
           `
-          <div style="${style === true
-            ? `top:${(this.attrs.height / strokeTextList.length) * i}px;`
-            : " "
+          <div style="${
+            style === true
+              ? `top:${(this.attrs.height / strokeTextList.length) * i}px;`
+              : " "
           }" class="${className}${i}">${strokeTextList[i]}</div>`
         );
       }
@@ -73,7 +66,7 @@ class BannerA extends MotorCortex.HTMLClip {
           width: ${this.attrs.width * 0.5 * Math.random().toFixed(2)}px;
           top:${this.attrs.height * Math.random().toFixed(2)}px;
           "></div>
-          
+
         <div class="lines lines-2" style="
           height:${this.attrs.height * 0.1 * Math.random()}px;
           width: ${this.attrs.width * 0.5 * Math.random().toFixed(2)}px;
@@ -86,7 +79,7 @@ class BannerA extends MotorCortex.HTMLClip {
         "></div>
       </div>
 
-    
+
 
       <div class="circles-wrapper">
         <div class="circle-1 circle" ></div>
@@ -103,14 +96,14 @@ class BannerA extends MotorCortex.HTMLClip {
         <div class="center-text-before" data-text="Yeyey">
           ${this.attrs.centerText}
         </div>
-        
+
       </div>
 
       <div  class="sliced-img-wrapper">
         <div class="sliced-img"></div>
       </div>
       <div  style="opacity: 0;"class="stroke-text-wrapper flex-center">
-      
+
         ${textlistStroke("stroke-text-center txt-stroke-")}
         ${textlistStroke("stroke-text-outline txt-stroke-outline-", true)}
       </div>
@@ -132,7 +125,7 @@ class BannerA extends MotorCortex.HTMLClip {
     .wrapper{
       width: ${this.attrs.width}px;
       height: ${this.attrs.height}px;
-     
+
       display:flex;
       font-family: 'Poppins', sans-serif;
     }
@@ -165,7 +158,7 @@ class BannerA extends MotorCortex.HTMLClip {
       left: 7%;
       top: 65%;
       opacity: 0;
-      
+
     }
     .doted-half{
       clip-path: polygon(0 31%, 85% 31%, 100% 55%, 15% 55%);
@@ -188,7 +181,7 @@ class BannerA extends MotorCortex.HTMLClip {
       overflow: hidden;
     }
 
-  
+
     .right-image{
       height: ${this.attrs.imgHeight}px;
       width: ${this.attrs.imgWidth}px;
@@ -209,14 +202,14 @@ class BannerA extends MotorCortex.HTMLClip {
       position: relative;
       background-image: url(${this.attrs.bgUrl});
       background-size: ${this.attrs.imgWidth}px;
-     
+
       transform: scale(1);
       display: flex;
       justify-content: center;
       align-items: center;
       flex-wrap: wrap;
       flex: 1 0 auto;
-  
+
     }
     .left-image:after,.right-image:after {
       content: "";
@@ -229,23 +222,23 @@ class BannerA extends MotorCortex.HTMLClip {
       left: 0;
       z-index: -1;
     }
-    
+
     .txt-group{
       font-size: ${this.attrs.txtGroupSize}px;
     }
     .txt-group:nth-of-type(odd){
       height: 14%;
-      
+
     }
     .txt-group:nth-of-type(2n+2) {
-    
+
     height: 14%;
     }
     .knockout {
       background: url(${this.attrs.bgUrl});
       background-position: 50% 50%;
       color: red;
-      -webkit-text-fill-color: transparent; 
+      -webkit-text-fill-color: transparent;
       -webkit-background-clip: text;
       font-weight: bold;
       font-size: 0;
@@ -256,7 +249,7 @@ class BannerA extends MotorCortex.HTMLClip {
     }
 
   body{
-    
+
   }
   .bg2{
     background: ${this.attrs.mainColor};
@@ -277,11 +270,11 @@ class BannerA extends MotorCortex.HTMLClip {
     width: ${0}px;
     height: ${0}px;
     background: transparent;
-   
+
     border-radius: 100%;
     position: absolute;
   }
- 
+
 
   .circles-wrapper{
     position: absolute;
@@ -307,16 +300,16 @@ class BannerA extends MotorCortex.HTMLClip {
    opacity: 0.6;
    font-size: ${100}px;
    font-weight: bold;
-    
+
    text-transform: uppercase;
   }
   .center-text-before{
     color: #ff00c1;
-  
+
   }
   .center-text-after{
     color: #3498db;
-  
+
   }
 
   .flex-center{
@@ -344,7 +337,7 @@ class BannerA extends MotorCortex.HTMLClip {
     width:${this.attrs.width}px;
     height: ${this.attrs.height}px;
     position: absolute;
-    
+
   }
 
   .sliced-img::after{
@@ -367,7 +360,7 @@ class BannerA extends MotorCortex.HTMLClip {
     display: flex;
     align-items: center;
     z-index: 1;
-    
+
   }
   .stroke-text-wrapper{
     display:flex;
@@ -380,12 +373,12 @@ class BannerA extends MotorCortex.HTMLClip {
     color: transparent;
     font-weight: 900;
     display: flex;
-    
+
     align-items: center;
     -webkit-text-stroke: 3px aquamarine;
     position: absolute;
     height:${this.attrs.height / strokeTextList.length}px;
-    
+
   }
 
   .rng-box::after{
@@ -406,7 +399,7 @@ class BannerA extends MotorCortex.HTMLClip {
     left:-100%;
     z-index: 1;
   }
-  
+
   .yellow-underline{
     position: absolute;
     height:${this.attrs.height * 0.01}px;
@@ -430,7 +423,7 @@ class BannerA extends MotorCortex.HTMLClip {
     height:${this.attrs.height * 2}px;
     width: ${this.attrs.width * 2}px;
     background: black;
-    transform: rotate(0deg); 
+    transform: rotate(0deg);
     z-index: 1;
     top: -50%;
   }
@@ -440,148 +433,12 @@ class BannerA extends MotorCortex.HTMLClip {
   .rightBlackBox{
     left: 100%
   }
-    
+
 
   `;
   }
 
   buildTree() {
-    const box = new Anime.Anime(
-      {
-        animatedAttrs: {
-          top: `-${this.attrs.height * 0.1}px`,
-          height: `${this.attrs.height * 0.1}px`
-        },
-        initialValues: {
-          top: `${this.attrs.height}px`,
-          height: `${this.attrs.height / 2.5}px`
-        },
-        attrs: {}
-      },
-      {
-        duration: 500,
-        selector: ".box",
-        easing: "easeOutQuart",
-        repeats: 2
-      }
-    );
-    const leftImageTop = new Anime.Anime(
-      {
-        animatedAttrs: {
-          backgroundPositionY: `${this.attrs.height -
-            this.attrs.imgHeight / 2}px`,
-          top: "-50%"
-        },
-        initialValues: {
-          backgroundPositionY: `${this.attrs.height -
-            this.attrs.imgHeight / 2 +
-            this.attrs.height}px`,
-          top: "-150%"
-        }
-      },
-      {
-        duration: 300,
-        selector: ".left-image",
-        easing: "easeOutQuart"
-      }
-    );
-    const leftImageLeft = new Anime.Anime(
-      {
-        animatedAttrs: {
-          backgroundPositionX: `-${this.attrs.imgWidth / 2 -
-            this.attrs.width +
-            this.attrs.width / 4}px `,
-
-          left: "-50%"
-        },
-        initialValues: {
-          backgroundPositionX: `-${this.attrs.imgWidth / 2 -
-            this.attrs.width +
-            this.attrs.width / 4 +
-            this.attrs.width / 2}px `,
-
-          left: "100%"
-        }
-      },
-      {
-        duration: 700,
-        selector: ".left-image",
-        easing: "easeOutQuart"
-      }
-    );
-
-    const rightImageTop = new Anime.Anime(
-      {
-        animatedAttrs: {
-          backgroundPositionY: `${this.attrs.height -
-            this.attrs.imgHeight / 2}px`,
-          top: "-50%"
-        },
-        initialValues: {
-          backgroundPositionY: `-${(this.attrs.height -
-            this.attrs.imgHeight / 2) *
-            4}px`,
-          top: "100%"
-        }
-      },
-      {
-        duration: 700,
-        selector: ".right-image",
-        easing: "easeOutQuart"
-      }
-    );
-    const rightImageLeft = new Anime.Anime(
-      {
-        animatedAttrs: {
-          backgroundPositionX: `-${this.attrs.imgWidth / 2 -
-            this.attrs.width}px`,
-          left: "-200%"
-        },
-        initialValues: {
-          backgroundPositionX: `-${this.attrs.imgWidth / 2 -
-            this.attrs.width}px`,
-          left: "-400%"
-        }
-      },
-      {
-        duration: 200,
-        selector: ".right-image",
-        easing: "easeOutQuart"
-      }
-    );
-
-    const rightImageLeftWrapper = new Anime.Anime(
-      {
-        animatedAttrs: {
-          width: `${this.attrs.width / 2}px`
-        },
-        initialValues: {
-          width: `${(this.attrs.width / 2) * 0.02}px`
-        }
-      },
-      {
-        duration: 200,
-        selector: ".right-image-wrapper",
-        easing: "easeOutQuart"
-      }
-    );
-
-    const dotedHalfOneOn = new Anime.Anime(
-      {
-        animatedAttrs: {
-          opacity: 1
-        },
-        initialValues: {
-          opacity: 0
-        }
-      },
-      {
-        duration: 1,
-        selector: ".doted-half",
-        easing: "easeOutQuart"
-      }
-    );
-
     const dotedHalfOneOff = new Anime.Anime(
       {
         animatedAttrs: {
@@ -668,7 +525,9 @@ class BannerA extends MotorCortex.HTMLClip {
       const textAnimationSize = new Anime.Anime(
         {
           animatedAttrs: {
-            fontSize: !this.attrs.txtGroupSize?`${this.attrs.width * 0.2}px`:`${this.attrs.txtGroupSize}px`,
+            fontSize: !this.attrs.txtGroupSize
+              ? `${this.attrs.width * 0.2}px`
+              : `${this.attrs.txtGroupSize}px`,
             marginLeft: i % 2 !== 1 ? "14%" : "6%"
           },
           initialValues: {
@@ -779,7 +638,7 @@ class BannerA extends MotorCortex.HTMLClip {
             },
             width: `${this.attrs.width * 0.2}px`,
             height: `${this.attrs.width * 0.2}px`,
-            border: ` ${0}px solid ${this.attrs.mainColor}`
+            border: `${0}px solid ${this.attrs.mainColor}`
           },
           initialValues: {
             transform: {
@@ -789,8 +648,7 @@ class BannerA extends MotorCortex.HTMLClip {
             },
             width: "0px",
             height: "0px",
-            border: ` ${this.attrs.width * 0.05}px solid ${this.attrs.mainColor
-              }`
+            border: `${this.attrs.width * 0.05}px solid ${this.attrs.mainColor}`
           }
         },
         {
@@ -1192,68 +1050,15 @@ class BannerA extends MotorCortex.HTMLClip {
       circlesGroup2.addIncident(translateX, 500 + 50 * (i + 1));
     }
 
-    const blackBoxRotate = new Anime.Anime(
-      {
-        animatedAttrs: {
-          transform: {
-            rotate: "-90deg"
-          }
-        },
-        initialValues: {
-          transform: {
-            rotate: "0deg"
-          }
-        }
-      },
-      {
-        duration: 600,
-        selector: ".leftBlackBox,.rightBlackBox"
-      }
-    );
+    this.addIncident(intro(this.attrs), 0);
 
-    const blackBoxLeftTop = new Anime.Anime(
-      {
-        animatedAttrs: {
-          left: "0%"
-        },
-        initialValues: {
-          left: "-200%"
-        }
-      },
-      {
-        duration: 1000,
-        selector: ".leftBlackBox"
-      }
-    );
-
-    const blackBoxRightTop = new Anime.Anime(
-      {
-        animatedAttrs: {
-          left: "0%"
-        },
-        initialValues: {
-          left: "100%"
-        }
-      },
-      {
-        duration: 1000,
-        selector: ".rightBlackBox"
-      }
-    );
-
-    this.addIncident(box, 0);
-    this.addIncident(leftImageTop, 350);
-    this.addIncident(leftImageLeft, 350);
-    this.addIncident(rightImageTop, 0);
-    this.addIncident(rightImageLeft, 350);
-    this.addIncident(rightImageLeftWrapper, 350);
-    this.addIncident(dotedHalfOneOn, 450);
+    this.addIncident(myGroup, 500);
     this.addIncident(dotedHalfOneOff, 600);
     this.addIncident(dotedOneOn, 600);
-    this.addIncident(dotedOneOff, 1000);
     this.addIncident(bg2In, 700);
     this.addIncident(bg2InBg, 700);
-    this.addIncident(myGroup, 500);
+    this.addIncident(dotedOneOff, 1000);
+
     this.addIncident(bg2OutBg, 1800);
     this.addIncident(bgInBg, 1779);
     this.addIncident(linesInOut, 1900);
@@ -1283,10 +1088,9 @@ class BannerA extends MotorCortex.HTMLClip {
     this.addIncident(circlesWrapper2, 3000);
     this.addIncident(circlesWrapper2Position, 3000);
     this.addIncident(circlesGroup2, 3010);
-    this.addIncident(blackBoxRotate, 6000);
-    this.addIncident(blackBoxLeftTop, 6000);
-    this.addIncident(blackBoxRightTop, 6000);
+
+    this.addIncident(outro, 6000);
   }
 }
 
-module.exports = BannerA;
+export default BannerA;

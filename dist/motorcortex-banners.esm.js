@@ -1,4 +1,4 @@
-import MotorCortex from '@kissmybutton/motorcortex';
+import MotorCortex$1, { loadPlugin, Group } from '@kissmybutton/motorcortex';
 
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
@@ -1396,7 +1396,7 @@ var Anime = /*#__PURE__*/function (_MotorCortex$Effect) {
   }]);
 
   return Anime;
-}(MotorCortex.Effect);
+}(MotorCortex$1.Effect);
 /**
  * Takes as attributes:
  * {
@@ -1450,7 +1450,7 @@ var MotionPath = /*#__PURE__*/function (_MotorCortex$Effect) {
   }]);
 
   return MotionPath;
-}(MotorCortex.Effect);
+}(MotorCortex$1.Effect);
 
 var nu = ["cm", "mm", "in", "px", "pt", "pc", "em", "ex", "ch", "rem", "vw", "vh", "vmin", "vmax", "%"];
 var ru = ["deg", "rad", "grad", "turn"];
@@ -2348,7 +2348,181 @@ var index = {
   compositeAttributes: compositeAttributes
 };
 
-var Anime$1 = MotorCortex.loadPlugin(index);
+var Anime$1 = loadPlugin(index);
+
+var dotedHalfOneOn = new Anime$1.Anime({
+  animatedAttrs: {
+    opacity: 1
+  },
+  initialValues: {
+    opacity: 0
+  }
+}, {
+  duration: 1,
+  selector: ".doted-half",
+  easing: "easeOutQuart"
+});
+
+function box (attrs) {
+  return new Anime$1.Anime({
+    animatedAttrs: {
+      top: "-".concat(attrs.height * 0.1, "px"),
+      height: "".concat(attrs.height * 0.1, "px")
+    },
+    initialValues: {
+      top: "".concat(attrs.height, "px"),
+      height: "".concat(attrs.height / 2.5, "px")
+    },
+    attrs: {}
+  }, {
+    duration: 500,
+    selector: ".box",
+    easing: "easeOutQuart",
+    repeats: 2
+  });
+}
+
+function leftImageLeft (attrs) {
+  return new Anime$1.Anime({
+    animatedAttrs: {
+      backgroundPositionX: "-".concat(attrs.imgWidth / 2 - attrs.width + attrs.width / 4, "px "),
+      left: "-50%"
+    },
+    initialValues: {
+      backgroundPositionX: "-".concat(attrs.imgWidth / 2 - attrs.width + attrs.width / 4 + attrs.width / 2, "px "),
+      left: "100%"
+    }
+  }, {
+    duration: 700,
+    selector: ".left-image",
+    easing: "easeOutQuart"
+  });
+}
+
+function leftImageTop (attrs) {
+  return new Anime$1.Anime({
+    animatedAttrs: {
+      backgroundPositionY: "".concat(attrs.height - attrs.imgHeight / 2, "px"),
+      top: "-50%"
+    },
+    initialValues: {
+      backgroundPositionY: "".concat(attrs.height - attrs.imgHeight / 2 + attrs.height, "px"),
+      top: "-150%"
+    }
+  }, {
+    duration: 300,
+    selector: ".left-image",
+    easing: "easeOutQuart"
+  });
+}
+
+function rightImageLeft (attrs) {
+  return new Anime$1.Anime({
+    animatedAttrs: {
+      backgroundPositionX: "-".concat(attrs.imgWidth / 2 - attrs.width, "px"),
+      left: "-200%"
+    },
+    initialValues: {
+      backgroundPositionX: "-".concat(attrs.imgWidth / 2 - attrs.width, "px"),
+      left: "-400%"
+    }
+  }, {
+    duration: 200,
+    selector: ".right-image",
+    easing: "easeOutQuart"
+  });
+}
+
+function rightImageLeftWrapper (attrs) {
+  return new Anime$1.Anime({
+    animatedAttrs: {
+      width: "".concat(attrs.width / 2, "px")
+    },
+    initialValues: {
+      width: "".concat(attrs.width / 2 * 0.02, "px")
+    }
+  }, {
+    duration: 200,
+    selector: ".right-image-wrapper",
+    easing: "easeOutQuart"
+  });
+}
+
+function rightImageTop (attrs) {
+  return new Anime$1.Anime({
+    animatedAttrs: {
+      backgroundPositionY: "".concat(attrs.height - attrs.imgHeight / 2, "px"),
+      top: "-50%"
+    },
+    initialValues: {
+      backgroundPositionY: "-".concat((attrs.height - attrs.imgHeight / 2) * 4, "px"),
+      top: "100%"
+    }
+  }, {
+    duration: 700,
+    selector: ".right-image",
+    easing: "easeOutQuart"
+  });
+}
+
+function intro(attrs) {
+  var introGroup = new Group();
+  introGroup.addIncident(box(attrs), 0);
+  introGroup.addIncident(rightImageTop(attrs), 0);
+  introGroup.addIncident(leftImageTop(attrs), 350);
+  introGroup.addIncident(leftImageLeft(attrs), 350);
+  introGroup.addIncident(rightImageLeft(attrs), 350);
+  introGroup.addIncident(rightImageLeftWrapper(attrs), 350);
+  introGroup.addIncident(dotedHalfOneOn, 450);
+  return introGroup;
+}
+
+var blackBoxLeftTop = new Anime$1.Anime({
+  animatedAttrs: {
+    left: "0%"
+  },
+  initialValues: {
+    left: "-200%"
+  }
+}, {
+  duration: 1000,
+  selector: ".leftBlackBox"
+});
+
+var blackBoxRightTop = new Anime$1.Anime({
+  animatedAttrs: {
+    left: "0%"
+  },
+  initialValues: {
+    left: "100%"
+  }
+}, {
+  duration: 1000,
+  selector: ".rightBlackBox"
+});
+
+var blackBoxRotate = new Anime$1.Anime({
+  animatedAttrs: {
+    transform: {
+      rotate: "-90deg"
+    }
+  },
+  initialValues: {
+    transform: {
+      rotate: "0deg"
+    }
+  }
+}, {
+  duration: 600,
+  selector: ".leftBlackBox,.rightBlackBox"
+});
+
+var outro = new Group();
+outro.addIncident(blackBoxRightTop, 0);
+outro.addIncident(blackBoxRotate, 0);
+outro.addIncident(blackBoxLeftTop, 0);
+
+var MotorCortex = require("@kissmybutton/motorcortex");
 
 var BannerA = /*#__PURE__*/function (_MotorCortex$HTMLClip) {
   _inherits(BannerA, _MotorCortex$HTMLClip);
@@ -2362,120 +2536,8 @@ var BannerA = /*#__PURE__*/function (_MotorCortex$HTMLClip) {
   }
 
   _createClass(BannerA, [{
-    key: "dinamicFontSize",
-    value: function dinamicFontSize(lc, width) {
-      var fontsize;
-      fontsize = width / 0.6 / lc;
-
-      if (fontsize >= 200 && width === 720) {
-        fontsize = 200;
-      }
-
-      if (fontsize >= 100 && width === 360) {
-        fontsize = 100;
-      }
-
-      return fontsize;
-    }
-  }, {
     key: "buildTree",
     value: function buildTree() {
-      var box = new Anime$1.Anime({
-        animatedAttrs: {
-          top: "-".concat(this.attrs.height * 0.1, "px"),
-          height: "".concat(this.attrs.height * 0.1, "px")
-        },
-        initialValues: {
-          top: "".concat(this.attrs.height, "px"),
-          height: "".concat(this.attrs.height / 2.5, "px")
-        },
-        attrs: {}
-      }, {
-        duration: 500,
-        selector: ".box",
-        easing: "easeOutQuart",
-        repeats: 2
-      });
-      var leftImageTop = new Anime$1.Anime({
-        animatedAttrs: {
-          backgroundPositionY: "".concat(this.attrs.height - this.attrs.imgHeight / 2, "px"),
-          top: "-50%"
-        },
-        initialValues: {
-          backgroundPositionY: "".concat(this.attrs.height - this.attrs.imgHeight / 2 + this.attrs.height, "px"),
-          top: "-150%"
-        }
-      }, {
-        duration: 300,
-        selector: ".left-image",
-        easing: "easeOutQuart"
-      });
-      var leftImageLeft = new Anime$1.Anime({
-        animatedAttrs: {
-          backgroundPositionX: "-".concat(this.attrs.imgWidth / 2 - this.attrs.width + this.attrs.width / 4, "px "),
-          left: "-50%"
-        },
-        initialValues: {
-          backgroundPositionX: "-".concat(this.attrs.imgWidth / 2 - this.attrs.width + this.attrs.width / 4 + this.attrs.width / 2, "px "),
-          left: "100%"
-        }
-      }, {
-        duration: 700,
-        selector: ".left-image",
-        easing: "easeOutQuart"
-      });
-      var rightImageTop = new Anime$1.Anime({
-        animatedAttrs: {
-          backgroundPositionY: "".concat(this.attrs.height - this.attrs.imgHeight / 2, "px"),
-          top: "-50%"
-        },
-        initialValues: {
-          backgroundPositionY: "-".concat((this.attrs.height - this.attrs.imgHeight / 2) * 4, "px"),
-          top: "100%"
-        }
-      }, {
-        duration: 700,
-        selector: ".right-image",
-        easing: "easeOutQuart"
-      });
-      var rightImageLeft = new Anime$1.Anime({
-        animatedAttrs: {
-          backgroundPositionX: "-".concat(this.attrs.imgWidth / 2 - this.attrs.width, "px"),
-          left: "-200%"
-        },
-        initialValues: {
-          backgroundPositionX: "-".concat(this.attrs.imgWidth / 2 - this.attrs.width, "px"),
-          left: "-400%"
-        }
-      }, {
-        duration: 200,
-        selector: ".right-image",
-        easing: "easeOutQuart"
-      });
-      var rightImageLeftWrapper = new Anime$1.Anime({
-        animatedAttrs: {
-          width: "".concat(this.attrs.width / 2, "px")
-        },
-        initialValues: {
-          width: "".concat(this.attrs.width / 2 * 0.02, "px")
-        }
-      }, {
-        duration: 200,
-        selector: ".right-image-wrapper",
-        easing: "easeOutQuart"
-      });
-      var dotedHalfOneOn = new Anime$1.Anime({
-        animatedAttrs: {
-          opacity: 1
-        },
-        initialValues: {
-          opacity: 0
-        }
-      }, {
-        duration: 1,
-        selector: ".doted-half",
-        easing: "easeOutQuart"
-      });
       var dotedHalfOneOff = new Anime$1.Anime({
         animatedAttrs: {
           opacity: 0
@@ -2627,7 +2689,7 @@ var BannerA = /*#__PURE__*/function (_MotorCortex$HTMLClip) {
             },
             width: "".concat(this.attrs.width * 0.2, "px"),
             height: "".concat(this.attrs.width * 0.2, "px"),
-            border: " ".concat(0, "px solid ", this.attrs.mainColor)
+            border: "".concat(0, "px solid ", this.attrs.mainColor)
           },
           initialValues: {
             transform: {
@@ -2637,7 +2699,7 @@ var BannerA = /*#__PURE__*/function (_MotorCortex$HTMLClip) {
             },
             width: "0px",
             height: "0px",
-            border: " ".concat(this.attrs.width * 0.05, "px solid ").concat(this.attrs.mainColor)
+            border: "".concat(this.attrs.width * 0.05, "px solid ").concat(this.attrs.mainColor)
           }
         }, {
           duration: 500,
@@ -2960,56 +3022,13 @@ var BannerA = /*#__PURE__*/function (_MotorCortex$HTMLClip) {
         circlesGroup2.addIncident(_translateX, 500 + 50 * (_i3 + 1));
       }
 
-      var blackBoxRotate = new Anime$1.Anime({
-        animatedAttrs: {
-          transform: {
-            rotate: "-90deg"
-          }
-        },
-        initialValues: {
-          transform: {
-            rotate: "0deg"
-          }
-        }
-      }, {
-        duration: 600,
-        selector: ".leftBlackBox,.rightBlackBox"
-      });
-      var blackBoxLeftTop = new Anime$1.Anime({
-        animatedAttrs: {
-          left: "0%"
-        },
-        initialValues: {
-          left: "-200%"
-        }
-      }, {
-        duration: 1000,
-        selector: ".leftBlackBox"
-      });
-      var blackBoxRightTop = new Anime$1.Anime({
-        animatedAttrs: {
-          left: "0%"
-        },
-        initialValues: {
-          left: "100%"
-        }
-      }, {
-        duration: 1000,
-        selector: ".rightBlackBox"
-      });
-      this.addIncident(box, 0);
-      this.addIncident(leftImageTop, 350);
-      this.addIncident(leftImageLeft, 350);
-      this.addIncident(rightImageTop, 0);
-      this.addIncident(rightImageLeft, 350);
-      this.addIncident(rightImageLeftWrapper, 350);
-      this.addIncident(dotedHalfOneOn, 450);
+      this.addIncident(intro(this.attrs), 0);
+      this.addIncident(myGroup, 500);
       this.addIncident(dotedHalfOneOff, 600);
       this.addIncident(dotedOneOn, 600);
-      this.addIncident(dotedOneOff, 1000);
       this.addIncident(bg2In, 700);
       this.addIncident(bg2InBg, 700);
-      this.addIncident(myGroup, 500);
+      this.addIncident(dotedOneOff, 1000);
       this.addIncident(bg2OutBg, 1800);
       this.addIncident(bgInBg, 1779);
       this.addIncident(linesInOut, 1900);
@@ -3039,12 +3058,10 @@ var BannerA = /*#__PURE__*/function (_MotorCortex$HTMLClip) {
       this.addIncident(circlesWrapper2, 3000);
       this.addIncident(circlesWrapper2Position, 3000);
       this.addIncident(circlesGroup2, 3010);
-      this.addIncident(blackBoxRotate, 6000);
-      this.addIncident(blackBoxLeftTop, 6000);
-      this.addIncident(blackBoxRightTop, 6000);
+      this.addIncident(outro, 6000);
     }
   }, {
-    key: "font",
+    key: "fonts",
     get: function get() {
       return [{
         type: "google-font",
@@ -3082,20 +3099,18 @@ var BannerA = /*#__PURE__*/function (_MotorCortex$HTMLClip) {
         return list.join("");
       };
 
-      return "\n    <div class=\"wrapper\">\n      <div class=\"left-image-wrapper\">\n        <div class=\"left-image\"> </div>\n      </div>\n\n      <div class=\"right-image-wrapper\">\n        <div class=\"right-image\"> </div>\n      </div>\n\n      <div  class=\"bg\"></div>\n      <div class=\"bg2\">\n        <div class=\"knockout\">\n          ".concat(textlist, "\n        </div>\n      </div>\n\n      <div class=\"lines-wrapper\">\n        <div class=\"lines lines-1\" style=\"\n          height:  ").concat(this.attrs.height * 0.1 * Math.random(), "px;\n          width: ").concat(this.attrs.width * 0.5 * Math.random().toFixed(2), "px;\n          top:").concat(this.attrs.height * Math.random().toFixed(2), "px;\n          \"></div>\n          \n        <div class=\"lines lines-2\" style=\"\n          height:").concat(this.attrs.height * 0.1 * Math.random(), "px;\n          width: ").concat(this.attrs.width * 0.5 * Math.random().toFixed(2), "px;\n          top:").concat(this.attrs.height * Math.random().toFixed(2), "px;\n        \"></div>\n        <div class=\"lines lines-3\" style=\"\n          height: ").concat(this.attrs.height * 0.1 * Math.random(), "px;\n          width: ").concat(this.attrs.width * 0.5 * Math.random().toFixed(2), "px;\n          top:").concat(this.attrs.height * Math.random().toFixed(2), "px;\n        \"></div>\n      </div>\n\n    \n\n      <div class=\"circles-wrapper\">\n        <div class=\"circle-1 circle\" ></div>\n        <div class=\"circle-2 circle \"></div>\n        <div class=\"circle-3 circle \"></div>\n      </div>\n      <div class=\"flex-center center-text-wrapper\" >\n        <div class=\"center-text\" data-text=\"Yeyey\">\n          ").concat(this.attrs.centerText, "\n        </div>\n        <div class=\"center-text-after\" data-text=\"Yeyey\">\n          ").concat(this.attrs.centerText, "\n        </div>\n        <div class=\"center-text-before\" data-text=\"Yeyey\">\n          ").concat(this.attrs.centerText, "\n        </div>\n        \n      </div>\n\n      <div  class=\"sliced-img-wrapper\">\n        <div class=\"sliced-img\"></div>\n      </div>\n      <div  style=\"opacity: 0;\"class=\"stroke-text-wrapper flex-center\">\n      \n        ").concat(textlistStroke("stroke-text-center txt-stroke-"), "\n        ").concat(textlistStroke("stroke-text-outline txt-stroke-outline-", true), "\n      </div>\n      <div class=\"doted\"></div>\n      <div class=\"doted-half\"></div>\n      <div class=\"rng-box\"></div>\n      <div class=\"yellow-underline\"></div>\n      <div class=\"yellow-transition\"> </div>\n      <div class=\"box\"> </div>\n      <div class=\"leftBlackBox\"></div>\n      <div class=\"rightBlackBox\"></div>\n\t  </div>\n    ");
+      return "\n    <div class=\"wrapper\">\n      <div class=\"left-image-wrapper\">\n        <div class=\"left-image\"> </div>\n      </div>\n\n      <div class=\"right-image-wrapper\">\n        <div class=\"right-image\"> </div>\n      </div>\n\n      <div  class=\"bg\"></div>\n      <div class=\"bg2\">\n        <div class=\"knockout\">\n          ".concat(textlist, "\n        </div>\n      </div>\n\n      <div class=\"lines-wrapper\">\n        <div class=\"lines lines-1\" style=\"\n          height:  ").concat(this.attrs.height * 0.1 * Math.random(), "px;\n          width: ").concat(this.attrs.width * 0.5 * Math.random().toFixed(2), "px;\n          top:").concat(this.attrs.height * Math.random().toFixed(2), "px;\n          \"></div>\n\n        <div class=\"lines lines-2\" style=\"\n          height:").concat(this.attrs.height * 0.1 * Math.random(), "px;\n          width: ").concat(this.attrs.width * 0.5 * Math.random().toFixed(2), "px;\n          top:").concat(this.attrs.height * Math.random().toFixed(2), "px;\n        \"></div>\n        <div class=\"lines lines-3\" style=\"\n          height: ").concat(this.attrs.height * 0.1 * Math.random(), "px;\n          width: ").concat(this.attrs.width * 0.5 * Math.random().toFixed(2), "px;\n          top:").concat(this.attrs.height * Math.random().toFixed(2), "px;\n        \"></div>\n      </div>\n\n\n\n      <div class=\"circles-wrapper\">\n        <div class=\"circle-1 circle\" ></div>\n        <div class=\"circle-2 circle \"></div>\n        <div class=\"circle-3 circle \"></div>\n      </div>\n      <div class=\"flex-center center-text-wrapper\" >\n        <div class=\"center-text\" data-text=\"Yeyey\">\n          ").concat(this.attrs.centerText, "\n        </div>\n        <div class=\"center-text-after\" data-text=\"Yeyey\">\n          ").concat(this.attrs.centerText, "\n        </div>\n        <div class=\"center-text-before\" data-text=\"Yeyey\">\n          ").concat(this.attrs.centerText, "\n        </div>\n\n      </div>\n\n      <div  class=\"sliced-img-wrapper\">\n        <div class=\"sliced-img\"></div>\n      </div>\n      <div  style=\"opacity: 0;\"class=\"stroke-text-wrapper flex-center\">\n\n        ").concat(textlistStroke("stroke-text-center txt-stroke-"), "\n        ").concat(textlistStroke("stroke-text-outline txt-stroke-outline-", true), "\n      </div>\n      <div class=\"doted\"></div>\n      <div class=\"doted-half\"></div>\n      <div class=\"rng-box\"></div>\n      <div class=\"yellow-underline\"></div>\n      <div class=\"yellow-transition\"> </div>\n      <div class=\"box\"> </div>\n      <div class=\"leftBlackBox\"></div>\n      <div class=\"rightBlackBox\"></div>\n\t  </div>\n    ");
     }
   }, {
     key: "css",
     get: function get() {
       var strokeTextList = this.attrs.strokeText.split(" ");
-      return "\n    .wrapper{\n      width: ".concat(this.attrs.width, "px;\n      height: ").concat(this.attrs.height, "px;\n     \n      display:flex;\n      font-family: 'Poppins', sans-serif;\n    }\n    .box{\n      width: ").concat(this.attrs.width * 0.03, "px;\n      height: ").concat(this.attrs.height * 2.4, ";\n      background: ").concat(this.attrs.mainColor, ";\n      position:absolute;\n      left: ").concat(this.attrs.width / 2, "px;\n    }\n\n    .doted{\n      background-image: radial-gradient(").concat(this.attrs.mainColor, " 16%, #0000 20%);\n      background-position: 0 0;\n      background-size: 16px 14px;\n      height: ").concat(this.attrs.height / 4.5, "px;\n      width: ").concat(this.attrs.width / 2.7, "px;\n      position:absolute;\n      left: 7%;\n      top: 65%\n    }\n\n    .doted,.doted-half{\n      background-image: radial-gradient(").concat(this.attrs.mainColor, " 16%, #0000 20%);\n      background-position: 0 0;\n      background-size: 16px 14px;\n      height: ").concat(this.attrs.height / 4.5, "px;\n      width: ").concat(this.attrs.width / 2.7, "px;\n      position:absolute;\n      left: 7%;\n      top: 65%;\n      opacity: 0;\n      \n    }\n    .doted-half{\n      clip-path: polygon(0 31%, 85% 31%, 100% 55%, 15% 55%);\n      left: 65%;\n      top: 7%\n    }\n\n    .lines-wrapper{\n      height: ").concat(this.attrs.height, "px;\n      width: ").concat(this.attrs.width, "px;\n      position: absolute;\n    }\n    .lines{\n      background: ").concat(this.attrs.mainColor, ";\n      position: absolute;\n    }\n\n    .left-image-wrapper, .right-image-wrapper{\n      width:").concat(this.attrs.width / 2, "px;\n      overflow: hidden;\n    }\n\n  \n    .right-image{\n      height: ").concat(this.attrs.imgHeight, "px;\n      width: ").concat(this.attrs.imgWidth, "px;\n      position: relative;\n      background-image: url(").concat(this.attrs.bgUrl, ");\n      background-size: ").concat(this.attrs.imgWidth, "px;\n      transform: scale(1);\n      display: flex;\n      justify-content: center;\n      align-items: center;\n      flex-wrap: wrap;\n      flex: 1 0 auto;\n      background-repeat: no-repeat;\n    }\n    .left-image{\n      height: ").concat(this.attrs.imgHeight, "px;\n      width: ").concat(this.attrs.imgWidth, "px;\n      position: relative;\n      background-image: url(").concat(this.attrs.bgUrl, ");\n      background-size: ").concat(this.attrs.imgWidth, "px;\n     \n      transform: scale(1);\n      display: flex;\n      justify-content: center;\n      align-items: center;\n      flex-wrap: wrap;\n      flex: 1 0 auto;\n  \n    }\n    .left-image:after,.right-image:after {\n      content: \"\";\n      display: block;\n      background: linear-gradient(").concat(this.attrs.overlayColor, ");\n      position: absolute;\n      top: 0;\n      bottom: 0;\n      right: 0;\n      left: 0;\n      z-index: -1;\n    }\n    \n    .txt-group{\n      font-size: ").concat(this.attrs.txtGroupSize, "px;\n    }\n    .txt-group:nth-of-type(odd){\n      height: 14%;\n      \n    }\n    .txt-group:nth-of-type(2n+2) {\n    \n    height: 14%;\n    }\n    .knockout {\n      background: url(").concat(this.attrs.bgUrl, ");\n      background-position: 50% 50%;\n      color: red;\n      -webkit-text-fill-color: transparent; \n      -webkit-background-clip: text;\n      font-weight: bold;\n      font-size: 0;\n      text-transform: uppercase;\n      width:").concat(this.attrs.width, "px;\n      height: ").concat(this.attrs.height, "px;\n      color: ").concat(this.attrs.mainColor, ";\n    }\n\n  body{\n    \n  }\n  .bg2{\n    background: ").concat(this.attrs.mainColor, ";\n    width:").concat(this.attrs.width, "px;\n    height: ").concat(this.attrs.height, "px;\n    position: absolute;\n    left:100%;\n  }\n  .bg{\n    background: url(").concat(this.attrs.bgUrl, ");\n    background-position: 50% 50%;\n    width:").concat(this.attrs.width, "px;\n    height: ").concat(this.attrs.height, "px;\n    position: absolute;\n  }\n\n  .circle{\n    width: ", 0, "px;\n    height: ", 0, "px;\n    background: transparent;\n   \n    border-radius: 100%;\n    position: absolute;\n  }\n \n\n  .circles-wrapper{\n    position: absolute;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    width:").concat(this.attrs.width, "px;\n    height: ").concat(this.attrs.height, "px;\n  }\n  .center-text{\n    font-weight: bold;\n    font-size: ", 100, "px;\n    text-transform: uppercase;\n    color:").concat(this.attrs.mainColor, "\n  }\n  .center-text-before,.center-text-after{\n   content: attr(data-text);\n   position: absolute;\n   top: 50%;\n   left: 50%;\n   transform: translate(-50%, -50%);\n   z-index: -2;\n   opacity: 0.6;\n   font-size: ", 100, "px;\n   font-weight: bold;\n    \n   text-transform: uppercase;\n  }\n  .center-text-before{\n    color: #ff00c1;\n  \n  }\n  .center-text-after{\n    color: #3498db;\n  \n  }\n\n  .flex-center{\n    position: absolute;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    width:").concat(this.attrs.width, "px;\n    height: ").concat(this.attrs.height, "px;\n    z-index: 1;\n  }\n  .sliced-img-wrapper{\n    position: absolute;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    width:").concat(this.attrs.width, "px;\n    height: ").concat(this.attrs.height, "px;\n    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 90%);\n    overflow: hidden;\n  }\n  .sliced-img{\n    background: url(").concat(this.attrs.bgUrl, ");\n    background-position: 50% 50%;\n    width:").concat(this.attrs.width, "px;\n    height: ").concat(this.attrs.height, "px;\n    position: absolute;\n    \n  }\n\n  .sliced-img::after{\n    content: \"\";\n      display: block;\n      background: linear-gradient(").concat(this.attrs.overlayColor, ");\n      position: absolute;\n      top: 0;\n      bottom: 0;\n      right: 0;\n      left: 0;\n  }\n\n  .stroke-text-center{\n    position: relative;\n    text-transform: uppercase;\n    width:").concat(this.attrs.width, "px;\n    color: ").concat(this.attrs.mainColor, ";\n    font-weight: 900;\n    display: flex;\n    align-items: center;\n    z-index: 1;\n    \n  }\n  .stroke-text-wrapper{\n    display:flex;\n    flex-direction: column;\n  }\n  .stroke-text-outline{\n    font-size: ").concat(this.attrs.width * 0.3, "px;\n    text-transform: uppercase;\n    width:").concat(this.attrs.width, "px;\n    color: transparent;\n    font-weight: 900;\n    display: flex;\n    \n    align-items: center;\n    -webkit-text-stroke: 3px aquamarine;\n    position: absolute;\n    height:").concat(this.attrs.height / strokeTextList.length, "px;\n    \n  }\n\n  .rng-box::after{\n    content: \"\";\n      display: block;\n      background: linear-gradient(").concat(this.attrs.overlayColor, ");\n      position: absolute;\n      height:").concat(this.attrs.height * 0.08, "px;\n      width: ").concat(this.attrs.width * 0.6, "px;\n      background-size: ").concat(this.attrs.height, "px ").concat(this.attrs.width, "px;\n  }\n\n  .rng-box{\n    position: absolute;\n    height:").concat(this.attrs.height * 0.08, "px;\n    width: ").concat(this.attrs.width * 0.6, "px;\n    top:80%;\n    left:-100%;\n    z-index: 1;\n  }\n  \n  .yellow-underline{\n    position: absolute;\n    height:").concat(this.attrs.height * 0.01, "px;\n    width: ").concat(this.attrs.width * 0.5, "px;\n    top:90%;\n    left:-100%;\n    z-index: 1;\n    background: ").concat(this.attrs.mainColor, ";\n  }\n  .yellow-transition{\n    position: absolute;\n    height:").concat(this.attrs.height, "px;\n    width: ").concat(this.attrs.width, "px;\n    top:0%;\n    left:100%;\n    z-index: 1;\n    background: ").concat(this.attrs.mainColor, ";\n  }\n  .leftBlackBox,.rightBlackBox{\n    position: absolute;\n    height:").concat(this.attrs.height * 2, "px;\n    width: ").concat(this.attrs.width * 2, "px;\n    background: black;\n    transform: rotate(0deg); \n    z-index: 1;\n    top: -50%;\n  }\n  .leftBlackBox{\n    left: -200%;\n  }\n  .rightBlackBox{\n    left: 100%\n  }\n    \n\n  ");
+      return "\n    .wrapper{\n      width: ".concat(this.attrs.width, "px;\n      height: ").concat(this.attrs.height, "px;\n\n      display:flex;\n      font-family: 'Poppins', sans-serif;\n    }\n    .box{\n      width: ").concat(this.attrs.width * 0.03, "px;\n      height: ").concat(this.attrs.height * 2.4, ";\n      background: ").concat(this.attrs.mainColor, ";\n      position:absolute;\n      left: ").concat(this.attrs.width / 2, "px;\n    }\n\n    .doted{\n      background-image: radial-gradient(").concat(this.attrs.mainColor, " 16%, #0000 20%);\n      background-position: 0 0;\n      background-size: 16px 14px;\n      height: ").concat(this.attrs.height / 4.5, "px;\n      width: ").concat(this.attrs.width / 2.7, "px;\n      position:absolute;\n      left: 7%;\n      top: 65%\n    }\n\n    .doted,.doted-half{\n      background-image: radial-gradient(").concat(this.attrs.mainColor, " 16%, #0000 20%);\n      background-position: 0 0;\n      background-size: 16px 14px;\n      height: ").concat(this.attrs.height / 4.5, "px;\n      width: ").concat(this.attrs.width / 2.7, "px;\n      position:absolute;\n      left: 7%;\n      top: 65%;\n      opacity: 0;\n\n    }\n    .doted-half{\n      clip-path: polygon(0 31%, 85% 31%, 100% 55%, 15% 55%);\n      left: 65%;\n      top: 7%\n    }\n\n    .lines-wrapper{\n      height: ").concat(this.attrs.height, "px;\n      width: ").concat(this.attrs.width, "px;\n      position: absolute;\n    }\n    .lines{\n      background: ").concat(this.attrs.mainColor, ";\n      position: absolute;\n    }\n\n    .left-image-wrapper, .right-image-wrapper{\n      width:").concat(this.attrs.width / 2, "px;\n      overflow: hidden;\n    }\n\n\n    .right-image{\n      height: ").concat(this.attrs.imgHeight, "px;\n      width: ").concat(this.attrs.imgWidth, "px;\n      position: relative;\n      background-image: url(").concat(this.attrs.bgUrl, ");\n      background-size: ").concat(this.attrs.imgWidth, "px;\n      transform: scale(1);\n      display: flex;\n      justify-content: center;\n      align-items: center;\n      flex-wrap: wrap;\n      flex: 1 0 auto;\n      background-repeat: no-repeat;\n    }\n    .left-image{\n      height: ").concat(this.attrs.imgHeight, "px;\n      width: ").concat(this.attrs.imgWidth, "px;\n      position: relative;\n      background-image: url(").concat(this.attrs.bgUrl, ");\n      background-size: ").concat(this.attrs.imgWidth, "px;\n\n      transform: scale(1);\n      display: flex;\n      justify-content: center;\n      align-items: center;\n      flex-wrap: wrap;\n      flex: 1 0 auto;\n\n    }\n    .left-image:after,.right-image:after {\n      content: \"\";\n      display: block;\n      background: linear-gradient(").concat(this.attrs.overlayColor, ");\n      position: absolute;\n      top: 0;\n      bottom: 0;\n      right: 0;\n      left: 0;\n      z-index: -1;\n    }\n\n    .txt-group{\n      font-size: ").concat(this.attrs.txtGroupSize, "px;\n    }\n    .txt-group:nth-of-type(odd){\n      height: 14%;\n\n    }\n    .txt-group:nth-of-type(2n+2) {\n\n    height: 14%;\n    }\n    .knockout {\n      background: url(").concat(this.attrs.bgUrl, ");\n      background-position: 50% 50%;\n      color: red;\n      -webkit-text-fill-color: transparent;\n      -webkit-background-clip: text;\n      font-weight: bold;\n      font-size: 0;\n      text-transform: uppercase;\n      width:").concat(this.attrs.width, "px;\n      height: ").concat(this.attrs.height, "px;\n      color: ").concat(this.attrs.mainColor, ";\n    }\n\n  body{\n\n  }\n  .bg2{\n    background: ").concat(this.attrs.mainColor, ";\n    width:").concat(this.attrs.width, "px;\n    height: ").concat(this.attrs.height, "px;\n    position: absolute;\n    left:100%;\n  }\n  .bg{\n    background: url(").concat(this.attrs.bgUrl, ");\n    background-position: 50% 50%;\n    width:").concat(this.attrs.width, "px;\n    height: ").concat(this.attrs.height, "px;\n    position: absolute;\n  }\n\n  .circle{\n    width: ", 0, "px;\n    height: ", 0, "px;\n    background: transparent;\n\n    border-radius: 100%;\n    position: absolute;\n  }\n\n\n  .circles-wrapper{\n    position: absolute;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    width:").concat(this.attrs.width, "px;\n    height: ").concat(this.attrs.height, "px;\n  }\n  .center-text{\n    font-weight: bold;\n    font-size: ", 100, "px;\n    text-transform: uppercase;\n    color:").concat(this.attrs.mainColor, "\n  }\n  .center-text-before,.center-text-after{\n   content: attr(data-text);\n   position: absolute;\n   top: 50%;\n   left: 50%;\n   transform: translate(-50%, -50%);\n   z-index: -2;\n   opacity: 0.6;\n   font-size: ", 100, "px;\n   font-weight: bold;\n\n   text-transform: uppercase;\n  }\n  .center-text-before{\n    color: #ff00c1;\n\n  }\n  .center-text-after{\n    color: #3498db;\n\n  }\n\n  .flex-center{\n    position: absolute;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    width:").concat(this.attrs.width, "px;\n    height: ").concat(this.attrs.height, "px;\n    z-index: 1;\n  }\n  .sliced-img-wrapper{\n    position: absolute;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    width:").concat(this.attrs.width, "px;\n    height: ").concat(this.attrs.height, "px;\n    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 90%);\n    overflow: hidden;\n  }\n  .sliced-img{\n    background: url(").concat(this.attrs.bgUrl, ");\n    background-position: 50% 50%;\n    width:").concat(this.attrs.width, "px;\n    height: ").concat(this.attrs.height, "px;\n    position: absolute;\n\n  }\n\n  .sliced-img::after{\n    content: \"\";\n      display: block;\n      background: linear-gradient(").concat(this.attrs.overlayColor, ");\n      position: absolute;\n      top: 0;\n      bottom: 0;\n      right: 0;\n      left: 0;\n  }\n\n  .stroke-text-center{\n    position: relative;\n    text-transform: uppercase;\n    width:").concat(this.attrs.width, "px;\n    color: ").concat(this.attrs.mainColor, ";\n    font-weight: 900;\n    display: flex;\n    align-items: center;\n    z-index: 1;\n\n  }\n  .stroke-text-wrapper{\n    display:flex;\n    flex-direction: column;\n  }\n  .stroke-text-outline{\n    font-size: ").concat(this.attrs.width * 0.3, "px;\n    text-transform: uppercase;\n    width:").concat(this.attrs.width, "px;\n    color: transparent;\n    font-weight: 900;\n    display: flex;\n\n    align-items: center;\n    -webkit-text-stroke: 3px aquamarine;\n    position: absolute;\n    height:").concat(this.attrs.height / strokeTextList.length, "px;\n\n  }\n\n  .rng-box::after{\n    content: \"\";\n      display: block;\n      background: linear-gradient(").concat(this.attrs.overlayColor, ");\n      position: absolute;\n      height:").concat(this.attrs.height * 0.08, "px;\n      width: ").concat(this.attrs.width * 0.6, "px;\n      background-size: ").concat(this.attrs.height, "px ").concat(this.attrs.width, "px;\n  }\n\n  .rng-box{\n    position: absolute;\n    height:").concat(this.attrs.height * 0.08, "px;\n    width: ").concat(this.attrs.width * 0.6, "px;\n    top:80%;\n    left:-100%;\n    z-index: 1;\n  }\n\n  .yellow-underline{\n    position: absolute;\n    height:").concat(this.attrs.height * 0.01, "px;\n    width: ").concat(this.attrs.width * 0.5, "px;\n    top:90%;\n    left:-100%;\n    z-index: 1;\n    background: ").concat(this.attrs.mainColor, ";\n  }\n  .yellow-transition{\n    position: absolute;\n    height:").concat(this.attrs.height, "px;\n    width: ").concat(this.attrs.width, "px;\n    top:0%;\n    left:100%;\n    z-index: 1;\n    background: ").concat(this.attrs.mainColor, ";\n  }\n  .leftBlackBox,.rightBlackBox{\n    position: absolute;\n    height:").concat(this.attrs.height * 2, "px;\n    width: ").concat(this.attrs.width * 2, "px;\n    background: black;\n    transform: rotate(0deg);\n    z-index: 1;\n    top: -50%;\n  }\n  .leftBlackBox{\n    left: -200%;\n  }\n  .rightBlackBox{\n    left: 100%\n  }\n\n\n  ");
     }
   }]);
 
   return BannerA;
 }(MotorCortex.HTMLClip);
-
-var BannerA_1 = BannerA;
 
 var BannerAValidation = {
   width: {
@@ -3150,7 +3165,7 @@ var index$1 = {
   npm_name: name$1,
   version: version$1,
   incidents: [{
-    exportable: BannerA_1,
+    exportable: BannerA,
     name: "BannerA",
     attributesValidationRules: _objectSpread2({}, BannerAValidation)
   }]
