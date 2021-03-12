@@ -1,11 +1,11 @@
 import { Group } from "@kissmybutton/motorcortex";
-import dotedHalfOneOn from "./dotedHalfOneOn";
-import box from "./box";
-import leftImageLeft from "./leftImageLeft";
-import leftImageTop from "./leftImageTop";
-import rightImageLeft from "./rightImageLeft";
-import rightImageLeftWrapper from "./rightImageLeftWrapper";
-import rightImageTop from "./rightImageTop";
+import dotedHalfOneOn from "./incidents/dotedHalfOneOn";
+import box from "./incidents/box";
+import leftImageLeft from "./incidents/leftImageLeft";
+import leftImageTop from "./incidents/leftImageTop";
+import rightImageLeft from "./incidents/rightImageLeft";
+import rightImageLeftWrapper from "./incidents/rightImageLeftWrapper";
+import rightImageTop from "./incidents/rightImageTop";
 
 function intro(attrs) {
   const introGroup = new Group();

@@ -1,8 +1,8 @@
 const MotorCortex = require("@kissmybutton/motorcortex");
-import Anime from "./plugins/Anime";
+import Anime from "../plugins/Anime";
 
-import intro from "./bannerA/intro/intro";
-import outro from "./bannerA/outro/outro";
+import intro from "./scenes/intro/intro";
+import outro from "./scenes/outro/outro";
 
 class BannerA extends MotorCortex.HTMLClip {
   get fonts() {
@@ -519,31 +519,26 @@ class BannerA extends MotorCortex.HTMLClip {
       }
     );
 
-    const myGroup = new MotorCortex.Group();
-
-    for (let i = 0; i < this.n; i++) {
-      const textAnimationSize = new Anime.Anime(
-        {
-          animatedAttrs: {
-            fontSize: !this.attrs.txtGroupSize
-              ? `${this.attrs.width * 0.2}px`
-              : `${this.attrs.txtGroupSize}px`,
-            marginLeft: i % 2 !== 1 ? "14%" : "6%"
-          },
-          initialValues: {
-            fontSize: "0px",
-            marginLeft: i % 2 !== 1 ? "85%" : "6%"
-          }
+    const textA = new Anime.Anime(
+      {
+        animatedAttrs: {
+          fontSize: !this.attrs.txtGroupSize
+            ? `${this.attrs.width * 0.2}px`
+            : `${this.attrs.txtGroupSize}px`,
+          marginLeft: "@pattern(14%, 6%)"
         },
-        {
-          duration: 500,
-          selector: ".txt-" + i,
-          easing: "easeOutCubic"
+        initialValues: {
+          fontSize: "0px",
+          marginLeft: "@pattern(85%, 6%)"
         }
-      );
-
-      myGroup.addIncident(textAnimationSize, 500 + 50 * (i + 1));
-    }
+      },
+      {
+        duration: 500,
+        selector: ".txt-group",
+        easing: "easeOutCubic",
+        delay: "@expression(500 + 50 * (index + 1))"
+      }
+    );
 
     const bg2OutBg = new Anime.Anime(
       {
@@ -623,43 +618,34 @@ class BannerA extends MotorCortex.HTMLClip {
       }
     );
 
-    const circlesGroup = new MotorCortex.Group();
-
-    for (let i = 1; i <= 3; i++) {
-      const ran = `${Math.random() * 360 + "deg"}`;
-
-      const translateX = new Anime.Anime(
-        {
-          animatedAttrs: {
-            transform: {
-              rotate: ran,
-              translateX: `${(this.attrs.width / 2) * Math.random()}px`,
-              translateY: `${(this.attrs.width / 2) * Math.random()}px`
-            },
-            width: `${this.attrs.width * 0.2}px`,
-            height: `${this.attrs.width * 0.2}px`,
-            border: `${0}px solid ${this.attrs.mainColor}`
+    const circlesA = new Anime.Anime(
+      {
+        animatedAttrs: {
+          transform: {
+            translateX: `${(this.attrs.width / 2) * Math.random()}px`,
+            translateY: `${(this.attrs.width / 2) * Math.random()}px`
           },
-          initialValues: {
-            transform: {
-              rotate: ran,
-              translateX: "0px",
-              translateY: "0px"
-            },
-            width: "0px",
-            height: "0px",
-            border: `${this.attrs.width * 0.05}px solid ${this.attrs.mainColor}`
-          }
+          width: `${this.attrs.width * 0.2}px`,
+          height: `${this.attrs.width * 0.2}px`,
+          border: `${0}px solid ${this.attrs.mainColor}`
         },
-        {
-          duration: 500,
-          selector: ".circle-" + i,
-          easing: "easeOutCubic"
+        initialValues: {
+          transform: {
+            translateX: "0px",
+            translateY: "0px"
+          },
+          width: "0px",
+          height: "0px",
+          border: `${this.attrs.width * 0.05}px solid ${this.attrs.mainColor}`
         }
-      );
-
-      circlesGroup.addIncident(translateX, 500 + 50 * (i + 1));
-    }
+      },
+      {
+        duration: 500,
+        selector: ".circle",
+        easing: "easeOutCubic",
+        delay: "@expression(500 + 50 * index)"
+      }
+    );
 
     const centerTextWrapper = new Anime.Anime(
       {
@@ -1052,7 +1038,7 @@ class BannerA extends MotorCortex.HTMLClip {
 
     this.addIncident(intro(this.attrs), 0);
 
-    this.addIncident(myGroup, 500);
+    this.addIncident(textA, 500);
     this.addIncident(dotedHalfOneOff, 600);
     this.addIncident(dotedOneOn, 600);
     this.addIncident(bg2In, 700);
@@ -1063,7 +1049,7 @@ class BannerA extends MotorCortex.HTMLClip {
     this.addIncident(bgInBg, 1779);
     this.addIncident(linesInOut, 1900);
     this.addIncident(circlesWrapper, 2000);
-    this.addIncident(circlesGroup, 1400);
+    this.addIncident(circlesA, 1400);
     this.addIncident(circlesWrapperOp, 2660);
     this.addIncident(centerTextWrapper, 2000);
     this.addIncident(centerTextAfter, 2170);

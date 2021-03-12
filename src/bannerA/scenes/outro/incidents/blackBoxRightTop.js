@@ -1,4 +1,4 @@
-import Anime from "../../plugins/Anime";
+import Anime from "../../../../plugins/Anime";
 
 export default new Anime.Anime(
   {

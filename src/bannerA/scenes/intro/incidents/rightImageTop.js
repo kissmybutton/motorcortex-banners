@@ -1,4 +1,4 @@
-import Anime from "../../plugins/Anime";
+import Anime from "../../../../plugins/Anime";
 
 export default function(attrs) {
   return new Anime.Anime(
@@ -8,15 +8,13 @@ export default function(attrs) {
         top: "-50%"
       },
       initialValues: {
-        backgroundPositionY: `${attrs.height -
-          attrs.imgHeight / 2 +
-          attrs.height}px`,
-        top: "-150%"
+        backgroundPositionY: `-${(attrs.height - attrs.imgHeight / 2) * 4}px`,
+        top: "100%"
       }
     },
     {
-      duration: 300,
-      selector: ".left-image",
+      duration: 700,
+      selector: ".right-image",
       easing: "easeOutQuart"
     }
   );

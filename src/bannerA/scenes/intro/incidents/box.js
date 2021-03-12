@@ -1,4 +1,4 @@
-import Anime from "../../plugins/Anime";
+import Anime from "../../../../plugins/Anime";
 
 export default function(attrs) {
   return new Anime.Anime(
