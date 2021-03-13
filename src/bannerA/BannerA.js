@@ -1,7 +1,8 @@
 const MotorCortex = require("@kissmybutton/motorcortex");
 import Anime from "../plugins/Anime";
 
-import intro from "./scenes/intro/intro";
+import intro from "./scenes/01_intro/intro";
+import bgAndText from "./scenes/02_bgAndText/btAndText";
 import outro from "./scenes/outro/outro";
 
 class BannerA extends MotorCortex.HTMLClip {
@@ -439,107 +440,6 @@ class BannerA extends MotorCortex.HTMLClip {
   }
 
   buildTree() {
-    const dotedHalfOneOff = new Anime.Anime(
-      {
-        animatedAttrs: {
-          opacity: 0
-        },
-        initialValues: {
-          opacity: 1
-        }
-      },
-      {
-        duration: 1,
-        selector: ".doted-half",
-        easing: "easeOutQuart"
-      }
-    );
-
-    const dotedOneOn = new Anime.Anime(
-      {
-        animatedAttrs: {
-          opacity: 1
-        },
-        initialValues: {
-          opacity: 0
-        }
-      },
-      {
-        duration: 1,
-        selector: ".doted",
-        easing: "easeOutQuart"
-      }
-    );
-
-    const dotedOneOff = new Anime.Anime(
-      {
-        animatedAttrs: {
-          opacity: 0
-        },
-        initialValues: {
-          opacity: 1
-        }
-      },
-      {
-        duration: 1,
-        selector: ".doted",
-        easing: "easeOutQuart"
-      }
-    );
-
-    const bg2In = new Anime.Anime(
-      {
-        animatedAttrs: {
-          left: "0%"
-        },
-        initialValues: {
-          left: "100%"
-        }
-      },
-      {
-        duration: 500,
-        selector: ".bg2",
-        easing: "easeOutQuart"
-      }
-    );
-
-    const bg2InBg = new Anime.Anime(
-      {
-        animatedAttrs: {
-          backgroundPositionX: "50%"
-        },
-        initialValues: {
-          backgroundPositionX: "100%"
-        }
-      },
-      {
-        duration: 500,
-        selector: ".knockout",
-        easing: "easeOutQuart"
-      }
-    );
-
-    const textA = new Anime.Anime(
-      {
-        animatedAttrs: {
-          fontSize: !this.attrs.txtGroupSize
-            ? `${this.attrs.width * 0.2}px`
-            : `${this.attrs.txtGroupSize}px`,
-          marginLeft: "@pattern(14%, 6%)"
-        },
-        initialValues: {
-          fontSize: "0px",
-          marginLeft: "@pattern(85%, 6%)"
-        }
-      },
-      {
-        duration: 500,
-        selector: ".txt-group",
-        easing: "easeOutCubic",
-        delay: "@expression(500 + 50 * (index + 1))"
-      }
-    );
-
     const bg2OutBg = new Anime.Anime(
       {
         animatedAttrs: {
@@ -835,32 +735,22 @@ class BannerA extends MotorCortex.HTMLClip {
       }
     );
 
-    const strokeTextGroup = new MotorCortex.Group();
-
-    for (let i = 0; i < this.strokeTextLength; i++) {
-      const strokeTextOutline = new Anime.Anime(
-        {
-          animatedAttrs: {
-            left:
-              i % 2 !== 1
-                ? `-${this.attrs.width * 0.1}px`
-                : `${this.attrs.width * 0.1}px`
-          },
-          initialValues: {
-            left:
-              i % 2 === 1
-                ? `-${this.attrs.width * 0.5}px`
-                : `${this.attrs.width * 0.5}px`
-          }
+    const strokeText = new Anime.Anime(
+      {
+        animatedAttrs: {
+          left: `@pattern(-${this.attrs.width * 0.1}px, ${this.attrs.width *
+            0.1}px)`
         },
-        {
-          duration: 3000 + 80 * (i + 1),
-          selector: ".txt-stroke-outline-" + i
+        initialValues: {
+          left: `@pattern(-${this.attrs.width * 0.5}px, ${this.attrs.width *
+            0.5}px)`
         }
-      );
-
-      strokeTextGroup.addIncident(strokeTextOutline, 500);
-    }
+      },
+      {
+        duration: "@expression(3000 + 80 * (index + 1))",
+        selector: ".stroke-text-outline"
+      }
+    );
 
     const bgDistortionOp = new Anime.Anime(
       {
@@ -969,7 +859,7 @@ class BannerA extends MotorCortex.HTMLClip {
         selector: ".yellow-transition"
       }
     );
-    const circlesGroup2 = new MotorCortex.Group();
+
     const circlesWrapper2 = new Anime.Anime(
       {
         animatedAttrs: {
@@ -1000,50 +890,37 @@ class BannerA extends MotorCortex.HTMLClip {
       }
     );
 
-    for (let i = 1; i <= 3; i++) {
-      const ran = `${Math.random() * 360 + "deg"}`;
-
-      const translateX = new Anime.Anime(
-        {
-          animatedAttrs: {
-            transform: {
-              rotate: ran,
-              translateX: `${(this.attrs.width / 2) * Math.random()}px`,
-              translateY: `${(this.attrs.width / 2) * Math.random()}px`
-            },
-            width: `${this.attrs.width * 0.2}px`,
-            height: `${this.attrs.width * 0.2}px`,
-            border: ` ${0}px solid yellow`
+    const circles2 = new Anime.Anime(
+      {
+        animatedAttrs: {
+          transform: {
+            translateX: `@expression(${this.attrs.width / 2} * random())px`, // `${(this.attrs.width / 2) * Math.random()}px`,
+            translateY: `@expression(${this.attrs.width / 2} * random())px` // `${(this.attrs.width / 2) * Math.random()}px`
           },
-          initialValues: {
-            transform: {
-              rotate: ran,
-              translateX: "0px",
-              translateY: "0px"
-            },
-            width: "0px",
-            height: "0px",
-            border: ` ${this.attrs.width * 0.05}px solid yellow`
-          }
+          width: `${this.attrs.width * 0.2}px`,
+          height: `${this.attrs.width * 0.2}px`,
+          border: `0px solid yellow`
         },
-        {
-          duration: 500,
-          selector: ".circle-" + i,
-          easing: "easeOutCubic"
+        initialValues: {
+          transform: {
+            translateX: "0px",
+            translateY: "0px"
+          },
+          width: "0px",
+          height: "0px",
+          border: ` ${this.attrs.width * 0.05}px solid yellow`
         }
-      );
-
-      circlesGroup2.addIncident(translateX, 500 + 50 * (i + 1));
-    }
+      },
+      {
+        duration: 500,
+        selector: ".circle",
+        easing: "easeOutCubic",
+        delay: "@expression(50*index)"
+      }
+    );
 
     this.addIncident(intro(this.attrs), 0);
-
-    this.addIncident(textA, 500);
-    this.addIncident(dotedHalfOneOff, 600);
-    this.addIncident(dotedOneOn, 600);
-    this.addIncident(bg2In, 700);
-    this.addIncident(bg2InBg, 700);
-    this.addIncident(dotedOneOff, 1000);
+    this.addIncident(bgAndText(this.attrs), 500);
 
     this.addIncident(bg2OutBg, 1800);
     this.addIncident(bgInBg, 1779);
@@ -1064,7 +941,7 @@ class BannerA extends MotorCortex.HTMLClip {
     this.addIncident(strokeTextCenter, 3000);
     this.addIncident(yellowTransitionLeft, 2400);
     this.addIncident(yellowTransitionWidth, 3000);
-    this.addIncident(strokeTextGroup, 2400);
+    this.addIncident(strokeText, 2900);
     this.addIncident(bgDistortionOp, 2920);
     this.addIncident(bgScaleUp, 3640);
     this.addIncident(bgScaleDown, 3840);
@@ -1073,7 +950,7 @@ class BannerA extends MotorCortex.HTMLClip {
     this.addIncident(yellowUnderLineWidth, 5200);
     this.addIncident(circlesWrapper2, 3000);
     this.addIncident(circlesWrapper2Position, 3000);
-    this.addIncident(circlesGroup2, 3010);
+    this.addIncident(circles2, 3560);
 
     this.addIncident(outro, 6000);
   }

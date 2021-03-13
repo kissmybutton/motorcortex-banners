@@ -75,7 +75,7 @@
     "browserslist": "^4.7.0",
     "caniuse-lite": "^1.0.30000997",
     "@kissmybutton/motorcortex-anime": "2.1.11",
-    "@kissmybutton/motorcortex": "/Users/andreastrantidis/WebstormProjects/motorcortex2"
+    "@kissmybutton/motorcortex": "6.3.0"
   },
   "peerDependencies": {
     "@kissmybutton/motorcortex": "6.2.5"
@@ -86,7 +86,7 @@
     "@babel/preset-env": "^7.1.0",
     "@commitlint/cli": "^7.2.1",
     "@commitlint/config-conventional": "^7.0.1",
-    "@kissmybutton/motorcortex": "/Users/andreastrantidis/WebstormProjects/motorcortex2",
+    "@kissmybutton/motorcortex": "6.3.0",
     "@kissmybutton/motorcortex-player": "^1.5.11",
     "@semantic-release/changelog": "^3.0.2",
     "@semantic-release/git": "^7.0.7",

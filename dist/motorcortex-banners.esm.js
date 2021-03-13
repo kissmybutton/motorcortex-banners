@@ -2477,6 +2477,106 @@ function intro(attrs) {
   return introGroup;
 }
 
+function textA (attrs) {
+  return new Anime$1.Anime({
+    animatedAttrs: {
+      fontSize: !attrs.txtGroupSize ? "".concat(attrs.width * 0.2, "px") : "".concat(attrs.txtGroupSize, "px"),
+      marginLeft: "@pattern(14%, 6%)"
+    },
+    initialValues: {
+      fontSize: "0px",
+      marginLeft: "@pattern(85%, 6%)"
+    }
+  }, {
+    duration: 500,
+    selector: ".txt-group",
+    easing: "easeOutCubic",
+    delay: "@expression(500 + 50 * (index + 1))"
+  });
+}
+
+var dotedHalfOneOff = new Anime$1.Anime({
+  animatedAttrs: {
+    opacity: 0
+  },
+  initialValues: {
+    opacity: 1
+  }
+}, {
+  duration: 1,
+  selector: ".doted-half",
+  easing: "easeOutQuart"
+});
+
+var dotedOneOn = new Anime$1.Anime({
+  animatedAttrs: {
+    opacity: 1
+  },
+  initialValues: {
+    opacity: 0
+  }
+}, {
+  duration: 1,
+  selector: ".doted",
+  easing: "easeOutQuart"
+});
+
+var bg2In = new Anime$1.Anime({
+  animatedAttrs: {
+    left: "0%"
+  },
+  initialValues: {
+    left: "100%"
+  }
+}, {
+  duration: 500,
+  selector: ".bg2",
+  easing: "easeOutQuart"
+});
+
+var bg2InBg = new Anime$1.Anime({
+  animatedAttrs: {
+    backgroundPositionX: "50%"
+  },
+  initialValues: {
+    backgroundPositionX: "100%"
+  }
+}, {
+  duration: 500,
+  selector: ".knockout",
+  easing: "easeOutQuart"
+});
+
+var dotedOneOff = new Anime$1.Anime({
+  animatedAttrs: {
+    opacity: 0
+  },
+  initialValues: {
+    opacity: 1
+  }
+}, {
+  duration: 1,
+  selector: ".doted",
+  easing: "easeOutQuart"
+});
+
+function scene(attrs) {
+  var group = new Group();
+  group.addIncident(textA(attrs), 0); // 500
+
+  group.addIncident(dotedHalfOneOff, 100); // 600
+
+  group.addIncident(dotedOneOn, 100); // 600
+
+  group.addIncident(bg2In, 200); // 700
+
+  group.addIncident(bg2InBg, 200); // 700
+
+  group.addIncident(dotedOneOff, 500); // 1000
+
+  return group;
+}
+
 var blackBoxLeftTop = new Anime$1.Anime({
   animatedAttrs: {
     left: "0%"
@@ -2538,81 +2638,6 @@ var BannerA = /*#__PURE__*/function (_MotorCortex$HTMLClip) {
   _createClass(BannerA, [{
     key: "buildTree",
     value: function buildTree() {
-      var dotedHalfOneOff = new Anime$1.Anime({
-        animatedAttrs: {
-          opacity: 0
-        },
-        initialValues: {
-          opacity: 1
-        }
-      }, {
-        duration: 1,
-        selector: ".doted-half",
-        easing: "easeOutQuart"
-      });
-      var dotedOneOn = new Anime$1.Anime({
-        animatedAttrs: {
-          opacity: 1
-        },
-        initialValues: {
-          opacity: 0
-        }
-      }, {
-        duration: 1,
-        selector: ".doted",
-        easing: "easeOutQuart"
-      });
-      var dotedOneOff = new Anime$1.Anime({
-        animatedAttrs: {
-          opacity: 0
-        },
-        initialValues: {
-          opacity: 1
-        }
-      }, {
-        duration: 1,
-        selector: ".doted",
-        easing: "easeOutQuart"
-      });
-      var bg2In = new Anime$1.Anime({
-        animatedAttrs: {
-          left: "0%"
-        },
-        initialValues: {
-          left: "100%"
-        }
-      }, {
-        duration: 500,
-        selector: ".bg2",
-        easing: "easeOutQuart"
-      });
-      var bg2InBg = new Anime$1.Anime({
-        animatedAttrs: {
-          backgroundPositionX: "50%"
-        },
-        initialValues: {
-          backgroundPositionX: "100%"
-        }
-      }, {
-        duration: 500,
-        selector: ".knockout",
-        easing: "easeOutQuart"
-      });
-      var textA = new Anime$1.Anime({
-        animatedAttrs: {
-          fontSize: !this.attrs.txtGroupSize ? "".concat(this.attrs.width * 0.2, "px") : "".concat(this.attrs.txtGroupSize, "px"),
-          marginLeft: "@pattern(14%, 6%)"
-        },
-        initialValues: {
-          fontSize: "0px",
-          marginLeft: "@pattern(85%, 6%)"
-        }
-      }, {
-        duration: 500,
-        selector: ".txt-group",
-        easing: "easeOutCubic",
-        delay: "@expression(500 + 50 * (index + 1))"
-      });
       var bg2OutBg = new Anime$1.Anime({
         animatedAttrs: {
           width: "0px"
@@ -2848,23 +2873,17 @@ var BannerA = /*#__PURE__*/function (_MotorCortex$HTMLClip) {
         selector: ".stroke-text-center",
         easing: "easeOutQuart"
       });
-      var strokeTextGroup = new MotorCortex.Group();
-
-      for (var i = 0; i < this.strokeTextLength; i++) {
-        var strokeTextOutline = new Anime$1.Anime({
-          animatedAttrs: {
-            left: i % 2 !== 1 ? "-".concat(this.attrs.width * 0.1, "px") : "".concat(this.attrs.width * 0.1, "px")
-          },
-          initialValues: {
-            left: i % 2 === 1 ? "-".concat(this.attrs.width * 0.5, "px") : "".concat(this.attrs.width * 0.5, "px")
-          }
-        }, {
-          duration: 3000 + 80 * (i + 1),
-          selector: ".txt-stroke-outline-" + i
-        });
-        strokeTextGroup.addIncident(strokeTextOutline, 500);
-      }
-
+      var strokeText = new Anime$1.Anime({
+        animatedAttrs: {
+          left: "@pattern(-".concat(this.attrs.width * 0.1, "px, ").concat(this.attrs.width * 0.1, "px)")
+        },
+        initialValues: {
+          left: "@pattern(-".concat(this.attrs.width * 0.5, "px, ").concat(this.attrs.width * 0.5, "px)")
+        }
+      }, {
+        duration: "@expression(3000 + 80 * (index + 1))",
+        selector: ".stroke-text-outline"
+      });
       var bgDistortionOp = new Anime$1.Anime({
         animatedAttrs: {
           opacity: 0
@@ -2952,7 +2971,6 @@ var BannerA = /*#__PURE__*/function (_MotorCortex$HTMLClip) {
         duration: 1000,
         selector: ".yellow-transition"
       });
-      var circlesGroup2 = new MotorCortex.Group();
       var circlesWrapper2 = new Anime$1.Anime({
         animatedAttrs: {
           opacity: 1
@@ -2975,45 +2993,35 @@ var BannerA = /*#__PURE__*/function (_MotorCortex$HTMLClip) {
         selector: ".circles-wrapper",
         easing: "easeOutQuart"
       });
+      var circles2 = new Anime$1.Anime({
+        animatedAttrs: {
+          transform: {
+            translateX: "@expression(".concat(this.attrs.width / 2, " * random())px"),
+            // `${(this.attrs.width / 2) * Math.random()}px`,
+            translateY: "@expression(".concat(this.attrs.width / 2, " * random())px") // `${(this.attrs.width / 2) * Math.random()}px`
 
-      for (var _i = 1; _i <= 3; _i++) {
-        var ran = "".concat(Math.random() * 360 + "deg");
-        var translateX = new Anime$1.Anime({
-          animatedAttrs: {
-            transform: {
-              rotate: ran,
-              translateX: "".concat(this.attrs.width / 2 * Math.random(), "px"),
-              translateY: "".concat(this.attrs.width / 2 * Math.random(), "px")
-            },
-            width: "".concat(this.attrs.width * 0.2, "px"),
-            height: "".concat(this.attrs.width * 0.2, "px"),
-            border: " ".concat(0, "px solid yellow")
           },
-          initialValues: {
-            transform: {
-              rotate: ran,
-              translateX: "0px",
-              translateY: "0px"
-            },
-            width: "0px",
-            height: "0px",
-            border: " ".concat(this.attrs.width * 0.05, "px solid yellow")
-          }
-        }, {
-          duration: 500,
-          selector: ".circle-" + _i,
-          easing: "easeOutCubic"
-        });
-        circlesGroup2.addIncident(translateX, 500 + 50 * (_i + 1));
-      }
-
+          width: "".concat(this.attrs.width * 0.2, "px"),
+          height: "".concat(this.attrs.width * 0.2, "px"),
+          border: "0px solid yellow"
+        },
+        initialValues: {
+          transform: {
+            translateX: "0px",
+            translateY: "0px"
+          },
+          width: "0px",
+          height: "0px",
+          border: " ".concat(this.attrs.width * 0.05, "px solid yellow")
+        }
+      }, {
+        duration: 500,
+        selector: ".circle",
+        easing: "easeOutCubic",
+        delay: "@expression(50*index)"
+      });
       this.addIncident(intro(this.attrs), 0);
-      this.addIncident(textA, 500);
-      this.addIncident(dotedHalfOneOff, 600);
-      this.addIncident(dotedOneOn, 600);
-      this.addIncident(bg2In, 700);
-      this.addIncident(bg2InBg, 700);
-      this.addIncident(dotedOneOff, 1000);
+      this.addIncident(scene(this.attrs), 500);
       this.addIncident(bg2OutBg, 1800);
       this.addIncident(bgInBg, 1779);
       this.addIncident(linesInOut, 1900);
@@ -3033,7 +3041,7 @@ var BannerA = /*#__PURE__*/function (_MotorCortex$HTMLClip) {
       this.addIncident(strokeTextCenter, 3000);
       this.addIncident(yellowTransitionLeft, 2400);
       this.addIncident(yellowTransitionWidth, 3000);
-      this.addIncident(strokeTextGroup, 2400);
+      this.addIncident(strokeText, 2900);
       this.addIncident(bgDistortionOp, 2920);
       this.addIncident(bgScaleUp, 3640);
       this.addIncident(bgScaleDown, 3840);
@@ -3042,7 +3050,7 @@ var BannerA = /*#__PURE__*/function (_MotorCortex$HTMLClip) {
       this.addIncident(yellowUnderLineWidth, 5200);
       this.addIncident(circlesWrapper2, 3000);
       this.addIncident(circlesWrapper2Position, 3000);
-      this.addIncident(circlesGroup2, 3010);
+      this.addIncident(circles2, 3560);
       this.addIncident(outro, 6000);
     }
   }, {
