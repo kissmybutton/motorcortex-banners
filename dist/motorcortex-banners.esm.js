@@ -2577,6 +2577,252 @@ function scene(attrs) {
   return group;
 }
 
+var bg2OutBg = new Anime$1.Anime({
+  animatedAttrs: {
+    width: "0px"
+  }
+}, {
+  duration: 300,
+  selector: ".bg2",
+  easing: "easeOutQuart"
+});
+
+var bg2InBg$1 = new Anime$1.Anime({
+  animatedAttrs: {
+    opacity: 1
+  },
+  initialValues: {
+    opacity: 0
+  }
+}, {
+  duration: 1,
+  selector: ".bg",
+  easing: "easeOutQuart"
+});
+
+function linesInOut (attrs) {
+  return new Anime$1.Anime({
+    animatedAttrs: {
+      left: "-100%",
+      width: "".concat(attrs.width / 2 * 0.1, "px")
+    },
+    initialValues: {
+      left: "100%"
+    }
+  }, {
+    duration: 1000,
+    selector: ".lines-wrapper",
+    easing: "easeOutQuart"
+  });
+}
+
+var circlesWrapper = new Anime$1.Anime({
+  animatedAttrs: {
+    opacity: 1
+  },
+  initialValues: {
+    opacity: 0
+  }
+}, {
+  duration: 1,
+  selector: ".circles-wrapper",
+  easing: "easeOutQuart"
+});
+
+function circlesA (attrs) {
+  return new Anime$1.Anime({
+    animatedAttrs: {
+      transform: {
+        translateX: "".concat(attrs.width / 2 * Math.random(), "px"),
+        translateY: "".concat(attrs.width / 2 * Math.random(), "px")
+      },
+      width: "".concat(attrs.width * 0.2, "px"),
+      height: "".concat(attrs.width * 0.2, "px"),
+      border: "0px solid ".concat(attrs.mainColor)
+    },
+    initialValues: {
+      transform: {
+        translateX: "0px",
+        translateY: "0px"
+      },
+      width: "0px",
+      height: "0px",
+      border: "".concat(attrs.width * 0.05, "px solid ").concat(attrs.mainColor)
+    }
+  }, {
+    duration: 500,
+    selector: ".circle",
+    easing: "easeOutCubic",
+    delay: "@expression(50 * index)"
+  });
+}
+
+var centerTextWrapper = new Anime$1.Anime({
+  animatedAttrs: {
+    transform: {
+      scale: 1
+    }
+  },
+  initialValues: {
+    transform: {
+      scale: 0
+    }
+  }
+}, {
+  duration: 500,
+  selector: ".center-text-wrapper",
+  easing: "easeOutBounce"
+});
+
+var centerTextAfter = new Anime$1.Anime({
+  animatedAttrs: {
+    left: "49%",
+    top: "51%"
+  },
+  initialValues: {
+    left: "50%",
+    top: "50%"
+  }
+}, {
+  duration: 500,
+  selector: ".center-text-after",
+  easing: "easeOutBounce"
+});
+
+var centerTextBefore = new Anime$1.Anime({
+  animatedAttrs: {
+    left: "51%",
+    top: "49%"
+  },
+  initialValues: {
+    left: "50%",
+    top: "50%"
+  }
+}, {
+  duration: 500,
+  selector: ".center-text-before",
+  easing: "easeOutBounce"
+});
+
+var slecedImgWrapper = new Anime$1.Anime({
+  animatedAttrs: {
+    top: "0%"
+  },
+  initialValues: {
+    top: "-100%"
+  }
+}, {
+  duration: 300,
+  selector: ".sliced-img-wrapper",
+  easing: "easeOutCubic"
+});
+
+var slicedImg = new Anime$1.Anime({
+  animatedAttrs: {
+    top: "0%"
+  },
+  initialValues: {
+    top: "100%"
+  }
+}, {
+  duration: 300,
+  selector: ".sliced-img",
+  easing: "easeOutCubic"
+});
+
+var slicedImgTransformUp = new Anime$1.Anime({
+  animatedAttrs: {
+    transform: {
+      scale: 1.5
+    }
+  },
+  initialValues: {
+    transform: {
+      scale: 1
+    }
+  }
+}, {
+  duration: 150,
+  selector: ".sliced-img",
+  easing: "easeOutCubic"
+});
+
+var circlesWrapperOp = new Anime$1.Anime({
+  animatedAttrs: {
+    opacity: 0
+  },
+  initialValues: {
+    opacity: 1
+  }
+}, {
+  duration: 1,
+  selector: ".circles-wrapper",
+  easing: "easeOutQuart"
+});
+
+var slicedImgWrapperClipPath = new Anime$1.Anime({
+  animatedAttrs: {
+    clipPath: "polygon(0 0, 100% 0, 100% 110%, 0 100%)"
+  },
+  initialValues: {
+    clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 90%)"
+  }
+}, {
+  duration: 300,
+  selector: ".sliced-img-wrapper",
+  easing: "easeOutCubic"
+});
+
+var slicedImgTransformDown = new Anime$1.Anime({
+  animatedAttrs: {
+    transform: {
+      scale: 1
+    }
+  },
+  initialValues: {
+    transform: {
+      scale: 1.5
+    }
+  }
+}, {
+  duration: 150,
+  selector: ".sliced-img",
+  easing: "easeOutCubic"
+});
+
+function scene$1(attrs) {
+  var group = new Group();
+  group.addIncident(bg2OutBg, 0); // 1800
+
+  console.log(group.addIncident(bg2InBg$1, 0)); // 1800
+
+  group.addIncident(linesInOut(attrs), 100); // 1900
+
+  group.addIncident(circlesA(attrs), 100); // 1900
+
+  group.addIncident(circlesWrapper, 200); // 2000
+
+  group.addIncident(centerTextWrapper, 200); // 2000
+
+  group.addIncident(centerTextAfter, 370); // 2170
+
+  group.addIncident(centerTextBefore, 370); // 2170
+
+  group.addIncident(slecedImgWrapper, 700); // 2500
+
+  group.addIncident(slicedImg, 700); // 2500
+
+  group.addIncident(slicedImgTransformUp, 750); // 2550
+
+  group.addIncident(circlesWrapperOp, 860); // 2660
+
+  group.addIncident(slicedImgWrapperClipPath, 900); // 2700
+
+  group.addIncident(slicedImgTransformDown, 1050); // 2850
+
+  return group;
+}
+
 var blackBoxLeftTop = new Anime$1.Anime({
   animatedAttrs: {
     left: "0%"
@@ -2638,201 +2884,6 @@ var BannerA = /*#__PURE__*/function (_MotorCortex$HTMLClip) {
   _createClass(BannerA, [{
     key: "buildTree",
     value: function buildTree() {
-      var bg2OutBg = new Anime$1.Anime({
-        animatedAttrs: {
-          width: "0px"
-        }
-      }, {
-        duration: 300,
-        selector: ".bg2",
-        easing: "easeOutQuart"
-      });
-      var bgInBg = new Anime$1.Anime({
-        animatedAttrs: {
-          opacity: 1
-        },
-        initialValues: {
-          opacity: 0
-        }
-      }, {
-        duration: 1,
-        selector: ".bg",
-        easing: "easeOutQuart"
-      });
-      var linesInOut = new Anime$1.Anime({
-        animatedAttrs: {
-          left: "-100%",
-          width: "".concat(this.attrs.width / 2 * 0.1, "px")
-        },
-        initialValues: {
-          left: "100%"
-        }
-      }, {
-        duration: 1000,
-        selector: ".lines-wrapper",
-        easing: "easeOutQuart"
-      });
-      var circlesWrapper = new Anime$1.Anime({
-        animatedAttrs: {
-          opacity: 1
-        },
-        initialValues: {
-          opacity: 0
-        }
-      }, {
-        duration: 1,
-        selector: ".circles-wrapper",
-        easing: "easeOutQuart"
-      });
-      var circlesWrapperOp = new Anime$1.Anime({
-        animatedAttrs: {
-          opacity: 0
-        },
-        initialValues: {
-          opacity: 1
-        }
-      }, {
-        duration: 1,
-        selector: ".circles-wrapper",
-        easing: "easeOutQuart"
-      });
-      var circlesA = new Anime$1.Anime({
-        animatedAttrs: {
-          transform: {
-            translateX: "".concat(this.attrs.width / 2 * Math.random(), "px"),
-            translateY: "".concat(this.attrs.width / 2 * Math.random(), "px")
-          },
-          width: "".concat(this.attrs.width * 0.2, "px"),
-          height: "".concat(this.attrs.width * 0.2, "px"),
-          border: "".concat(0, "px solid ", this.attrs.mainColor)
-        },
-        initialValues: {
-          transform: {
-            translateX: "0px",
-            translateY: "0px"
-          },
-          width: "0px",
-          height: "0px",
-          border: "".concat(this.attrs.width * 0.05, "px solid ").concat(this.attrs.mainColor)
-        }
-      }, {
-        duration: 500,
-        selector: ".circle",
-        easing: "easeOutCubic",
-        delay: "@expression(500 + 50 * index)"
-      });
-      var centerTextWrapper = new Anime$1.Anime({
-        animatedAttrs: {
-          transform: {
-            scale: 1
-          }
-        },
-        initialValues: {
-          transform: {
-            scale: 0
-          }
-        }
-      }, {
-        duration: 500,
-        selector: ".center-text-wrapper",
-        easing: "easeOutBounce"
-      });
-      var centerTextAfter = new Anime$1.Anime({
-        animatedAttrs: {
-          left: "49%",
-          top: "51%"
-        },
-        initialValues: {
-          left: "50%",
-          top: "50%"
-        }
-      }, {
-        duration: 500,
-        selector: ".center-text-after",
-        easing: "easeOutBounce"
-      });
-      var centerTextBefore = new Anime$1.Anime({
-        animatedAttrs: {
-          left: "51%",
-          top: "49%"
-        },
-        initialValues: {
-          left: "50%",
-          top: "50%"
-        }
-      }, {
-        duration: 500,
-        selector: ".center-text-before",
-        easing: "easeOutBounce"
-      });
-      var slicedImgWrapper = new Anime$1.Anime({
-        animatedAttrs: {
-          top: "0%"
-        },
-        initialValues: {
-          top: "-100%"
-        }
-      }, {
-        duration: 300,
-        selector: ".sliced-img-wrapper",
-        easing: "easeOutCubic"
-      });
-      var slicedImg = new Anime$1.Anime({
-        animatedAttrs: {
-          top: "0%"
-        },
-        initialValues: {
-          top: "100%"
-        }
-      }, {
-        duration: 300,
-        selector: ".sliced-img",
-        easing: "easeOutCubic"
-      });
-      var slicedImgWrappeClipPath = new Anime$1.Anime({
-        animatedAttrs: {
-          clipPath: "polygon(0 0, 100% 0, 100% 110%, 0 100%)"
-        },
-        initialValues: {
-          clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 90%)"
-        }
-      }, {
-        duration: 300,
-        selector: ".sliced-img-wrapper",
-        easing: "easeOutCubic"
-      });
-      var slicedImgTranformUp = new Anime$1.Anime({
-        animatedAttrs: {
-          transform: {
-            scale: 1.5
-          }
-        },
-        initialValues: {
-          transform: {
-            scale: 1
-          }
-        }
-      }, {
-        duration: 150,
-        selector: ".sliced-img",
-        easing: "easeOutCubic"
-      });
-      var slicedImgTranformDown = new Anime$1.Anime({
-        animatedAttrs: {
-          transform: {
-            scale: 1
-          }
-        },
-        initialValues: {
-          transform: {
-            scale: 1.5
-          }
-        }
-      }, {
-        duration: 150,
-        selector: ".sliced-img",
-        easing: "easeOutCubic"
-      });
       var slicedImgWrapperOpacity = new Anime$1.Anime({
         animatedAttrs: {
           opacity: 0
@@ -3022,20 +3073,7 @@ var BannerA = /*#__PURE__*/function (_MotorCortex$HTMLClip) {
       });
       this.addIncident(intro(this.attrs), 0);
       this.addIncident(scene(this.attrs), 500);
-      this.addIncident(bg2OutBg, 1800);
-      this.addIncident(bgInBg, 1779);
-      this.addIncident(linesInOut, 1900);
-      this.addIncident(circlesWrapper, 2000);
-      this.addIncident(circlesA, 1400);
-      this.addIncident(circlesWrapperOp, 2660);
-      this.addIncident(centerTextWrapper, 2000);
-      this.addIncident(centerTextAfter, 2170);
-      this.addIncident(centerTextBefore, 2170);
-      this.addIncident(slicedImgWrapper, 2500);
-      this.addIncident(slicedImg, 2500);
-      this.addIncident(slicedImgWrappeClipPath, 2700);
-      this.addIncident(slicedImgTranformUp, 2550);
-      this.addIncident(slicedImgTranformDown, 2850);
+      this.addIncident(scene$1(this.attrs), 1800);
       this.addIncident(slicedImgWrapperOpacity, 3000);
       this.addIncident(strokeTextWrapper, 3000);
       this.addIncident(strokeTextCenter, 3000);
