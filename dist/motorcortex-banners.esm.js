@@ -2794,7 +2794,7 @@ function scene$1(attrs) {
   var group = new Group();
   group.addIncident(bg2OutBg, 0); // 1800
 
-  console.log(group.addIncident(bg2InBg$1, 0)); // 1800
+  group.addIncident(bg2InBg$1, 0); // 1800
 
   group.addIncident(linesInOut(attrs), 100); // 1900
 
@@ -2819,6 +2819,249 @@ function scene$1(attrs) {
   group.addIncident(slicedImgWrapperClipPath, 900); // 2700
 
   group.addIncident(slicedImgTransformDown, 1050); // 2850
+
+  return group;
+}
+
+var yellowTransitionLeft = new Anime$1.Anime({
+  animatedAttrs: {
+    left: "-100%"
+  }
+}, {
+  duration: 1000,
+  selector: ".yellow-transition"
+});
+
+var slicedImgWrapperOpacity = new Anime$1.Anime({
+  animatedAttrs: {
+    opacity: 0
+  },
+  initialValues: {
+    opacity: 1
+  }
+}, {
+  duration: 1,
+  selector: ".sliced-img-wrapper,.center-text-wrapper",
+  easing: "easeOutQuart"
+});
+
+var strokeTextWrapper = new Anime$1.Anime({
+  animatedAttrs: {
+    opacity: 1
+  },
+  initialValues: {
+    opacity: 0
+  }
+}, {
+  duration: 300,
+  selector: ".stroke-text-wrapper",
+  easing: "easeOutQuart"
+});
+
+function strokeTextCenter (attrs) {
+  return new Anime$1.Anime({
+    animatedAttrs: {
+      fontSize: "".concat(attrs.width * 0.15, "px"),
+      left: "5%",
+      height: "".concat(attrs.width * 0.15, "px")
+    },
+    initialValues: {
+      fontSize: "0px",
+      left: "50%",
+      height: "".concat(attrs.width * 0.15 * 3, "px")
+    }
+  }, {
+    duration: 500,
+    selector: ".stroke-text-center",
+    easing: "easeOutQuart"
+  });
+}
+
+var yellowTransitionWidth = new Anime$1.Anime({
+  animatedAttrs: {
+    width: "0px"
+  }
+}, {
+  duration: 500,
+  selector: ".yellow-transition"
+});
+
+function strokeText (attrs) {
+  return new Anime$1.Anime({
+    animatedAttrs: {
+      left: "@pattern(-".concat(attrs.width * 0.1, "px, ").concat(attrs.width * 0.1, "px)")
+    },
+    initialValues: {
+      left: "@pattern(-".concat(attrs.width * 0.5, "px, ").concat(attrs.width * 0.5, "px)")
+    }
+  }, {
+    duration: "@expression(3000 + 80 * (index + 1))",
+    selector: ".stroke-text-outline"
+  });
+}
+
+var bgDistortionOp = new Anime$1.Anime({
+  animatedAttrs: {
+    opacity: 0
+  },
+  initialValues: {
+    opacity: 1
+  }
+}, {
+  duration: 20,
+  selector: ".bg2"
+});
+
+var circlesWrapper2 = new Anime$1.Anime({
+  animatedAttrs: {
+    opacity: 1
+  },
+  initialValues: {
+    opacity: 0
+  }
+}, {
+  duration: 1,
+  selector: ".circles-wrapper",
+  easing: "easeOutQuart"
+});
+
+var circlesWrapper2Position = new Anime$1.Anime({
+  animatedAttrs: {
+    top: "-33%",
+    left: "-33%"
+  }
+}, {
+  duration: 1,
+  selector: ".circles-wrapper",
+  easing: "easeOutQuart"
+});
+
+function circles2 (attrs) {
+  return new Anime$1.Anime({
+    animatedAttrs: {
+      transform: {
+        translateX: "@expression(".concat(attrs.width / 2, " * random())px"),
+        // `${(this.attrs.width / 2) * Math.random()}px`,
+        translateY: "@expression(".concat(attrs.width / 2, " * random())px") // `${(this.attrs.width / 2) * Math.random()}px`
+
+      },
+      width: "".concat(attrs.width * 0.2, "px"),
+      height: "".concat(attrs.width * 0.2, "px"),
+      border: "0px solid yellow"
+    },
+    initialValues: {
+      transform: {
+        translateX: "0px",
+        translateY: "0px"
+      },
+      width: "0px",
+      height: "0px",
+      border: " ".concat(attrs.width * 0.05, "px solid yellow")
+    }
+  }, {
+    duration: 500,
+    selector: ".circle",
+    easing: "easeOutCubic",
+    delay: "@expression(50*index)"
+  });
+}
+
+var bgScaleUp = new Anime$1.Anime({
+  animatedAttrs: {
+    transform: {
+      scale: 1.5
+    }
+  },
+  initialValues: {
+    transform: {
+      scale: 1
+    }
+  }
+}, {
+  duration: 200,
+  selector: ".bg"
+});
+
+var bgScaleDown = new Anime$1.Anime({
+  animatedAttrs: {
+    transform: {
+      scale: 1
+    }
+  },
+  initialValues: {
+    transform: {
+      scale: 1.5
+    }
+  }
+}, {
+  duration: 150,
+  selector: ".bg"
+});
+
+var yellowUnderLineLeftIn = new Anime$1.Anime({
+  animatedAttrs: {
+    left: "30%"
+  },
+  initialValues: {
+    left: "-100%"
+  }
+}, {
+  duration: 2000,
+  selector: ".yellow-underline"
+});
+
+var rngBoxDownIn = new Anime$1.Anime({
+  animatedAttrs: {
+    left: "30%"
+  },
+  initialValues: {
+    left: "-70%"
+  }
+}, {
+  duration: 2000,
+  selector: ".rng-box"
+});
+
+var yellowUnderLineWidth = new Anime$1.Anime({
+  animatedAttrs: {
+    width: "0px"
+  }
+}, {
+  duration: 1000,
+  selector: ".yellow-underline"
+});
+
+function scene$2(attrs) {
+  var group = new Group();
+  group.addIncident(yellowTransitionLeft, 0); // 2400
+
+  group.addIncident(strokeText(attrs), 500); // 2900
+
+  group.addIncident(bgDistortionOp, 520); // 2920
+
+  group.addIncident(slicedImgWrapperOpacity, 600); // 3000
+
+  group.addIncident(strokeTextWrapper, 600); // 3000
+
+  group.addIncident(strokeTextCenter(attrs), 600); // 3000
+
+  group.addIncident(yellowTransitionWidth, 600); // 3000
+
+  group.addIncident(circlesWrapper2, 600); // 3000
+
+  group.addIncident(circlesWrapper2Position, 600); // 3000
+
+  group.addIncident(circles2(attrs), 1160); // 3560
+
+  group.addIncident(bgScaleUp, 1240); // 3640
+
+  group.addIncident(bgScaleDown, 1440); // 3840
+
+  group.addIncident(yellowUnderLineLeftIn, 1800); // 4200
+
+  group.addIncident(rngBoxDownIn, 1900); // 4300
+
+  group.addIncident(yellowUnderLineWidth, 2800); // 5200
 
   return group;
 }
@@ -2884,211 +3127,10 @@ var BannerA = /*#__PURE__*/function (_MotorCortex$HTMLClip) {
   _createClass(BannerA, [{
     key: "buildTree",
     value: function buildTree() {
-      var slicedImgWrapperOpacity = new Anime$1.Anime({
-        animatedAttrs: {
-          opacity: 0
-        },
-        initialValues: {
-          opacity: 1
-        }
-      }, {
-        duration: 1,
-        selector: ".sliced-img-wrapper,.center-text-wrapper",
-        easing: "easeOutQuart"
-      });
-      var strokeTextWrapper = new Anime$1.Anime({
-        animatedAttrs: {
-          opacity: 1
-        },
-        initialValues: {
-          opacity: 0
-        }
-      }, {
-        duration: 300,
-        selector: ".stroke-text-wrapper",
-        easing: "easeOutQuart"
-      });
-      var strokeTextCenter = new Anime$1.Anime({
-        animatedAttrs: {
-          fontSize: "".concat(this.attrs.width * 0.15, "px"),
-          left: "5%",
-          height: "".concat(this.attrs.width * 0.15, "px")
-        },
-        initialValues: {
-          fontSize: "".concat(0, "px"),
-          left: "50%",
-          height: "".concat(this.attrs.width * 0.15 * 3, "px")
-        }
-      }, {
-        duration: 500,
-        selector: ".stroke-text-center",
-        easing: "easeOutQuart"
-      });
-      var strokeText = new Anime$1.Anime({
-        animatedAttrs: {
-          left: "@pattern(-".concat(this.attrs.width * 0.1, "px, ").concat(this.attrs.width * 0.1, "px)")
-        },
-        initialValues: {
-          left: "@pattern(-".concat(this.attrs.width * 0.5, "px, ").concat(this.attrs.width * 0.5, "px)")
-        }
-      }, {
-        duration: "@expression(3000 + 80 * (index + 1))",
-        selector: ".stroke-text-outline"
-      });
-      var bgDistortionOp = new Anime$1.Anime({
-        animatedAttrs: {
-          opacity: 0
-        },
-        initialValues: {
-          opacity: 1
-        }
-      }, {
-        duration: 20,
-        selector: ".bg2"
-      });
-      var bgScaleUp = new Anime$1.Anime({
-        animatedAttrs: {
-          transform: {
-            scale: 1.5
-          }
-        },
-        initialValues: {
-          transform: {
-            scale: 1
-          }
-        }
-      }, {
-        duration: 200,
-        selector: ".bg"
-      });
-      var bgScaleDown = new Anime$1.Anime({
-        animatedAttrs: {
-          transform: {
-            scale: 1
-          }
-        },
-        initialValues: {
-          transform: {
-            scale: 1.5
-          }
-        }
-      }, {
-        duration: 150,
-        selector: ".bg"
-      });
-      var rngBoxDownIn = new Anime$1.Anime({
-        animatedAttrs: {
-          left: "30%"
-        },
-        initialValues: {
-          left: "-70%"
-        }
-      }, {
-        duration: 2000,
-        selector: ".rng-box"
-      });
-      var yellowUnderLineLeftIn = new Anime$1.Anime({
-        animatedAttrs: {
-          left: "30%"
-        },
-        initialValues: {
-          left: "-100%"
-        }
-      }, {
-        duration: 2000,
-        selector: ".yellow-underline"
-      });
-      var yellowUnderLineWidth = new Anime$1.Anime({
-        animatedAttrs: {
-          width: "0px"
-        }
-      }, {
-        duration: 1000,
-        selector: ".yellow-underline"
-      });
-      var yellowTransitionWidth = new Anime$1.Anime({
-        animatedAttrs: {
-          width: "0px"
-        }
-      }, {
-        duration: 500,
-        selector: ".yellow-transition"
-      });
-      var yellowTransitionLeft = new Anime$1.Anime({
-        animatedAttrs: {
-          left: "-100%"
-        }
-      }, {
-        duration: 1000,
-        selector: ".yellow-transition"
-      });
-      var circlesWrapper2 = new Anime$1.Anime({
-        animatedAttrs: {
-          opacity: 1
-        },
-        initialValues: {
-          opacity: 0
-        }
-      }, {
-        duration: 1,
-        selector: ".circles-wrapper",
-        easing: "easeOutQuart"
-      });
-      var circlesWrapper2Position = new Anime$1.Anime({
-        animatedAttrs: {
-          top: "-33%",
-          left: "-33%"
-        }
-      }, {
-        duration: 1,
-        selector: ".circles-wrapper",
-        easing: "easeOutQuart"
-      });
-      var circles2 = new Anime$1.Anime({
-        animatedAttrs: {
-          transform: {
-            translateX: "@expression(".concat(this.attrs.width / 2, " * random())px"),
-            // `${(this.attrs.width / 2) * Math.random()}px`,
-            translateY: "@expression(".concat(this.attrs.width / 2, " * random())px") // `${(this.attrs.width / 2) * Math.random()}px`
-
-          },
-          width: "".concat(this.attrs.width * 0.2, "px"),
-          height: "".concat(this.attrs.width * 0.2, "px"),
-          border: "0px solid yellow"
-        },
-        initialValues: {
-          transform: {
-            translateX: "0px",
-            translateY: "0px"
-          },
-          width: "0px",
-          height: "0px",
-          border: " ".concat(this.attrs.width * 0.05, "px solid yellow")
-        }
-      }, {
-        duration: 500,
-        selector: ".circle",
-        easing: "easeOutCubic",
-        delay: "@expression(50*index)"
-      });
       this.addIncident(intro(this.attrs), 0);
       this.addIncident(scene(this.attrs), 500);
       this.addIncident(scene$1(this.attrs), 1800);
-      this.addIncident(slicedImgWrapperOpacity, 3000);
-      this.addIncident(strokeTextWrapper, 3000);
-      this.addIncident(strokeTextCenter, 3000);
-      this.addIncident(yellowTransitionLeft, 2400);
-      this.addIncident(yellowTransitionWidth, 3000);
-      this.addIncident(strokeText, 2900);
-      this.addIncident(bgDistortionOp, 2920);
-      this.addIncident(bgScaleUp, 3640);
-      this.addIncident(bgScaleDown, 3840);
-      this.addIncident(rngBoxDownIn, 4300);
-      this.addIncident(yellowUnderLineLeftIn, 4200);
-      this.addIncident(yellowUnderLineWidth, 5200);
-      this.addIncident(circlesWrapper2, 3000);
-      this.addIncident(circlesWrapper2Position, 3000);
-      this.addIncident(circles2, 3560);
+      this.addIncident(scene$2(this.attrs), 2400);
       this.addIncident(outro, 6000);
     }
   }, {
