@@ -1,6 +1,6 @@
 {
   "name": "@kissmybutton/motorcortex-banners",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "banners plugin for MotorCortex",
   "main": "dist/motorcortex-banners.cjs.js",
   "module": "dist/motorcortex-banners.esm.js",
@@ -78,7 +78,7 @@
     "@kissmybutton/motorcortex": "6.2.5"
   },
   "peerDependencies": {
-    "@kissmybutton/motorcortex": "6.2.5"
+    "@kissmybutton/motorcortex": "^6.2.5"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
@@ -86,7 +86,7 @@
     "@babel/preset-env": "^7.1.0",
     "@commitlint/cli": "^7.2.1",
     "@commitlint/config-conventional": "^7.0.1",
-    "@kissmybutton/motorcortex": "6.2.3",
+    "@kissmybutton/motorcortex": "^6.2.3",
     "@kissmybutton/motorcortex-player": "^1.5.11",
     "@semantic-release/changelog": "^3.0.2",
     "@semantic-release/git": "^7.0.7",
