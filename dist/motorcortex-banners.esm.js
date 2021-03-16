@@ -3144,7 +3144,7 @@ var BannerAValidation = {
 };
 
 var name$1 = "@kissmybutton/motorcortex-banners";
-var version$1 = "0.0.10";
+var version$1 = "0.0.11";
 
 var index$1 = {
   npm_name: name$1,
