@@ -1,6 +1,6 @@
-import BannerA from "./BannerA"
-import { BannerAValidation } from "./validation"
-import {name,version}  from '../package.json'
+import BannerA from "./BannerA";
+import { BannerAValidation } from "./validation";
+import { name, version } from "../package.json";
 
 export default {
   npm_name: name,

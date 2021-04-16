@@ -1,8 +1,8 @@
-const MotorCortex = require("@kissmybutton/motorcortex");
-const AnimeDefinition = require("@kissmybutton/motorcortex-anime");
-const Anime = MotorCortex.loadPlugin(AnimeDefinition);
+import { loadPlugin, HTMLClip, Group } from "@kissmybutton/motorcortex";
+import AnimeDefinition from "@kissmybutton/motorcortex-anime";
+const Anime = loadPlugin(AnimeDefinition);
 
-class BannerA extends MotorCortex.HTMLClip {
+export default class BannerA extends HTMLClip {
   dinamicFontSize(lc, width) {
     let fontsize;
     fontsize = width / 0.6 / lc;
@@ -30,7 +30,9 @@ class BannerA extends MotorCortex.HTMLClip {
       const n = Math.floor(this.attrs.height / (this.attrs.width * 0.2));
       this.n = n;
       for (let i = 0; i < n; i++) {
-        list.push(`<div class="txt-group txt-${i}">${this.attrs.txtGroup}</div>`);
+        list.push(
+          `<div class="txt-group txt-${i}">${this.attrs.txtGroup}</div>`
+        );
       }
       return list.join("");
     })();
@@ -41,9 +43,10 @@ class BannerA extends MotorCortex.HTMLClip {
       for (let i = 0; i < strokeTextList.length; i++) {
         list.push(
           `
-          <div style="${style === true
-            ? `top:${(this.attrs.height / strokeTextList.length) * i}px;`
-            : " "
+          <div style="${
+            style === true
+              ? `top:${(this.attrs.height / strokeTextList.length) * i}px;`
+              : " "
           }" class="${className}${i}">${strokeTextList[i]}</div>`
         );
       }
@@ -165,8 +168,8 @@ class BannerA extends MotorCortex.HTMLClip {
       left: 7%;
       top: 65%;
       opacity: 0;
-      
     }
+
     .doted-half{
       clip-path: polygon(0 31%, 85% 31%, 100% 55%, 15% 55%);
       left: 65%;
@@ -178,6 +181,7 @@ class BannerA extends MotorCortex.HTMLClip {
       width: ${this.attrs.width}px;
       position: absolute;
     }
+
     .lines{
       background: ${this.attrs.mainColor};
       position: absolute;
@@ -187,7 +191,6 @@ class BannerA extends MotorCortex.HTMLClip {
       width:${this.attrs.width / 2}px;
       overflow: hidden;
     }
-
   
     .right-image{
       height: ${this.attrs.imgHeight}px;
@@ -203,21 +206,21 @@ class BannerA extends MotorCortex.HTMLClip {
       flex: 1 0 auto;
       background-repeat: no-repeat;
     }
+
     .left-image{
       height: ${this.attrs.imgHeight}px;
       width: ${this.attrs.imgWidth}px;
       position: relative;
       background-image: url(${this.attrs.bgUrl});
       background-size: ${this.attrs.imgWidth}px;
-     
       transform: scale(1);
       display: flex;
       justify-content: center;
       align-items: center;
       flex-wrap: wrap;
       flex: 1 0 auto;
-  
     }
+
     .left-image:after,.right-image:after {
       content: "";
       display: block;
@@ -233,14 +236,15 @@ class BannerA extends MotorCortex.HTMLClip {
     .txt-group{
       font-size: ${this.attrs.txtGroupSize}px;
     }
+
     .txt-group:nth-of-type(odd){
       height: 14%;
-      
     }
+
     .txt-group:nth-of-type(2n+2) {
-    
-    height: 14%;
+      height: 14%;
     }
+
     .knockout {
       background: url(${this.attrs.bgUrl});
       background-position: 50% 50%;
@@ -255,193 +259,192 @@ class BannerA extends MotorCortex.HTMLClip {
       color: ${this.attrs.mainColor};
     }
 
-  body{
-    
-  }
-  .bg2{
-    background: ${this.attrs.mainColor};
-    width:${this.attrs.width}px;
-    height: ${this.attrs.height}px;
-    position: absolute;
-    left:100%;
-  }
-  .bg{
-    background: url(${this.attrs.bgUrl});
-    background-position: 50% 50%;
-    width:${this.attrs.width}px;
-    height: ${this.attrs.height}px;
-    position: absolute;
-  }
-
-  .circle{
-    width: ${0}px;
-    height: ${0}px;
-    background: transparent;
-   
-    border-radius: 100%;
-    position: absolute;
-  }
- 
-
-  .circles-wrapper{
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width:${this.attrs.width}px;
-    height: ${this.attrs.height}px;
-  }
-  .center-text{
-    font-weight: bold;
-    font-size: ${100}px;
-    text-transform: uppercase;
-    color:${this.attrs.mainColor}
-  }
-  .center-text-before,.center-text-after{
-   content: attr(data-text);
-   position: absolute;
-   top: 50%;
-   left: 50%;
-   transform: translate(-50%, -50%);
-   z-index: -2;
-   opacity: 0.6;
-   font-size: ${100}px;
-   font-weight: bold;
-    
-   text-transform: uppercase;
-  }
-  .center-text-before{
-    color: #ff00c1;
-  
-  }
-  .center-text-after{
-    color: #3498db;
-  
-  }
-
-  .flex-center{
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width:${this.attrs.width}px;
-    height: ${this.attrs.height}px;
-    z-index: 1;
-  }
-  .sliced-img-wrapper{
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width:${this.attrs.width}px;
-    height: ${this.attrs.height}px;
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 90%);
-    overflow: hidden;
-  }
-  .sliced-img{
-    background: url(${this.attrs.bgUrl});
-    background-position: 50% 50%;
-    width:${this.attrs.width}px;
-    height: ${this.attrs.height}px;
-    position: absolute;
-    
-  }
-
-  .sliced-img::after{
-    content: "";
-      display: block;
-      background: linear-gradient(${this.attrs.overlayColor});
+    .bg2{
+      background: ${this.attrs.mainColor};
+      width:${this.attrs.width}px;
+      height: ${this.attrs.height}px;
       position: absolute;
-      top: 0;
-      bottom: 0;
-      right: 0;
-      left: 0;
-  }
+      left:100%;
+    }
 
-  .stroke-text-center{
-    position: relative;
-    text-transform: uppercase;
-    width:${this.attrs.width}px;
-    color: ${this.attrs.mainColor};
-    font-weight: 900;
-    display: flex;
-    align-items: center;
-    z-index: 1;
-    
-  }
-  .stroke-text-wrapper{
-    display:flex;
-    flex-direction: column;
-  }
-  .stroke-text-outline{
-    font-size: ${this.attrs.width * 0.3}px;
-    text-transform: uppercase;
-    width:${this.attrs.width}px;
-    color: transparent;
-    font-weight: 900;
-    display: flex;
-    
-    align-items: center;
-    -webkit-text-stroke: 3px aquamarine;
-    position: absolute;
-    height:${this.attrs.height / strokeTextList.length}px;
-    
-  }
+    .bg{
+      background: url(${this.attrs.bgUrl});
+      background-position: 50% 50%;
+      width:${this.attrs.width}px;
+      height: ${this.attrs.height}px;
+      position: absolute;
+    }
 
-  .rng-box::after{
-    content: "";
+    .circle{
+      width: ${0}px;
+      height: ${0}px;
+      background: transparent;
+      border-radius: 100%;
+      position: absolute;
+    }
+
+    .circles-wrapper{
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width:${this.attrs.width}px;
+      height: ${this.attrs.height}px;
+    }
+
+    .center-text{
+      font-weight: bold;
+      font-size: ${100}px;
+      text-transform: uppercase;
+      color:${this.attrs.mainColor}
+    }
+
+    .center-text-before,.center-text-after{
+      content: attr(data-text);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: -2;
+      opacity: 0.6;
+      font-size: ${100}px;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    .center-text-before{
+      color: #ff00c1;
+    }
+
+    .center-text-after{
+      color: #3498db;
+    }
+
+    .flex-center{
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width:${this.attrs.width}px;
+      height: ${this.attrs.height}px;
+      z-index: 1;
+    }
+
+    .sliced-img-wrapper{
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width:${this.attrs.width}px;
+      height: ${this.attrs.height}px;
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 90%);
+      overflow: hidden;
+    }
+
+    .sliced-img{
+      background: url(${this.attrs.bgUrl});
+      background-position: 50% 50%;
+      width:${this.attrs.width}px;
+      height: ${this.attrs.height}px;
+      position: absolute;
+    }
+
+    .sliced-img::after{
+      content: "";
+        display: block;
+        background: linear-gradient(${this.attrs.overlayColor});
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+    }
+
+    .stroke-text-center{
+      position: relative;
+      text-transform: uppercase;
+      width:${this.attrs.width}px;
+      color: ${this.attrs.mainColor};
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      z-index: 1;
+    }
+
+    .stroke-text-wrapper{
+      display:flex;
+      flex-direction: column;
+    }
+
+    .stroke-text-outline{
+      font-size: ${this.attrs.width * 0.3}px;
+      text-transform: uppercase;
+      width:${this.attrs.width}px;
+      color: transparent;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      -webkit-text-stroke: 3px aquamarine;
+      position: absolute;
+      height:${this.attrs.height / strokeTextList.length}px;
+    }
+
+    .rng-box::after{
+      content: "";
       display: block;
       background: linear-gradient(${this.attrs.overlayColor});
       position: absolute;
       height:${this.attrs.height * 0.08}px;
       width: ${this.attrs.width * 0.6}px;
       background-size: ${this.attrs.height}px ${this.attrs.width}px;
-  }
+    }
 
-  .rng-box{
-    position: absolute;
-    height:${this.attrs.height * 0.08}px;
-    width: ${this.attrs.width * 0.6}px;
-    top:80%;
-    left:-100%;
-    z-index: 1;
-  }
-  
-  .yellow-underline{
-    position: absolute;
-    height:${this.attrs.height * 0.01}px;
-    width: ${this.attrs.width * 0.5}px;
-    top:90%;
-    left:-100%;
-    z-index: 1;
-    background: ${this.attrs.mainColor};
-  }
-  .yellow-transition{
-    position: absolute;
-    height:${this.attrs.height}px;
-    width: ${this.attrs.width}px;
-    top:0%;
-    left:100%;
-    z-index: 1;
-    background: ${this.attrs.mainColor};
-  }
-  .leftBlackBox,.rightBlackBox{
-    position: absolute;
-    height:${this.attrs.height * 2}px;
-    width: ${this.attrs.width * 2}px;
-    background: black;
-    transform: rotate(0deg); 
-    z-index: 1;
-    top: -50%;
-  }
-  .leftBlackBox{
-    left: -200%;
-  }
-  .rightBlackBox{
-    left: 100%
-  }
+    .rng-box{
+      position: absolute;
+      height:${this.attrs.height * 0.08}px;
+      width: ${this.attrs.width * 0.6}px;
+      top:80%;
+      left:-100%;
+      z-index: 1;
+    }
     
+    .yellow-underline{
+      position: absolute;
+      height:${this.attrs.height * 0.01}px;
+      width: ${this.attrs.width * 0.5}px;
+      top:90%;
+      left:-100%;
+      z-index: 1;
+      background: ${this.attrs.mainColor};
+    }
 
+    .yellow-transition{
+      position: absolute;
+      height:${this.attrs.height}px;
+      width: ${this.attrs.width}px;
+      top:0%;
+      left:100%;
+      z-index: 1;
+      background: ${this.attrs.mainColor};
+    }
+
+    .leftBlackBox,.rightBlackBox{
+      position: absolute;
+      height:${this.attrs.height * 2}px;
+      width: ${this.attrs.width * 2}px;
+      background: black;
+      transform: rotate(0deg); 
+      z-index: 1;
+      top: -50%;
+    }
+
+    .leftBlackBox{
+      left: -200%;
+    }
+
+    .rightBlackBox{
+      left: 100%
+    }
   `;
   }
 
@@ -465,6 +468,7 @@ class BannerA extends MotorCortex.HTMLClip {
         repeats: 2
       }
     );
+
     const leftImageTop = new Anime.Anime(
       {
         animatedAttrs: {
@@ -485,6 +489,7 @@ class BannerA extends MotorCortex.HTMLClip {
         easing: "easeOutQuart"
       }
     );
+
     const leftImageLeft = new Anime.Anime(
       {
         animatedAttrs: {
@@ -530,6 +535,7 @@ class BannerA extends MotorCortex.HTMLClip {
         easing: "easeOutQuart"
       }
     );
+
     const rightImageLeft = new Anime.Anime(
       {
         animatedAttrs: {
@@ -662,13 +668,15 @@ class BannerA extends MotorCortex.HTMLClip {
       }
     );
 
-    const myGroup = new MotorCortex.Group();
+    const myGroup = new Group();
 
     for (let i = 0; i < this.n; i++) {
       const textAnimationSize = new Anime.Anime(
         {
           animatedAttrs: {
-            fontSize: !this.attrs.txtGroupSize?`${this.attrs.width * 0.2}px`:`${this.attrs.txtGroupSize}px`,
+            fontSize: !this.attrs.txtGroupSize
+              ? `${this.attrs.width * 0.2}px`
+              : `${this.attrs.txtGroupSize}px`,
             marginLeft: i % 2 !== 1 ? "14%" : "6%"
           },
           initialValues: {
@@ -764,7 +772,7 @@ class BannerA extends MotorCortex.HTMLClip {
       }
     );
 
-    const circlesGroup = new MotorCortex.Group();
+    const circlesGroup = new Group();
 
     for (let i = 1; i <= 3; i++) {
       const ran = `${Math.random() * 360 + "deg"}`;
@@ -789,8 +797,9 @@ class BannerA extends MotorCortex.HTMLClip {
             },
             width: "0px",
             height: "0px",
-            border: ` ${this.attrs.width * 0.05}px solid ${this.attrs.mainColor
-              }`
+            border: ` ${this.attrs.width * 0.05}px solid ${
+              this.attrs.mainColor
+            }`
           }
         },
         {
@@ -991,7 +1000,7 @@ class BannerA extends MotorCortex.HTMLClip {
       }
     );
 
-    const strokeTextGroup = new MotorCortex.Group();
+    const strokeTextGroup = new Group();
 
     for (let i = 0; i < this.strokeTextLength; i++) {
       const strokeTextOutline = new Anime.Anime(
@@ -1047,6 +1056,7 @@ class BannerA extends MotorCortex.HTMLClip {
         selector: ".bg"
       }
     );
+
     const bgScaleDown = new Anime.Anime(
       {
         animatedAttrs: {
@@ -1076,6 +1086,7 @@ class BannerA extends MotorCortex.HTMLClip {
         selector: ".rng-box"
       }
     );
+
     const yellowUnderLineLeftIn = new Anime.Anime(
       {
         animatedAttrs: {
@@ -1090,6 +1101,7 @@ class BannerA extends MotorCortex.HTMLClip {
         selector: ".yellow-underline"
       }
     );
+
     const yellowUnderLineWidth = new Anime.Anime(
       {
         animatedAttrs: {
@@ -1125,7 +1137,8 @@ class BannerA extends MotorCortex.HTMLClip {
         selector: ".yellow-transition"
       }
     );
-    const circlesGroup2 = new MotorCortex.Group();
+    const circlesGroup2 = new Group();
+
     const circlesWrapper2 = new Anime.Anime(
       {
         animatedAttrs: {
@@ -1288,5 +1301,3 @@ class BannerA extends MotorCortex.HTMLClip {
     this.addIncident(blackBoxRightTop, 6000);
   }
 }
-
-module.exports = BannerA;

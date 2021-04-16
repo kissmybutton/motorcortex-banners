@@ -1,15 +1,15 @@
-const MotorCortex = require("@kissmybutton/motorcortex");
-const Player = require("@kissmybutton/motorcortex-player/");
-const BannersDefinition = require("../dist/motorcortex-banners.umd");
-const Plugin = MotorCortex.loadPlugin(BannersDefinition);
+import { loadPlugin, HTMLClip } from "@kissmybutton/motorcortex";
+import Player from "@kissmybutton/motorcortex-player";
+import BannersDefinition from "../dist/motorcortex-banners.umd";
+
+const Plugin = loadPlugin(BannersDefinition);
 
 const css = `.container {
   overflow: hidden;
   display: flex;
   justify-content: center;
-
-  width:1280px;
-  height:720px;
+  width:100%;
+  height:100%;
 }`;
 
 const html = ` <div class="container container1"></div>`;
@@ -17,11 +17,11 @@ const html = ` <div class="container container1"></div>`;
 const host = document.getElementById("clip");
 
 const containerParams = {
-  width: "1280px",
-  height: "720px"
+  width: "800px",
+  height: "600px"
 };
 
-const clip = new MotorCortex.HTMLClip({
+const clip = new HTMLClip({
   css,
   html,
   host,
@@ -57,5 +57,4 @@ const BannerA = new Plugin.BannerA(
 );
 
 clip.addIncident(BannerA, 0);
-window.clip = clip;
-new Player({ clip, timeFormat: "ms" });
+new Player({ clip });

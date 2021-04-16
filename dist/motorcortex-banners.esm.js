@@ -1,154 +1,4 @@
-import MotorCortex from '@kissmybutton/motorcortex';
-
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
-
-function _defineProperties(target, props) {
-  for (var i = 0; i < props.length; i++) {
-    var descriptor = props[i];
-    descriptor.enumerable = descriptor.enumerable || false;
-    descriptor.configurable = true;
-    if ("value" in descriptor) descriptor.writable = true;
-    Object.defineProperty(target, descriptor.key, descriptor);
-  }
-}
-
-function _createClass(Constructor, protoProps, staticProps) {
-  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
-  if (staticProps) _defineProperties(Constructor, staticProps);
-  return Constructor;
-}
-
-function _defineProperty(obj, key, value) {
-  if (key in obj) {
-    Object.defineProperty(obj, key, {
-      value: value,
-      enumerable: true,
-      configurable: true,
-      writable: true
-    });
-  } else {
-    obj[key] = value;
-  }
-
-  return obj;
-}
-
-function ownKeys(object, enumerableOnly) {
-  var keys = Object.keys(object);
-
-  if (Object.getOwnPropertySymbols) {
-    var symbols = Object.getOwnPropertySymbols(object);
-    if (enumerableOnly) symbols = symbols.filter(function (sym) {
-      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
-    });
-    keys.push.apply(keys, symbols);
-  }
-
-  return keys;
-}
-
-function _objectSpread2(target) {
-  for (var i = 1; i < arguments.length; i++) {
-    var source = arguments[i] != null ? arguments[i] : {};
-
-    if (i % 2) {
-      ownKeys(Object(source), true).forEach(function (key) {
-        _defineProperty(target, key, source[key]);
-      });
-    } else if (Object.getOwnPropertyDescriptors) {
-      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
-    } else {
-      ownKeys(Object(source)).forEach(function (key) {
-        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
-      });
-    }
-  }
-
-  return target;
-}
-
-function _inherits(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function");
-  }
-
-  subClass.prototype = Object.create(superClass && superClass.prototype, {
-    constructor: {
-      value: subClass,
-      writable: true,
-      configurable: true
-    }
-  });
-  if (superClass) _setPrototypeOf(subClass, superClass);
-}
-
-function _getPrototypeOf(o) {
-  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
-    return o.__proto__ || Object.getPrototypeOf(o);
-  };
-  return _getPrototypeOf(o);
-}
-
-function _setPrototypeOf(o, p) {
-  _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
-    o.__proto__ = p;
-    return o;
-  };
-
-  return _setPrototypeOf(o, p);
-}
-
-function _isNativeReflectConstruct() {
-  if (typeof Reflect === "undefined" || !Reflect.construct) return false;
-  if (Reflect.construct.sham) return false;
-  if (typeof Proxy === "function") return true;
-
-  try {
-    Date.prototype.toString.call(Reflect.construct(Date, [], function () {}));
-    return true;
-  } catch (e) {
-    return false;
-  }
-}
-
-function _assertThisInitialized(self) {
-  if (self === void 0) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }
-
-  return self;
-}
-
-function _possibleConstructorReturn(self, call) {
-  if (call && (typeof call === "object" || typeof call === "function")) {
-    return call;
-  }
-
-  return _assertThisInitialized(self);
-}
-
-function _createSuper(Derived) {
-  var hasNativeReflectConstruct = _isNativeReflectConstruct();
-
-  return function _createSuperInternal() {
-    var Super = _getPrototypeOf(Derived),
-        result;
-
-    if (hasNativeReflectConstruct) {
-      var NewTarget = _getPrototypeOf(this).constructor;
-
-      result = Reflect.construct(Super, arguments, NewTarget);
-    } else {
-      result = Super.apply(this, arguments);
-    }
-
-    return _possibleConstructorReturn(this, result);
-  };
-}
+import MotorCortex, { loadPlugin, Group, HTMLClip } from '@kissmybutton/motorcortex';
 
 function _classCallCheck$1(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
@@ -258,7 +108,7 @@ function _isNativeReflectConstruct$1() {
   if (typeof Proxy === "function") return true;
 
   try {
-    Date.prototype.toString.call(Reflect.construct(Date, [], function () {}));
+    Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {}));
     return true;
   } catch (e) {
     return false;
@@ -282,11 +132,13 @@ function _possibleConstructorReturn$1(self, call) {
 }
 
 function _createSuper$1(Derived) {
-  return function () {
+  var hasNativeReflectConstruct = _isNativeReflectConstruct$1();
+
+  return function _createSuperInternal() {
     var Super = _getPrototypeOf$1(Derived),
         result;
 
-    if (_isNativeReflectConstruct$1()) {
+    if (hasNativeReflectConstruct) {
       var NewTarget = _getPrototypeOf$1(this).constructor;
 
       result = Reflect.construct(Super, arguments, NewTarget);
@@ -295,6 +147,156 @@ function _createSuper$1(Derived) {
     }
 
     return _possibleConstructorReturn$1(this, result);
+  };
+}
+
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+function _defineProperties(target, props) {
+  for (var i = 0; i < props.length; i++) {
+    var descriptor = props[i];
+    descriptor.enumerable = descriptor.enumerable || false;
+    descriptor.configurable = true;
+    if ("value" in descriptor) descriptor.writable = true;
+    Object.defineProperty(target, descriptor.key, descriptor);
+  }
+}
+
+function _createClass(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties(Constructor, staticProps);
+  return Constructor;
+}
+
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+function ownKeys(object, enumerableOnly) {
+  var keys = Object.keys(object);
+
+  if (Object.getOwnPropertySymbols) {
+    var symbols = Object.getOwnPropertySymbols(object);
+    if (enumerableOnly) symbols = symbols.filter(function (sym) {
+      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+    });
+    keys.push.apply(keys, symbols);
+  }
+
+  return keys;
+}
+
+function _objectSpread2(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? arguments[i] : {};
+
+    if (i % 2) {
+      ownKeys(Object(source), true).forEach(function (key) {
+        _defineProperty(target, key, source[key]);
+      });
+    } else if (Object.getOwnPropertyDescriptors) {
+      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+    } else {
+      ownKeys(Object(source)).forEach(function (key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
+    }
+  }
+
+  return target;
+}
+
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function");
+  }
+
+  subClass.prototype = Object.create(superClass && superClass.prototype, {
+    constructor: {
+      value: subClass,
+      writable: true,
+      configurable: true
+    }
+  });
+  if (superClass) _setPrototypeOf(subClass, superClass);
+}
+
+function _getPrototypeOf(o) {
+  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
+    return o.__proto__ || Object.getPrototypeOf(o);
+  };
+  return _getPrototypeOf(o);
+}
+
+function _setPrototypeOf(o, p) {
+  _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
+    o.__proto__ = p;
+    return o;
+  };
+
+  return _setPrototypeOf(o, p);
+}
+
+function _isNativeReflectConstruct() {
+  if (typeof Reflect === "undefined" || !Reflect.construct) return false;
+  if (Reflect.construct.sham) return false;
+  if (typeof Proxy === "function") return true;
+
+  try {
+    Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {}));
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
+function _assertThisInitialized(self) {
+  if (self === void 0) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+
+  return self;
+}
+
+function _possibleConstructorReturn(self, call) {
+  if (call && (typeof call === "object" || typeof call === "function")) {
+    return call;
+  }
+
+  return _assertThisInitialized(self);
+}
+
+function _createSuper(Derived) {
+  var hasNativeReflectConstruct = _isNativeReflectConstruct();
+
+  return function _createSuperInternal() {
+    var Super = _getPrototypeOf(Derived),
+        result;
+
+    if (hasNativeReflectConstruct) {
+      var NewTarget = _getPrototypeOf(this).constructor;
+
+      result = Reflect.construct(Super, arguments, NewTarget);
+    } else {
+      result = Super.apply(this, arguments);
+    }
+
+    return _possibleConstructorReturn(this, result);
   };
 }
 /*
@@ -982,7 +984,7 @@ function anime(params) {
   }
 
   var instance = createNewInstance(params);
-  var promise = makePromise(instance);
+  makePromise(instance);
 
   function seekChild(time, child) {
     if (child) {
@@ -1051,7 +1053,7 @@ function anime(params) {
         progress = strings[0];
 
         for (var s = 0; s < stringsLength; s++) {
-          var a = strings[s];
+          strings[s];
           var b = strings[s + 1];
           var n$1 = numbers[s];
 
@@ -1096,7 +1098,7 @@ function anime(params) {
 
         if (!instance.passThrough && 'Promise' in window) {
           resolve();
-          promise = makePromise(instance);
+          makePromise(instance);
         }
       }
     }
@@ -1326,18 +1328,18 @@ function getMatrix2D(win, element) {
   return qrDecompone(values);
 }
 
-var Anime = /*#__PURE__*/function (_MotorCortex$Effect) {
-  _inherits$1(Anime, _MotorCortex$Effect);
+var Anime$1 = /*#__PURE__*/function (_MotorCortex$Effect) {
+  _inherits(Anime, _MotorCortex$Effect);
 
-  var _super = _createSuper$1(Anime);
+  var _super = _createSuper(Anime);
 
   function Anime() {
-    _classCallCheck$1(this, Anime);
+    _classCallCheck(this, Anime);
 
     return _super.apply(this, arguments);
   }
 
-  _createClass$1(Anime, [{
+  _createClass(Anime, [{
     key: "onGetContext",
     value: function onGetContext() {
       var options = {};
@@ -1350,39 +1352,35 @@ var Anime = /*#__PURE__*/function (_MotorCortex$Effect) {
             continue;
           }
 
-          options[compoAttribute[i]] = [this.getInitialValue()[compoAttribute[i]], this.targetValue[compoAttribute[i]]];
+          options[compoAttribute[i]] = [this.initialValue[compoAttribute[i]], this.targetValue[compoAttribute[i]]];
         }
       } else {
-        options[this.attributeKey] = [this.getInitialValue(), this.targetValue];
+        options[this.attributeKey] = [this.initialValue, this.targetValue];
       }
 
-      this.target = anime_es(_objectSpread2$1({
+      this.target = anime_es(_objectSpread2(_objectSpread2({
         autoplay: false,
         duration: this.props.duration,
         easing: "linear",
         targets: this.element
-      }, (this.attrs || {}).attrs || {}, {}, options)); // handle first render initial values
+      }, (this.attrs || {}).attrs || {}), options)); // handle first render initial values
     }
   }, {
     key: "getScratchValue",
     value: function getScratchValue() {
-      if (this.attributeKey === "transform") {
-        var obj = {};
-        var transform = compositeAttributes[this.attributeKey];
-        var currentTransform = getMatrix2D(this.context.window, this.element);
-
-        for (var i = 0; i < transform.length; i++) {
-          if (Object.prototype.hasOwnProperty.call(currentTransform, transform[i])) {
-            obj[transform[i]] = currentTransform[transform[i]];
-          } else {
-            obj[transform[i]] = anime_es.get(this.element, transform[i]);
-          }
-        }
-
-        return obj;
+      if (this.attributeKey !== "transform") {
+        return anime_es.get(this.element, this.attributeKey);
       }
 
-      return anime_es.get(this.element, this.attributeKey);
+      var obj = {};
+      var transform = compositeAttributes[this.attributeKey];
+      var currentTransform = getMatrix2D(this.context.window, this.element);
+
+      for (var i = 0; i < transform.length; i++) {
+        obj[transform[i]] = Object.prototype.hasOwnProperty.call(currentTransform, transform[i]) ? currentTransform[transform[i]] : anime_es.get(this.element, transform[i]);
+      }
+
+      return obj;
     }
     /**
      * @param {number} f
@@ -1411,17 +1409,17 @@ var Anime = /*#__PURE__*/function (_MotorCortex$Effect) {
 
 
 var MotionPath = /*#__PURE__*/function (_MotorCortex$Effect) {
-  _inherits$1(MotionPath, _MotorCortex$Effect);
+  _inherits(MotionPath, _MotorCortex$Effect);
 
-  var _super = _createSuper$1(MotionPath);
+  var _super = _createSuper(MotionPath);
 
   function MotionPath() {
-    _classCallCheck$1(this, MotionPath);
+    _classCallCheck(this, MotionPath);
 
     return _super.apply(this, arguments);
   }
 
-  _createClass$1(MotionPath, [{
+  _createClass(MotionPath, [{
     key: "onGetContext",
     value: function onGetContext() {
       this.pixelsAccuracy = this.attrs.pixelsAccuracy || 4;
@@ -2315,13 +2313,13 @@ var animatedAttrs = {
     min: 0
   }
 };
-var name = "@kissmybutton/motorcortex-anime";
-var version = "2.1.11";
-var index = {
-  npm_name: name,
-  version: version,
+var name$1 = "@kissmybutton/motorcortex-anime";
+var version$1 = "2.1.14";
+var index$1 = {
+  npm_name: name$1,
+  version: version$1,
   incidents: [{
-    exportable: Anime,
+    exportable: Anime$1,
     name: "Anime",
     attributesValidationRules: {
       animatedAttrs: animatedAttrs
@@ -2348,20 +2346,20 @@ var index = {
   compositeAttributes: compositeAttributes
 };
 
-var Anime$1 = MotorCortex.loadPlugin(index);
+var Anime = loadPlugin(index$1);
 
-var BannerA = /*#__PURE__*/function (_MotorCortex$HTMLClip) {
-  _inherits(BannerA, _MotorCortex$HTMLClip);
+var BannerA = /*#__PURE__*/function (_HTMLClip) {
+  _inherits$1(BannerA, _HTMLClip);
 
-  var _super = _createSuper(BannerA);
+  var _super = _createSuper$1(BannerA);
 
   function BannerA() {
-    _classCallCheck(this, BannerA);
+    _classCallCheck$1(this, BannerA);
 
     return _super.apply(this, arguments);
   }
 
-  _createClass(BannerA, [{
+  _createClass$1(BannerA, [{
     key: "dinamicFontSize",
     value: function dinamicFontSize(lc, width) {
       var fontsize;
@@ -2378,9 +2376,56 @@ var BannerA = /*#__PURE__*/function (_MotorCortex$HTMLClip) {
       return fontsize;
     }
   }, {
+    key: "font",
+    get: function get() {
+      return [{
+        type: "google-font",
+        src: "https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,400;0,500;0,800;1,700;1,800;1,900&display=swap"
+      }];
+    }
+  }, {
+    key: "html",
+    get: function get() {
+      var _this = this;
+
+      var textlist = function () {
+        var list = [];
+        var n = Math.floor(_this.attrs.height / (_this.attrs.width * 0.2));
+        _this.n = n;
+
+        for (var i = 0; i < n; i++) {
+          list.push("<div class=\"txt-group txt-".concat(i, "\">").concat(_this.attrs.txtGroup, "</div>"));
+        }
+
+        return list.join("");
+      }();
+
+      var strokeTextList = this.attrs.strokeText.split(" ");
+      this.strokeTextLength = strokeTextList.length;
+
+      var textlistStroke = function textlistStroke(className) {
+        var style = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+        var list = [];
+
+        for (var i = 0; i < strokeTextList.length; i++) {
+          list.push("\n          <div style=\"".concat(style === true ? "top:".concat(_this.attrs.height / strokeTextList.length * i, "px;") : " ", "\" class=\"").concat(className).concat(i, "\">").concat(strokeTextList[i], "</div>"));
+        }
+
+        return list.join("");
+      };
+
+      return "\n    <div class=\"wrapper\">\n      <div class=\"left-image-wrapper\">\n        <div class=\"left-image\"> </div>\n      </div>\n\n      <div class=\"right-image-wrapper\">\n        <div class=\"right-image\"> </div>\n      </div>\n\n      <div  class=\"bg\"></div>\n      <div class=\"bg2\">\n        <div class=\"knockout\">\n          ".concat(textlist, "\n        </div>\n      </div>\n\n      <div class=\"lines-wrapper\">\n        <div class=\"lines lines-1\" style=\"\n          height:  ").concat(this.attrs.height * 0.1 * Math.random(), "px;\n          width: ").concat(this.attrs.width * 0.5 * Math.random().toFixed(2), "px;\n          top:").concat(this.attrs.height * Math.random().toFixed(2), "px;\n          \"></div>\n          \n        <div class=\"lines lines-2\" style=\"\n          height:").concat(this.attrs.height * 0.1 * Math.random(), "px;\n          width: ").concat(this.attrs.width * 0.5 * Math.random().toFixed(2), "px;\n          top:").concat(this.attrs.height * Math.random().toFixed(2), "px;\n        \"></div>\n        <div class=\"lines lines-3\" style=\"\n          height: ").concat(this.attrs.height * 0.1 * Math.random(), "px;\n          width: ").concat(this.attrs.width * 0.5 * Math.random().toFixed(2), "px;\n          top:").concat(this.attrs.height * Math.random().toFixed(2), "px;\n        \"></div>\n      </div>\n\n    \n\n      <div class=\"circles-wrapper\">\n        <div class=\"circle-1 circle\" ></div>\n        <div class=\"circle-2 circle \"></div>\n        <div class=\"circle-3 circle \"></div>\n      </div>\n      <div class=\"flex-center center-text-wrapper\" >\n        <div class=\"center-text\" data-text=\"Yeyey\">\n          ").concat(this.attrs.centerText, "\n        </div>\n        <div class=\"center-text-after\" data-text=\"Yeyey\">\n          ").concat(this.attrs.centerText, "\n        </div>\n        <div class=\"center-text-before\" data-text=\"Yeyey\">\n          ").concat(this.attrs.centerText, "\n        </div>\n        \n      </div>\n\n      <div  class=\"sliced-img-wrapper\">\n        <div class=\"sliced-img\"></div>\n      </div>\n      <div  style=\"opacity: 0;\"class=\"stroke-text-wrapper flex-center\">\n      \n        ").concat(textlistStroke("stroke-text-center txt-stroke-"), "\n        ").concat(textlistStroke("stroke-text-outline txt-stroke-outline-", true), "\n      </div>\n      <div class=\"doted\"></div>\n      <div class=\"doted-half\"></div>\n      <div class=\"rng-box\"></div>\n      <div class=\"yellow-underline\"></div>\n      <div class=\"yellow-transition\"> </div>\n      <div class=\"box\"> </div>\n      <div class=\"leftBlackBox\"></div>\n      <div class=\"rightBlackBox\"></div>\n\t  </div>\n    ");
+    }
+  }, {
+    key: "css",
+    get: function get() {
+      var strokeTextList = this.attrs.strokeText.split(" ");
+      return "\n    .wrapper{\n      width: ".concat(this.attrs.width, "px;\n      height: ").concat(this.attrs.height, "px;\n     \n      display:flex;\n      font-family: 'Poppins', sans-serif;\n    }\n    .box{\n      width: ").concat(this.attrs.width * 0.03, "px;\n      height: ").concat(this.attrs.height * 2.4, ";\n      background: ").concat(this.attrs.mainColor, ";\n      position:absolute;\n      left: ").concat(this.attrs.width / 2, "px;\n    }\n\n    .doted{\n      background-image: radial-gradient(").concat(this.attrs.mainColor, " 16%, #0000 20%);\n      background-position: 0 0;\n      background-size: 16px 14px;\n      height: ").concat(this.attrs.height / 4.5, "px;\n      width: ").concat(this.attrs.width / 2.7, "px;\n      position:absolute;\n      left: 7%;\n      top: 65%\n    }\n\n    .doted,.doted-half{\n      background-image: radial-gradient(").concat(this.attrs.mainColor, " 16%, #0000 20%);\n      background-position: 0 0;\n      background-size: 16px 14px;\n      height: ").concat(this.attrs.height / 4.5, "px;\n      width: ").concat(this.attrs.width / 2.7, "px;\n      position:absolute;\n      left: 7%;\n      top: 65%;\n      opacity: 0;\n    }\n\n    .doted-half{\n      clip-path: polygon(0 31%, 85% 31%, 100% 55%, 15% 55%);\n      left: 65%;\n      top: 7%\n    }\n\n    .lines-wrapper{\n      height: ").concat(this.attrs.height, "px;\n      width: ").concat(this.attrs.width, "px;\n      position: absolute;\n    }\n\n    .lines{\n      background: ").concat(this.attrs.mainColor, ";\n      position: absolute;\n    }\n\n    .left-image-wrapper, .right-image-wrapper{\n      width:").concat(this.attrs.width / 2, "px;\n      overflow: hidden;\n    }\n  \n    .right-image{\n      height: ").concat(this.attrs.imgHeight, "px;\n      width: ").concat(this.attrs.imgWidth, "px;\n      position: relative;\n      background-image: url(").concat(this.attrs.bgUrl, ");\n      background-size: ").concat(this.attrs.imgWidth, "px;\n      transform: scale(1);\n      display: flex;\n      justify-content: center;\n      align-items: center;\n      flex-wrap: wrap;\n      flex: 1 0 auto;\n      background-repeat: no-repeat;\n    }\n\n    .left-image{\n      height: ").concat(this.attrs.imgHeight, "px;\n      width: ").concat(this.attrs.imgWidth, "px;\n      position: relative;\n      background-image: url(").concat(this.attrs.bgUrl, ");\n      background-size: ").concat(this.attrs.imgWidth, "px;\n      transform: scale(1);\n      display: flex;\n      justify-content: center;\n      align-items: center;\n      flex-wrap: wrap;\n      flex: 1 0 auto;\n    }\n\n    .left-image:after,.right-image:after {\n      content: \"\";\n      display: block;\n      background: linear-gradient(").concat(this.attrs.overlayColor, ");\n      position: absolute;\n      top: 0;\n      bottom: 0;\n      right: 0;\n      left: 0;\n      z-index: -1;\n    }\n    \n    .txt-group{\n      font-size: ").concat(this.attrs.txtGroupSize, "px;\n    }\n\n    .txt-group:nth-of-type(odd){\n      height: 14%;\n    }\n\n    .txt-group:nth-of-type(2n+2) {\n      height: 14%;\n    }\n\n    .knockout {\n      background: url(").concat(this.attrs.bgUrl, ");\n      background-position: 50% 50%;\n      color: red;\n      -webkit-text-fill-color: transparent; \n      -webkit-background-clip: text;\n      font-weight: bold;\n      font-size: 0;\n      text-transform: uppercase;\n      width:").concat(this.attrs.width, "px;\n      height: ").concat(this.attrs.height, "px;\n      color: ").concat(this.attrs.mainColor, ";\n    }\n\n    .bg2{\n      background: ").concat(this.attrs.mainColor, ";\n      width:").concat(this.attrs.width, "px;\n      height: ").concat(this.attrs.height, "px;\n      position: absolute;\n      left:100%;\n    }\n\n    .bg{\n      background: url(").concat(this.attrs.bgUrl, ");\n      background-position: 50% 50%;\n      width:").concat(this.attrs.width, "px;\n      height: ").concat(this.attrs.height, "px;\n      position: absolute;\n    }\n\n    .circle{\n      width: ", 0, "px;\n      height: ", 0, "px;\n      background: transparent;\n      border-radius: 100%;\n      position: absolute;\n    }\n\n    .circles-wrapper{\n      position: absolute;\n      display: flex;\n      justify-content: center;\n      align-items: center;\n      width:").concat(this.attrs.width, "px;\n      height: ").concat(this.attrs.height, "px;\n    }\n\n    .center-text{\n      font-weight: bold;\n      font-size: ", 100, "px;\n      text-transform: uppercase;\n      color:").concat(this.attrs.mainColor, "\n    }\n\n    .center-text-before,.center-text-after{\n      content: attr(data-text);\n      position: absolute;\n      top: 50%;\n      left: 50%;\n      transform: translate(-50%, -50%);\n      z-index: -2;\n      opacity: 0.6;\n      font-size: ", 100, "px;\n      font-weight: bold;\n      text-transform: uppercase;\n    }\n\n    .center-text-before{\n      color: #ff00c1;\n    }\n\n    .center-text-after{\n      color: #3498db;\n    }\n\n    .flex-center{\n      position: absolute;\n      display: flex;\n      justify-content: center;\n      align-items: center;\n      width:").concat(this.attrs.width, "px;\n      height: ").concat(this.attrs.height, "px;\n      z-index: 1;\n    }\n\n    .sliced-img-wrapper{\n      position: absolute;\n      display: flex;\n      justify-content: center;\n      align-items: center;\n      width:").concat(this.attrs.width, "px;\n      height: ").concat(this.attrs.height, "px;\n      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 90%);\n      overflow: hidden;\n    }\n\n    .sliced-img{\n      background: url(").concat(this.attrs.bgUrl, ");\n      background-position: 50% 50%;\n      width:").concat(this.attrs.width, "px;\n      height: ").concat(this.attrs.height, "px;\n      position: absolute;\n    }\n\n    .sliced-img::after{\n      content: \"\";\n        display: block;\n        background: linear-gradient(").concat(this.attrs.overlayColor, ");\n        position: absolute;\n        top: 0;\n        bottom: 0;\n        right: 0;\n        left: 0;\n    }\n\n    .stroke-text-center{\n      position: relative;\n      text-transform: uppercase;\n      width:").concat(this.attrs.width, "px;\n      color: ").concat(this.attrs.mainColor, ";\n      font-weight: 900;\n      display: flex;\n      align-items: center;\n      z-index: 1;\n    }\n\n    .stroke-text-wrapper{\n      display:flex;\n      flex-direction: column;\n    }\n\n    .stroke-text-outline{\n      font-size: ").concat(this.attrs.width * 0.3, "px;\n      text-transform: uppercase;\n      width:").concat(this.attrs.width, "px;\n      color: transparent;\n      font-weight: 900;\n      display: flex;\n      align-items: center;\n      -webkit-text-stroke: 3px aquamarine;\n      position: absolute;\n      height:").concat(this.attrs.height / strokeTextList.length, "px;\n    }\n\n    .rng-box::after{\n      content: \"\";\n      display: block;\n      background: linear-gradient(").concat(this.attrs.overlayColor, ");\n      position: absolute;\n      height:").concat(this.attrs.height * 0.08, "px;\n      width: ").concat(this.attrs.width * 0.6, "px;\n      background-size: ").concat(this.attrs.height, "px ").concat(this.attrs.width, "px;\n    }\n\n    .rng-box{\n      position: absolute;\n      height:").concat(this.attrs.height * 0.08, "px;\n      width: ").concat(this.attrs.width * 0.6, "px;\n      top:80%;\n      left:-100%;\n      z-index: 1;\n    }\n    \n    .yellow-underline{\n      position: absolute;\n      height:").concat(this.attrs.height * 0.01, "px;\n      width: ").concat(this.attrs.width * 0.5, "px;\n      top:90%;\n      left:-100%;\n      z-index: 1;\n      background: ").concat(this.attrs.mainColor, ";\n    }\n\n    .yellow-transition{\n      position: absolute;\n      height:").concat(this.attrs.height, "px;\n      width: ").concat(this.attrs.width, "px;\n      top:0%;\n      left:100%;\n      z-index: 1;\n      background: ").concat(this.attrs.mainColor, ";\n    }\n\n    .leftBlackBox,.rightBlackBox{\n      position: absolute;\n      height:").concat(this.attrs.height * 2, "px;\n      width: ").concat(this.attrs.width * 2, "px;\n      background: black;\n      transform: rotate(0deg); \n      z-index: 1;\n      top: -50%;\n    }\n\n    .leftBlackBox{\n      left: -200%;\n    }\n\n    .rightBlackBox{\n      left: 100%\n    }\n  ");
+    }
+  }, {
     key: "buildTree",
     value: function buildTree() {
-      var box = new Anime$1.Anime({
+      var box = new Anime.Anime({
         animatedAttrs: {
           top: "-".concat(this.attrs.height * 0.1, "px"),
           height: "".concat(this.attrs.height * 0.1, "px")
@@ -2396,7 +2441,7 @@ var BannerA = /*#__PURE__*/function (_MotorCortex$HTMLClip) {
         easing: "easeOutQuart",
         repeats: 2
       });
-      var leftImageTop = new Anime$1.Anime({
+      var leftImageTop = new Anime.Anime({
         animatedAttrs: {
           backgroundPositionY: "".concat(this.attrs.height - this.attrs.imgHeight / 2, "px"),
           top: "-50%"
@@ -2410,7 +2455,7 @@ var BannerA = /*#__PURE__*/function (_MotorCortex$HTMLClip) {
         selector: ".left-image",
         easing: "easeOutQuart"
       });
-      var leftImageLeft = new Anime$1.Anime({
+      var leftImageLeft = new Anime.Anime({
         animatedAttrs: {
           backgroundPositionX: "-".concat(this.attrs.imgWidth / 2 - this.attrs.width + this.attrs.width / 4, "px "),
           left: "-50%"
@@ -2424,7 +2469,7 @@ var BannerA = /*#__PURE__*/function (_MotorCortex$HTMLClip) {
         selector: ".left-image",
         easing: "easeOutQuart"
       });
-      var rightImageTop = new Anime$1.Anime({
+      var rightImageTop = new Anime.Anime({
         animatedAttrs: {
           backgroundPositionY: "".concat(this.attrs.height - this.attrs.imgHeight / 2, "px"),
           top: "-50%"
@@ -2438,7 +2483,7 @@ var BannerA = /*#__PURE__*/function (_MotorCortex$HTMLClip) {
         selector: ".right-image",
         easing: "easeOutQuart"
       });
-      var rightImageLeft = new Anime$1.Anime({
+      var rightImageLeft = new Anime.Anime({
         animatedAttrs: {
           backgroundPositionX: "-".concat(this.attrs.imgWidth / 2 - this.attrs.width, "px"),
           left: "-200%"
@@ -2452,7 +2497,7 @@ var BannerA = /*#__PURE__*/function (_MotorCortex$HTMLClip) {
         selector: ".right-image",
         easing: "easeOutQuart"
       });
-      var rightImageLeftWrapper = new Anime$1.Anime({
+      var rightImageLeftWrapper = new Anime.Anime({
         animatedAttrs: {
           width: "".concat(this.attrs.width / 2, "px")
         },
@@ -2464,7 +2509,7 @@ var BannerA = /*#__PURE__*/function (_MotorCortex$HTMLClip) {
         selector: ".right-image-wrapper",
         easing: "easeOutQuart"
       });
-      var dotedHalfOneOn = new Anime$1.Anime({
+      var dotedHalfOneOn = new Anime.Anime({
         animatedAttrs: {
           opacity: 1
         },
@@ -2476,7 +2521,7 @@ var BannerA = /*#__PURE__*/function (_MotorCortex$HTMLClip) {
         selector: ".doted-half",
         easing: "easeOutQuart"
       });
-      var dotedHalfOneOff = new Anime$1.Anime({
+      var dotedHalfOneOff = new Anime.Anime({
         animatedAttrs: {
           opacity: 0
         },
@@ -2488,7 +2533,7 @@ var BannerA = /*#__PURE__*/function (_MotorCortex$HTMLClip) {
         selector: ".doted-half",
         easing: "easeOutQuart"
       });
-      var dotedOneOn = new Anime$1.Anime({
+      var dotedOneOn = new Anime.Anime({
         animatedAttrs: {
           opacity: 1
         },
@@ -2500,7 +2545,7 @@ var BannerA = /*#__PURE__*/function (_MotorCortex$HTMLClip) {
         selector: ".doted",
         easing: "easeOutQuart"
       });
-      var dotedOneOff = new Anime$1.Anime({
+      var dotedOneOff = new Anime.Anime({
         animatedAttrs: {
           opacity: 0
         },
@@ -2512,7 +2557,7 @@ var BannerA = /*#__PURE__*/function (_MotorCortex$HTMLClip) {
         selector: ".doted",
         easing: "easeOutQuart"
       });
-      var bg2In = new Anime$1.Anime({
+      var bg2In = new Anime.Anime({
         animatedAttrs: {
           left: "0%"
         },
@@ -2524,7 +2569,7 @@ var BannerA = /*#__PURE__*/function (_MotorCortex$HTMLClip) {
         selector: ".bg2",
         easing: "easeOutQuart"
       });
-      var bg2InBg = new Anime$1.Anime({
+      var bg2InBg = new Anime.Anime({
         animatedAttrs: {
           backgroundPositionX: "50%"
         },
@@ -2536,10 +2581,10 @@ var BannerA = /*#__PURE__*/function (_MotorCortex$HTMLClip) {
         selector: ".knockout",
         easing: "easeOutQuart"
       });
-      var myGroup = new MotorCortex.Group();
+      var myGroup = new Group();
 
       for (var i = 0; i < this.n; i++) {
-        var textAnimationSize = new Anime$1.Anime({
+        var textAnimationSize = new Anime.Anime({
           animatedAttrs: {
             fontSize: !this.attrs.txtGroupSize ? "".concat(this.attrs.width * 0.2, "px") : "".concat(this.attrs.txtGroupSize, "px"),
             marginLeft: i % 2 !== 1 ? "14%" : "6%"
@@ -2556,7 +2601,7 @@ var BannerA = /*#__PURE__*/function (_MotorCortex$HTMLClip) {
         myGroup.addIncident(textAnimationSize, 500 + 50 * (i + 1));
       }
 
-      var bg2OutBg = new Anime$1.Anime({
+      var bg2OutBg = new Anime.Anime({
         animatedAttrs: {
           width: "0px"
         }
@@ -2565,7 +2610,7 @@ var BannerA = /*#__PURE__*/function (_MotorCortex$HTMLClip) {
         selector: ".bg2",
         easing: "easeOutQuart"
       });
-      var bgInBg = new Anime$1.Anime({
+      var bgInBg = new Anime.Anime({
         animatedAttrs: {
           opacity: 1
         },
@@ -2577,7 +2622,7 @@ var BannerA = /*#__PURE__*/function (_MotorCortex$HTMLClip) {
         selector: ".bg",
         easing: "easeOutQuart"
       });
-      var linesInOut = new Anime$1.Anime({
+      var linesInOut = new Anime.Anime({
         animatedAttrs: {
           left: "-100%",
           width: "".concat(this.attrs.width / 2 * 0.1, "px")
@@ -2590,7 +2635,7 @@ var BannerA = /*#__PURE__*/function (_MotorCortex$HTMLClip) {
         selector: ".lines-wrapper",
         easing: "easeOutQuart"
       });
-      var circlesWrapper = new Anime$1.Anime({
+      var circlesWrapper = new Anime.Anime({
         animatedAttrs: {
           opacity: 1
         },
@@ -2602,7 +2647,7 @@ var BannerA = /*#__PURE__*/function (_MotorCortex$HTMLClip) {
         selector: ".circles-wrapper",
         easing: "easeOutQuart"
       });
-      var circlesWrapperOp = new Anime$1.Anime({
+      var circlesWrapperOp = new Anime.Anime({
         animatedAttrs: {
           opacity: 0
         },
@@ -2614,11 +2659,11 @@ var BannerA = /*#__PURE__*/function (_MotorCortex$HTMLClip) {
         selector: ".circles-wrapper",
         easing: "easeOutQuart"
       });
-      var circlesGroup = new MotorCortex.Group();
+      var circlesGroup = new Group();
 
       for (var _i = 1; _i <= 3; _i++) {
         var ran = "".concat(Math.random() * 360 + "deg");
-        var translateX = new Anime$1.Anime({
+        var translateX = new Anime.Anime({
           animatedAttrs: {
             transform: {
               rotate: ran,
@@ -2647,7 +2692,7 @@ var BannerA = /*#__PURE__*/function (_MotorCortex$HTMLClip) {
         circlesGroup.addIncident(translateX, 500 + 50 * (_i + 1));
       }
 
-      var centerTextWrapper = new Anime$1.Anime({
+      var centerTextWrapper = new Anime.Anime({
         animatedAttrs: {
           transform: {
             scale: 1
@@ -2663,7 +2708,7 @@ var BannerA = /*#__PURE__*/function (_MotorCortex$HTMLClip) {
         selector: ".center-text-wrapper",
         easing: "easeOutBounce"
       });
-      var centerTextAfter = new Anime$1.Anime({
+      var centerTextAfter = new Anime.Anime({
         animatedAttrs: {
           left: "49%",
           top: "51%"
@@ -2677,7 +2722,7 @@ var BannerA = /*#__PURE__*/function (_MotorCortex$HTMLClip) {
         selector: ".center-text-after",
         easing: "easeOutBounce"
       });
-      var centerTextBefore = new Anime$1.Anime({
+      var centerTextBefore = new Anime.Anime({
         animatedAttrs: {
           left: "51%",
           top: "49%"
@@ -2691,7 +2736,7 @@ var BannerA = /*#__PURE__*/function (_MotorCortex$HTMLClip) {
         selector: ".center-text-before",
         easing: "easeOutBounce"
       });
-      var slicedImgWrapper = new Anime$1.Anime({
+      var slicedImgWrapper = new Anime.Anime({
         animatedAttrs: {
           top: "0%"
         },
@@ -2703,7 +2748,7 @@ var BannerA = /*#__PURE__*/function (_MotorCortex$HTMLClip) {
         selector: ".sliced-img-wrapper",
         easing: "easeOutCubic"
       });
-      var slicedImg = new Anime$1.Anime({
+      var slicedImg = new Anime.Anime({
         animatedAttrs: {
           top: "0%"
         },
@@ -2715,7 +2760,7 @@ var BannerA = /*#__PURE__*/function (_MotorCortex$HTMLClip) {
         selector: ".sliced-img",
         easing: "easeOutCubic"
       });
-      var slicedImgWrappeClipPath = new Anime$1.Anime({
+      var slicedImgWrappeClipPath = new Anime.Anime({
         animatedAttrs: {
           clipPath: "polygon(0 0, 100% 0, 100% 110%, 0 100%)"
         },
@@ -2727,7 +2772,7 @@ var BannerA = /*#__PURE__*/function (_MotorCortex$HTMLClip) {
         selector: ".sliced-img-wrapper",
         easing: "easeOutCubic"
       });
-      var slicedImgTranformUp = new Anime$1.Anime({
+      var slicedImgTranformUp = new Anime.Anime({
         animatedAttrs: {
           transform: {
             scale: 1.5
@@ -2743,7 +2788,7 @@ var BannerA = /*#__PURE__*/function (_MotorCortex$HTMLClip) {
         selector: ".sliced-img",
         easing: "easeOutCubic"
       });
-      var slicedImgTranformDown = new Anime$1.Anime({
+      var slicedImgTranformDown = new Anime.Anime({
         animatedAttrs: {
           transform: {
             scale: 1
@@ -2759,7 +2804,7 @@ var BannerA = /*#__PURE__*/function (_MotorCortex$HTMLClip) {
         selector: ".sliced-img",
         easing: "easeOutCubic"
       });
-      var slicedImgWrapperOpacity = new Anime$1.Anime({
+      var slicedImgWrapperOpacity = new Anime.Anime({
         animatedAttrs: {
           opacity: 0
         },
@@ -2771,7 +2816,7 @@ var BannerA = /*#__PURE__*/function (_MotorCortex$HTMLClip) {
         selector: ".sliced-img-wrapper,.center-text-wrapper",
         easing: "easeOutQuart"
       });
-      var strokeTextWrapper = new Anime$1.Anime({
+      var strokeTextWrapper = new Anime.Anime({
         animatedAttrs: {
           opacity: 1
         },
@@ -2783,7 +2828,7 @@ var BannerA = /*#__PURE__*/function (_MotorCortex$HTMLClip) {
         selector: ".stroke-text-wrapper",
         easing: "easeOutQuart"
       });
-      var strokeTextCenter = new Anime$1.Anime({
+      var strokeTextCenter = new Anime.Anime({
         animatedAttrs: {
           fontSize: "".concat(this.attrs.width * 0.15, "px"),
           left: "5%",
@@ -2799,10 +2844,10 @@ var BannerA = /*#__PURE__*/function (_MotorCortex$HTMLClip) {
         selector: ".stroke-text-center",
         easing: "easeOutQuart"
       });
-      var strokeTextGroup = new MotorCortex.Group();
+      var strokeTextGroup = new Group();
 
       for (var _i2 = 0; _i2 < this.strokeTextLength; _i2++) {
-        var strokeTextOutline = new Anime$1.Anime({
+        var strokeTextOutline = new Anime.Anime({
           animatedAttrs: {
             left: _i2 % 2 !== 1 ? "-".concat(this.attrs.width * 0.1, "px") : "".concat(this.attrs.width * 0.1, "px")
           },
@@ -2816,7 +2861,7 @@ var BannerA = /*#__PURE__*/function (_MotorCortex$HTMLClip) {
         strokeTextGroup.addIncident(strokeTextOutline, 500);
       }
 
-      var bgDistortionOp = new Anime$1.Anime({
+      var bgDistortionOp = new Anime.Anime({
         animatedAttrs: {
           opacity: 0
         },
@@ -2827,7 +2872,7 @@ var BannerA = /*#__PURE__*/function (_MotorCortex$HTMLClip) {
         duration: 20,
         selector: ".bg2"
       });
-      var bgScaleUp = new Anime$1.Anime({
+      var bgScaleUp = new Anime.Anime({
         animatedAttrs: {
           transform: {
             scale: 1.5
@@ -2842,7 +2887,7 @@ var BannerA = /*#__PURE__*/function (_MotorCortex$HTMLClip) {
         duration: 200,
         selector: ".bg"
       });
-      var bgScaleDown = new Anime$1.Anime({
+      var bgScaleDown = new Anime.Anime({
         animatedAttrs: {
           transform: {
             scale: 1
@@ -2857,7 +2902,7 @@ var BannerA = /*#__PURE__*/function (_MotorCortex$HTMLClip) {
         duration: 150,
         selector: ".bg"
       });
-      var rngBoxDownIn = new Anime$1.Anime({
+      var rngBoxDownIn = new Anime.Anime({
         animatedAttrs: {
           left: "30%"
         },
@@ -2868,7 +2913,7 @@ var BannerA = /*#__PURE__*/function (_MotorCortex$HTMLClip) {
         duration: 2000,
         selector: ".rng-box"
       });
-      var yellowUnderLineLeftIn = new Anime$1.Anime({
+      var yellowUnderLineLeftIn = new Anime.Anime({
         animatedAttrs: {
           left: "30%"
         },
@@ -2879,7 +2924,7 @@ var BannerA = /*#__PURE__*/function (_MotorCortex$HTMLClip) {
         duration: 2000,
         selector: ".yellow-underline"
       });
-      var yellowUnderLineWidth = new Anime$1.Anime({
+      var yellowUnderLineWidth = new Anime.Anime({
         animatedAttrs: {
           width: "0px"
         }
@@ -2887,7 +2932,7 @@ var BannerA = /*#__PURE__*/function (_MotorCortex$HTMLClip) {
         duration: 1000,
         selector: ".yellow-underline"
       });
-      var yellowTransitionWidth = new Anime$1.Anime({
+      var yellowTransitionWidth = new Anime.Anime({
         animatedAttrs: {
           width: "0px"
         }
@@ -2895,7 +2940,7 @@ var BannerA = /*#__PURE__*/function (_MotorCortex$HTMLClip) {
         duration: 500,
         selector: ".yellow-transition"
       });
-      var yellowTransitionLeft = new Anime$1.Anime({
+      var yellowTransitionLeft = new Anime.Anime({
         animatedAttrs: {
           left: "-100%"
         }
@@ -2903,8 +2948,8 @@ var BannerA = /*#__PURE__*/function (_MotorCortex$HTMLClip) {
         duration: 1000,
         selector: ".yellow-transition"
       });
-      var circlesGroup2 = new MotorCortex.Group();
-      var circlesWrapper2 = new Anime$1.Anime({
+      var circlesGroup2 = new Group();
+      var circlesWrapper2 = new Anime.Anime({
         animatedAttrs: {
           opacity: 1
         },
@@ -2916,7 +2961,7 @@ var BannerA = /*#__PURE__*/function (_MotorCortex$HTMLClip) {
         selector: ".circles-wrapper",
         easing: "easeOutQuart"
       });
-      var circlesWrapper2Position = new Anime$1.Anime({
+      var circlesWrapper2Position = new Anime.Anime({
         animatedAttrs: {
           top: "-33%",
           left: "-33%"
@@ -2930,7 +2975,7 @@ var BannerA = /*#__PURE__*/function (_MotorCortex$HTMLClip) {
       for (var _i3 = 1; _i3 <= 3; _i3++) {
         var _ran = "".concat(Math.random() * 360 + "deg");
 
-        var _translateX = new Anime$1.Anime({
+        var _translateX = new Anime.Anime({
           animatedAttrs: {
             transform: {
               rotate: _ran,
@@ -2960,7 +3005,7 @@ var BannerA = /*#__PURE__*/function (_MotorCortex$HTMLClip) {
         circlesGroup2.addIncident(_translateX, 500 + 50 * (_i3 + 1));
       }
 
-      var blackBoxRotate = new Anime$1.Anime({
+      var blackBoxRotate = new Anime.Anime({
         animatedAttrs: {
           transform: {
             rotate: "-90deg"
@@ -2975,7 +3020,7 @@ var BannerA = /*#__PURE__*/function (_MotorCortex$HTMLClip) {
         duration: 600,
         selector: ".leftBlackBox,.rightBlackBox"
       });
-      var blackBoxLeftTop = new Anime$1.Anime({
+      var blackBoxLeftTop = new Anime.Anime({
         animatedAttrs: {
           left: "0%"
         },
@@ -2986,7 +3031,7 @@ var BannerA = /*#__PURE__*/function (_MotorCortex$HTMLClip) {
         duration: 1000,
         selector: ".leftBlackBox"
       });
-      var blackBoxRightTop = new Anime$1.Anime({
+      var blackBoxRightTop = new Anime.Anime({
         animatedAttrs: {
           left: "0%"
         },
@@ -3043,59 +3088,10 @@ var BannerA = /*#__PURE__*/function (_MotorCortex$HTMLClip) {
       this.addIncident(blackBoxLeftTop, 6000);
       this.addIncident(blackBoxRightTop, 6000);
     }
-  }, {
-    key: "font",
-    get: function get() {
-      return [{
-        type: "google-font",
-        src: "https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,400;0,500;0,800;1,700;1,800;1,900&display=swap"
-      }];
-    }
-  }, {
-    key: "html",
-    get: function get() {
-      var _this = this;
-
-      var textlist = function () {
-        var list = [];
-        var n = Math.floor(_this.attrs.height / (_this.attrs.width * 0.2));
-        _this.n = n;
-
-        for (var i = 0; i < n; i++) {
-          list.push("<div class=\"txt-group txt-".concat(i, "\">").concat(_this.attrs.txtGroup, "</div>"));
-        }
-
-        return list.join("");
-      }();
-
-      var strokeTextList = this.attrs.strokeText.split(" ");
-      this.strokeTextLength = strokeTextList.length;
-
-      var textlistStroke = function textlistStroke(className) {
-        var style = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-        var list = [];
-
-        for (var i = 0; i < strokeTextList.length; i++) {
-          list.push("\n          <div style=\"".concat(style === true ? "top:".concat(_this.attrs.height / strokeTextList.length * i, "px;") : " ", "\" class=\"").concat(className).concat(i, "\">").concat(strokeTextList[i], "</div>"));
-        }
-
-        return list.join("");
-      };
-
-      return "\n    <div class=\"wrapper\">\n      <div class=\"left-image-wrapper\">\n        <div class=\"left-image\"> </div>\n      </div>\n\n      <div class=\"right-image-wrapper\">\n        <div class=\"right-image\"> </div>\n      </div>\n\n      <div  class=\"bg\"></div>\n      <div class=\"bg2\">\n        <div class=\"knockout\">\n          ".concat(textlist, "\n        </div>\n      </div>\n\n      <div class=\"lines-wrapper\">\n        <div class=\"lines lines-1\" style=\"\n          height:  ").concat(this.attrs.height * 0.1 * Math.random(), "px;\n          width: ").concat(this.attrs.width * 0.5 * Math.random().toFixed(2), "px;\n          top:").concat(this.attrs.height * Math.random().toFixed(2), "px;\n          \"></div>\n          \n        <div class=\"lines lines-2\" style=\"\n          height:").concat(this.attrs.height * 0.1 * Math.random(), "px;\n          width: ").concat(this.attrs.width * 0.5 * Math.random().toFixed(2), "px;\n          top:").concat(this.attrs.height * Math.random().toFixed(2), "px;\n        \"></div>\n        <div class=\"lines lines-3\" style=\"\n          height: ").concat(this.attrs.height * 0.1 * Math.random(), "px;\n          width: ").concat(this.attrs.width * 0.5 * Math.random().toFixed(2), "px;\n          top:").concat(this.attrs.height * Math.random().toFixed(2), "px;\n        \"></div>\n      </div>\n\n    \n\n      <div class=\"circles-wrapper\">\n        <div class=\"circle-1 circle\" ></div>\n        <div class=\"circle-2 circle \"></div>\n        <div class=\"circle-3 circle \"></div>\n      </div>\n      <div class=\"flex-center center-text-wrapper\" >\n        <div class=\"center-text\" data-text=\"Yeyey\">\n          ").concat(this.attrs.centerText, "\n        </div>\n        <div class=\"center-text-after\" data-text=\"Yeyey\">\n          ").concat(this.attrs.centerText, "\n        </div>\n        <div class=\"center-text-before\" data-text=\"Yeyey\">\n          ").concat(this.attrs.centerText, "\n        </div>\n        \n      </div>\n\n      <div  class=\"sliced-img-wrapper\">\n        <div class=\"sliced-img\"></div>\n      </div>\n      <div  style=\"opacity: 0;\"class=\"stroke-text-wrapper flex-center\">\n      \n        ").concat(textlistStroke("stroke-text-center txt-stroke-"), "\n        ").concat(textlistStroke("stroke-text-outline txt-stroke-outline-", true), "\n      </div>\n      <div class=\"doted\"></div>\n      <div class=\"doted-half\"></div>\n      <div class=\"rng-box\"></div>\n      <div class=\"yellow-underline\"></div>\n      <div class=\"yellow-transition\"> </div>\n      <div class=\"box\"> </div>\n      <div class=\"leftBlackBox\"></div>\n      <div class=\"rightBlackBox\"></div>\n\t  </div>\n    ");
-    }
-  }, {
-    key: "css",
-    get: function get() {
-      var strokeTextList = this.attrs.strokeText.split(" ");
-      return "\n    .wrapper{\n      width: ".concat(this.attrs.width, "px;\n      height: ").concat(this.attrs.height, "px;\n     \n      display:flex;\n      font-family: 'Poppins', sans-serif;\n    }\n    .box{\n      width: ").concat(this.attrs.width * 0.03, "px;\n      height: ").concat(this.attrs.height * 2.4, ";\n      background: ").concat(this.attrs.mainColor, ";\n      position:absolute;\n      left: ").concat(this.attrs.width / 2, "px;\n    }\n\n    .doted{\n      background-image: radial-gradient(").concat(this.attrs.mainColor, " 16%, #0000 20%);\n      background-position: 0 0;\n      background-size: 16px 14px;\n      height: ").concat(this.attrs.height / 4.5, "px;\n      width: ").concat(this.attrs.width / 2.7, "px;\n      position:absolute;\n      left: 7%;\n      top: 65%\n    }\n\n    .doted,.doted-half{\n      background-image: radial-gradient(").concat(this.attrs.mainColor, " 16%, #0000 20%);\n      background-position: 0 0;\n      background-size: 16px 14px;\n      height: ").concat(this.attrs.height / 4.5, "px;\n      width: ").concat(this.attrs.width / 2.7, "px;\n      position:absolute;\n      left: 7%;\n      top: 65%;\n      opacity: 0;\n      \n    }\n    .doted-half{\n      clip-path: polygon(0 31%, 85% 31%, 100% 55%, 15% 55%);\n      left: 65%;\n      top: 7%\n    }\n\n    .lines-wrapper{\n      height: ").concat(this.attrs.height, "px;\n      width: ").concat(this.attrs.width, "px;\n      position: absolute;\n    }\n    .lines{\n      background: ").concat(this.attrs.mainColor, ";\n      position: absolute;\n    }\n\n    .left-image-wrapper, .right-image-wrapper{\n      width:").concat(this.attrs.width / 2, "px;\n      overflow: hidden;\n    }\n\n  \n    .right-image{\n      height: ").concat(this.attrs.imgHeight, "px;\n      width: ").concat(this.attrs.imgWidth, "px;\n      position: relative;\n      background-image: url(").concat(this.attrs.bgUrl, ");\n      background-size: ").concat(this.attrs.imgWidth, "px;\n      transform: scale(1);\n      display: flex;\n      justify-content: center;\n      align-items: center;\n      flex-wrap: wrap;\n      flex: 1 0 auto;\n      background-repeat: no-repeat;\n    }\n    .left-image{\n      height: ").concat(this.attrs.imgHeight, "px;\n      width: ").concat(this.attrs.imgWidth, "px;\n      position: relative;\n      background-image: url(").concat(this.attrs.bgUrl, ");\n      background-size: ").concat(this.attrs.imgWidth, "px;\n     \n      transform: scale(1);\n      display: flex;\n      justify-content: center;\n      align-items: center;\n      flex-wrap: wrap;\n      flex: 1 0 auto;\n  \n    }\n    .left-image:after,.right-image:after {\n      content: \"\";\n      display: block;\n      background: linear-gradient(").concat(this.attrs.overlayColor, ");\n      position: absolute;\n      top: 0;\n      bottom: 0;\n      right: 0;\n      left: 0;\n      z-index: -1;\n    }\n    \n    .txt-group{\n      font-size: ").concat(this.attrs.txtGroupSize, "px;\n    }\n    .txt-group:nth-of-type(odd){\n      height: 14%;\n      \n    }\n    .txt-group:nth-of-type(2n+2) {\n    \n    height: 14%;\n    }\n    .knockout {\n      background: url(").concat(this.attrs.bgUrl, ");\n      background-position: 50% 50%;\n      color: red;\n      -webkit-text-fill-color: transparent; \n      -webkit-background-clip: text;\n      font-weight: bold;\n      font-size: 0;\n      text-transform: uppercase;\n      width:").concat(this.attrs.width, "px;\n      height: ").concat(this.attrs.height, "px;\n      color: ").concat(this.attrs.mainColor, ";\n    }\n\n  body{\n    \n  }\n  .bg2{\n    background: ").concat(this.attrs.mainColor, ";\n    width:").concat(this.attrs.width, "px;\n    height: ").concat(this.attrs.height, "px;\n    position: absolute;\n    left:100%;\n  }\n  .bg{\n    background: url(").concat(this.attrs.bgUrl, ");\n    background-position: 50% 50%;\n    width:").concat(this.attrs.width, "px;\n    height: ").concat(this.attrs.height, "px;\n    position: absolute;\n  }\n\n  .circle{\n    width: ", 0, "px;\n    height: ", 0, "px;\n    background: transparent;\n   \n    border-radius: 100%;\n    position: absolute;\n  }\n \n\n  .circles-wrapper{\n    position: absolute;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    width:").concat(this.attrs.width, "px;\n    height: ").concat(this.attrs.height, "px;\n  }\n  .center-text{\n    font-weight: bold;\n    font-size: ", 100, "px;\n    text-transform: uppercase;\n    color:").concat(this.attrs.mainColor, "\n  }\n  .center-text-before,.center-text-after{\n   content: attr(data-text);\n   position: absolute;\n   top: 50%;\n   left: 50%;\n   transform: translate(-50%, -50%);\n   z-index: -2;\n   opacity: 0.6;\n   font-size: ", 100, "px;\n   font-weight: bold;\n    \n   text-transform: uppercase;\n  }\n  .center-text-before{\n    color: #ff00c1;\n  \n  }\n  .center-text-after{\n    color: #3498db;\n  \n  }\n\n  .flex-center{\n    position: absolute;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    width:").concat(this.attrs.width, "px;\n    height: ").concat(this.attrs.height, "px;\n    z-index: 1;\n  }\n  .sliced-img-wrapper{\n    position: absolute;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    width:").concat(this.attrs.width, "px;\n    height: ").concat(this.attrs.height, "px;\n    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 90%);\n    overflow: hidden;\n  }\n  .sliced-img{\n    background: url(").concat(this.attrs.bgUrl, ");\n    background-position: 50% 50%;\n    width:").concat(this.attrs.width, "px;\n    height: ").concat(this.attrs.height, "px;\n    position: absolute;\n    \n  }\n\n  .sliced-img::after{\n    content: \"\";\n      display: block;\n      background: linear-gradient(").concat(this.attrs.overlayColor, ");\n      position: absolute;\n      top: 0;\n      bottom: 0;\n      right: 0;\n      left: 0;\n  }\n\n  .stroke-text-center{\n    position: relative;\n    text-transform: uppercase;\n    width:").concat(this.attrs.width, "px;\n    color: ").concat(this.attrs.mainColor, ";\n    font-weight: 900;\n    display: flex;\n    align-items: center;\n    z-index: 1;\n    \n  }\n  .stroke-text-wrapper{\n    display:flex;\n    flex-direction: column;\n  }\n  .stroke-text-outline{\n    font-size: ").concat(this.attrs.width * 0.3, "px;\n    text-transform: uppercase;\n    width:").concat(this.attrs.width, "px;\n    color: transparent;\n    font-weight: 900;\n    display: flex;\n    \n    align-items: center;\n    -webkit-text-stroke: 3px aquamarine;\n    position: absolute;\n    height:").concat(this.attrs.height / strokeTextList.length, "px;\n    \n  }\n\n  .rng-box::after{\n    content: \"\";\n      display: block;\n      background: linear-gradient(").concat(this.attrs.overlayColor, ");\n      position: absolute;\n      height:").concat(this.attrs.height * 0.08, "px;\n      width: ").concat(this.attrs.width * 0.6, "px;\n      background-size: ").concat(this.attrs.height, "px ").concat(this.attrs.width, "px;\n  }\n\n  .rng-box{\n    position: absolute;\n    height:").concat(this.attrs.height * 0.08, "px;\n    width: ").concat(this.attrs.width * 0.6, "px;\n    top:80%;\n    left:-100%;\n    z-index: 1;\n  }\n  \n  .yellow-underline{\n    position: absolute;\n    height:").concat(this.attrs.height * 0.01, "px;\n    width: ").concat(this.attrs.width * 0.5, "px;\n    top:90%;\n    left:-100%;\n    z-index: 1;\n    background: ").concat(this.attrs.mainColor, ";\n  }\n  .yellow-transition{\n    position: absolute;\n    height:").concat(this.attrs.height, "px;\n    width: ").concat(this.attrs.width, "px;\n    top:0%;\n    left:100%;\n    z-index: 1;\n    background: ").concat(this.attrs.mainColor, ";\n  }\n  .leftBlackBox,.rightBlackBox{\n    position: absolute;\n    height:").concat(this.attrs.height * 2, "px;\n    width: ").concat(this.attrs.width * 2, "px;\n    background: black;\n    transform: rotate(0deg); \n    z-index: 1;\n    top: -50%;\n  }\n  .leftBlackBox{\n    left: -200%;\n  }\n  .rightBlackBox{\n    left: 100%\n  }\n    \n\n  ");
-    }
   }]);
 
   return BannerA;
-}(MotorCortex.HTMLClip);
-
-var BannerA_1 = BannerA;
+}(HTMLClip);
 
 var BannerAValidation = {
   width: {
@@ -3143,17 +3139,17 @@ var BannerAValidation = {
   }
 };
 
-var name$1 = "@kissmybutton/motorcortex-banners";
-var version$1 = "0.0.11";
+var name = "@kissmybutton/motorcortex-banners";
+var version = "0.0.11";
 
-var index$1 = {
-  npm_name: name$1,
-  version: version$1,
+var index = {
+  npm_name: name,
+  version: version,
   incidents: [{
-    exportable: BannerA_1,
+    exportable: BannerA,
     name: "BannerA",
-    attributesValidationRules: _objectSpread2({}, BannerAValidation)
+    attributesValidationRules: _objectSpread2$1({}, BannerAValidation)
   }]
 };
 
-export default index$1;
+export default index;
