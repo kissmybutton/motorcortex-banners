@@ -14,7 +14,7 @@ export const BannerAValidation = {
   imgWidth: { optional: false, type: "number" },
   imgHeight: { optional: false, type: "number" },
   strokeText: { type: "string" },
-  txtGroupSize:{ optional: true, type: "number" },
+  txtGroupSize: { optional: true, type: "number" },
   mainColor: {
     optional: false,
     type: "color"
